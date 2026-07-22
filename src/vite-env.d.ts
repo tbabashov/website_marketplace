@@ -10,6 +10,11 @@ interface ImportMetaEnv {
   readonly VITE_SUPABASE_URL?: string;
   readonly VITE_SUPABASE_ANON_KEY?: string;
 
+  // OAuth buttons — 'true' to show. Only enable after switching the provider
+  // on in Supabase, or the button errors on click.
+  readonly VITE_ENABLE_GOOGLE?: string;
+  readonly VITE_ENABLE_MICROSOFT?: string;
+
   // Identity
   readonly VITE_SITE_URL?: string;
   readonly VITE_OWNER_NAME?: string;

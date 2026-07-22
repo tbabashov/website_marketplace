@@ -8,6 +8,7 @@ import { Field, TextInput } from '@/components/ui/Form';
 import { Spinner } from '@/components/ui/Bits';
 import { isSupabaseConfigured } from '@/lib/supabase';
 import { NOT_CONFIGURED, useAuth } from '@/store/auth';
+import { authProviders } from '@/config/site';
 
 type Mode = 'signin' | 'signup' | 'reset';
 
@@ -121,6 +122,10 @@ export default function AuthPage() {
     else navigate(next, { replace: true });
   }
 
+  // With no provider switched on, the divider would read "or use your email"
+  // above the only option there is.
+  const showOAuth = authProviders.google || authProviders.microsoft;
+
   const heading = mode === 'signup' ? t('auth.signUpTitle') : mode === 'reset' ? t('auth.resetTitle') : t('auth.signInTitle');
   const lead = mode === 'signup' ? t('auth.signUpLead') : mode === 'reset' ? t('auth.resetLead') : t('auth.signInLead');
 
@@ -138,17 +143,21 @@ export default function AuthPage() {
           </p>
         )}
 
-        {mode !== 'reset' && (
+        {mode !== 'reset' && showOAuth && (
           <>
             <div className="mt-8 flex flex-col gap-3">
-              <Button variant="secondary" onClick={() => void oauth('google')} disabled={busy}>
-                <GoogleMark />
-                {t('auth.google')}
-              </Button>
-              <Button variant="secondary" onClick={() => void oauth('azure')} disabled={busy}>
-                <MicrosoftMark />
-                {t('auth.microsoft')}
-              </Button>
+              {authProviders.google && (
+                <Button variant="secondary" onClick={() => void oauth('google')} disabled={busy}>
+                  <GoogleMark />
+                  {t('auth.google')}
+                </Button>
+              )}
+              {authProviders.microsoft && (
+                <Button variant="secondary" onClick={() => void oauth('azure')} disabled={busy}>
+                  <MicrosoftMark />
+                  {t('auth.microsoft')}
+                </Button>
+              )}
             </div>
 
             <div className="my-8 flex items-center gap-4">

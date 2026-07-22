@@ -81,6 +81,19 @@ export const stats = {
   yearsBuilding: opt(env.VITE_STAT_YEARS),
 } as const;
 
+/**
+ * Which OAuth buttons to show. A provider that is visible but not switched on
+ * in Supabase gives the visitor an error on click, which is worse than not
+ * offering it — so each button is opt-in and defaults to off.
+ *
+ * Turn one on only after you have enabled it under
+ * Supabase -> Authentication -> Providers.
+ */
+export const authProviders = {
+  google: opt(env.VITE_ENABLE_GOOGLE) === 'true',
+  microsoft: opt(env.VITE_ENABLE_MICROSOFT) === 'true',
+} as const;
+
 export const SUPPORTED_LOCALES = ['az', 'en', 'ru'] as const;
 export type Locale = (typeof SUPPORTED_LOCALES)[number];
 export const DEFAULT_LOCALE: Locale = 'az';
