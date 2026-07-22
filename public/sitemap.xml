@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://websale.az/</loc>
+    <xhtml:link rel="alternate" hreflang="az" href="https://websale.az/?lang=az"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://websale.az/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://websale.az/?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://websale.az/"/>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://websale.az/portfolio</loc>
+    <xhtml:link rel="alternate" hreflang="az" href="https://websale.az/portfolio?lang=az"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://websale.az/portfolio?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://websale.az/portfolio?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://websale.az/portfolio"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://websale.az/marketplace</loc>
+    <xhtml:link rel="alternate" hreflang="az" href="https://websale.az/marketplace?lang=az"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://websale.az/marketplace?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://websale.az/marketplace?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://websale.az/marketplace"/>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://websale.az/request</loc>
+    <xhtml:link rel="alternate" hreflang="az" href="https://websale.az/request?lang=az"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://websale.az/request?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://websale.az/request?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://websale.az/request"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://websale.az/terms</loc>
+    <xhtml:link rel="alternate" hreflang="az" href="https://websale.az/terms?lang=az"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://websale.az/terms?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://websale.az/terms?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://websale.az/terms"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://websale.az/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="az" href="https://websale.az/privacy?lang=az"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://websale.az/privacy?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://websale.az/privacy?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://websale.az/privacy"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://websale.az/refund</loc>
+    <xhtml:link rel="alternate" hreflang="az" href="https://websale.az/refund?lang=az"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://websale.az/refund?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://websale.az/refund?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://websale.az/refund"/>
+    <changefreq>yearly</changefreq>
+    <priority>0.4</priority>
+  </url>
+</urlset>

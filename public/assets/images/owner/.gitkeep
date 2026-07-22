@@ -1,0 +1,2 @@
+# Drop real image files here.
+# The expected filename for each slot is in /image-manifest.json -> expected_path.

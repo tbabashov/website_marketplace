@@ -1,0 +1,703 @@
+{
+  "common": {
+    "loading": "Yüklənir…",
+    "errorTitle": "Açıla bilmədi",
+    "errorBody": "Bizim tərəfdə nəsə pozuldu. Bir də cəhd edin, təkrarlanarsa bizə yazın.",
+    "retry": "Yenidən cəhd et",
+    "back": "Geri",
+    "next": "İrəli",
+    "cancel": "İmtina",
+    "close": "Bağla",
+    "save": "Yadda saxla",
+    "saving": "Saxlanılır…",
+    "optional": "istəyə bağlı",
+    "required": "mütləq",
+    "copy": "Kopyala",
+    "copied": "Kopyalandı",
+    "from": "başlayan",
+    "notFilledIn": "hələ doldurulmayıb",
+    "demoNotice": "Nümunə məlumat — real siyahı üçün Supabase-i qoşun.",
+    "signInToContinue": "Davam etmək üçün daxil olun",
+    "viewAll": "Hamısına bax"
+  },
+  "nav": {
+    "portfolio": "İşlər",
+    "marketplace": "Hazır saytlar",
+    "request": "Sayt sifariş et",
+    "how": "Necə işləyir",
+    "faq": "Suallar",
+    "dashboard": "Sifarişlərim",
+    "admin": "İdarə paneli",
+    "profile": "Profil",
+    "signIn": "Daxil ol",
+    "signOut": "Çıxış",
+    "openMenu": "Menyunu aç",
+    "closeMenu": "Menyunu bağla",
+    "skip": "Əsas məzmuna keç",
+    "primaryLabel": "Əsas",
+    "footerLabel": "Alt menyu"
+  },
+  "lang": {
+    "label": "Dil",
+    "switchTo": "Dili {{language}} olaraq dəyiş"
+  },
+  "hero": {
+    "eyebrow": "Bakı · tək nəfərlik veb studiya",
+    "titleLine1": "Şablona görə yox,",
+    "titleEmphasis": "sizin ölçünüzə",
+    "titleLine2": "görə qurulur.",
+    "sub": "Biznesinizə həqiqətən nə lazımdırsa yazın — dürüst qiymət verim, saytı qurum və bütün girişləri sizə təhvil verim. Yaxud artıq hazır olan saytlardan birini götürün və elə bu həftə işə salın.",
+    "ctaPrimary": "Sayt sifariş et",
+    "ctaSecondary": "Hazır saytlara bax",
+    "spec": {
+      "title": "Vərəq",
+      "drawnBy": "Layihələndirdi",
+      "sheetNo": "Vərəq №",
+      "scale": "Miqyas",
+      "scaleValue": "1:1",
+      "locale": "Dil",
+      "viewport": "Ekran",
+      "revision": "Ver.",
+      "status": "Status",
+      "statusValue": "Sifariş qəbul edirəm",
+      "notes": "Qeydlər",
+      "notesValue": "Buradakı hər sayt bir nəfər tərəfindən layihələndirilib, qurulub və təhvil verilib. Agentlik əlavəsi yoxdur, sizinlə kod arasında menecer yoxdur."
+    }
+  },
+  "stats": {
+    "label": "Rəqəmlərlə",
+    "sitesShipped": "Təhvil verilmiş sayt",
+    "industries": "Fəaliyyət sahəsi",
+    "turnaround": "Orta hazırlanma müddəti",
+    "turnaroundUnit": "həftə",
+    "years": "İllik təcrübə",
+    "ownerNote": "Sahibinə: bu rəqəmləri öz qeydlərinizdən doldurun — doldurulana qədər boş qalır."
+  },
+  "portfolioPreview": {
+    "label": "Seçilmiş işlər",
+    "title": "Artıq işini görən saytlar",
+    "lead": "Bir neçə layihə: başladığı tapşırıq və işə düşəndən sonra nəyin dəyişdiyi.",
+    "viewAll": "Bütün işlərə bax",
+    "empty": "İlk layihə hekayələri hazırda qurulan saytlar işə düşən kimi yerləşdiriləcək."
+  },
+  "how": {
+    "label": "Proses",
+    "title": "Dörd addım, sürpriz yoxdur",
+    "lead": "Hamısı budur. Ayrıca ödədiyiniz “araşdırma mərhələsi” yoxdur.",
+    "steps": [
+      {
+        "title": "Nə lazım olduğunu yazın",
+        "body": "Sifariş formasını doldurun — biznesiniz, lazım olan səhifələr, görünüşünü bəyəndiyiniz saytlar və təxmini büdcəniz. On dəqiqəlik işdir və heç bir texniki termin bilməyinizə ehtiyac yoxdur."
+      },
+      {
+        "title": "Qiymət və tarix alın",
+        "body": "Sizə sabit qiymət, nəyin daxil olduğu və hazır olacağı tarix göndərirəm. Uyğun gəlmirsə, qiyməti şişirtmək əvəzinə açıq deyirəm."
+      },
+      {
+        "title": "Mən qururam, siz baxırsınız",
+        "body": "İşlək linki erkən alırsınız və saytın necə dolduğunu izləyirsiniz. İki dəfə düzəliş qiymətə daxildir — nəyin səhv olduğunu deyin, düzəldim."
+      },
+      {
+        "title": "Ödəyin və açarları alın",
+        "body": "Qalıq məbləği artıq istifadə etdiyiniz bank tətbiqindən köçürün, qəbzi yükləyin. Mən onu öz hesab çıxarışımda təsdiqləyəndən sonra domen, hostinq və kod — hamısı sizin adınıza keçir."
+      }
+    ]
+  },
+  "marketPreview": {
+    "label": "Hazırdır",
+    "title": "Hazır saytlar, qiyməti göz qabağında",
+    "lead": "Artıq qurulub və yoxlanılıb. Kod və dizayn sizindir; mən onu sizin domendə quraşdırıram, mətn və şəkillərinizi yerinə qoyuram.",
+    "viewAll": "Bütün hazır saytlar",
+    "empty": "Yeni hazır saytlar müntəzəm əlavə olunur. Hazırda siyahıda heç nə yoxdur."
+  },
+  "reviews": {
+    "label": "Müştəri rəyləri",
+    "title": "Sonra nə dedilər",
+    "emptyTitle": "Hələ rəy yoxdur — uydurulmuş da yoxdur",
+    "emptyBody": "Buraya yalnız bu saytda sifarişini tamamlayıb ödəyən adam rəy yaza bilər. İlk rəy gələnə qədər bu yer bilərəkdən boş qalır.",
+    "leaveReview": "Rəy yaz",
+    "yourRating": "Qiymətiniz",
+    "yourReview": "Birlikdə işləmək necə oldu?",
+    "reviewPlaceholder": "Nə sifariş etdiniz, necə keçdi, digər alıcının bilməsi faydalı olan nə var.",
+    "submit": "Rəyi yerləşdir",
+    "submitted": "Rəy yerləşdirildi",
+    "onlyCompleted": "Rəyi sifariş tamamlandıqdan sonra yaza bilərsiniz.",
+    "ratingStars_one": "{{count}} ulduz",
+    "ratingStars_other": "{{count}} ulduz",
+    "verified": "Təsdiqlənmiş sifariş"
+  },
+  "faq": {
+    "label": "Suallar",
+    "title": "Siz soruşmamış cavablar",
+    "items": [
+      {
+        "q": "Sayt real olaraq neçəyə başa gəlir?",
+        "a": "Hazır saytların qiyməti elanın üstündə yazılıb. Fərdi saytlar isə layihəyə görə qiymətləndirilir — kiçik biznes üçün birsəhifəlik sayt aşağı həddə, rezervasiya, kataloq və ya onlayn ödənişi olan çoxsəhifəli sayt yuxarı həddə durur. İş başlamamış bir dənə sabit rəqəm alırsınız və siz özünüz səhifə əlavə etməsəniz, o rəqəm dəyişmir."
+      },
+      {
+        "q": "Nə qədər vaxt aparır?",
+        "a": "Hazır sayt bir neçə gün ərzində sizin domendə ola bilər — bu vaxtın çoxu sizin mətn və şəkil göndərməyinizə gedir. Fərdi sayt səhifələrin sayından asılıdır; qiymətlə birlikdə aralıq yox, konkret hazır olma tarixi alırsınız."
+      },
+      {
+        "q": "Qiymətə nə daxildir?",
+        "a": "Dizayn, qurulma, telefon versiyası, istəsəniz üçdilli quruluş, əsas axtarış sistemi tənzimləmələri və sizin domendə işə salınması. Domen və hostinq haqları birbaşa həmin şirkətlərə ödənilir — razılaşmadan əvvəl onların dəqiq qiymətini deyirəm və heç vaxt üstünə qoymuram."
+      },
+      {
+        "q": "Neçə dəfə düzəliş istəyə bilərəm?",
+        "a": "İlk işlək versiyadan sonra iki tam düzəliş dövrü qiymətə daxildir. Saytların çoxu elə orada tamamlanır. Ondan sonrakı dəyişikliklər əvvəlcədən dediyim saatlıq tariflə hesablanır, kiçik düzəlişlər isə — səhv telefon nömrəsi, hərf xətası — həmişə pulsuzdur."
+      },
+      {
+        "q": "Necə ödəyirəm və bu təhlükəsizdirmi?",
+        "a": "Məbləği artıq istifadə etdiyiniz bank və ya pul kisəsi tətbiqindən ödəniş səhifəsindəki karta və ya IBAN-a köçürürsünüz, təyinatda sifariş kodunuzu yazırsınız. Sonra qəbzi yükləyirsiniz. Bu sayt sizin kart nömrənizi, CVV kodunuzu və ya bank girişinizi heç vaxt görmür — bunlar üçün burada xana yoxdur. Fərdi sifarişlərdə ödənişi bölmək mümkündür: başlamaq üçün beh, qalığı isə sayt hazır olub siz onu görəndən sonra."
+      },
+      {
+        "q": "Ödəyib istədiyimi almasam nə olacaq?",
+        "a": "Alt menyudakı qaytarma qaydasını tam oxuyun — qısadır. Qısaca: iş başlamamış beh tam qaytarılır. Təhvildən sonra sayt razılaşdırılan işi görmürsə, ya düzəldirəm, ya da pulu qaytarıram. Qaytarılmayan yeganə hal — tapşırığa uyğun qurulub təhvil verilmiş sayt barədə fikrinizi dəyişməyinizdir."
+      },
+      {
+        "q": "Sayt Azərbaycan, rus və ingilis dilində ola bilərmi?",
+        "a": "Bəli, üstəlik bu, əlavə xidmət deyil, adi haldır — bu saytın özü də üç dildə işləyir. Mətni yalnız bir dildə versəniz, tərcümənin nəyə başa gələcəyini əlavə etməzdən əvvəl deyirəm."
+      },
+      {
+        "q": "Sayt hazır olandan sonra kimin olur?",
+        "a": "Sizin. Domen, hostinq hesabı, kod və məzmun sizin adınıza qeydiyyata alınıb təhvil verilir. Məndən heç nə icarəyə götürmürsünüz və sonradan dəyişiklik etmək üçün mənə ehtiyacınız qalmır. Baxımı mənim aparmağımı istəsəniz, bu, istənilən vaxt dayandıra biləcəyiniz ayrıca razılaşmadır."
+      }
+    ]
+  },
+  "finalCta": {
+    "title": "Başlamağın iki yolu",
+    "lead": "Hazır olanı götürün, ya da özünüz üçün çəkdirin.",
+    "readyTitle": "Hazır sayt alın",
+    "readyBody": "Birini seçin, ödəyin və bu həftə onlayn olun. Pul xərcləməmişdən əvvəl nə aldığınızı dəqiq görürsünüz.",
+    "readyAction": "Hazır saytlara bax",
+    "customTitle": "Fərdi sayt sifariş edin",
+    "customBody": "Təsvir etmək on dəqiqə çəkir, sonra məndən sabit qiymət və tarix gəlir. Davam etmək məcburiyyəti yoxdur.",
+    "customAction": "Sayt sifariş et"
+  },
+  "footer": {
+    "tagline": "Azərbaycan bizneslərinə saytlar — Bakıda bir nəfər tərəfindən qurulur və satılır.",
+    "explore": "Bölmələr",
+    "account": "Hesab",
+    "legalHeading": "Hüquqi",
+    "contactHeading": "Əlaqə",
+    "terms": "İstifadə şərtləri",
+    "privacy": "Məxfilik siyasəti",
+    "refund": "Qaytarma və mübahisə qaydası",
+    "rights": "© {{year}} WebSale.az. Bütün hüquqlar qorunur.",
+    "builtNote": "Bu saytın özü portfolio nümunəsidir — sizinki də eyni qaydada qurulacaq."
+  },
+  "auth": {
+    "signInTitle": "Daxil ol",
+    "signInLead": "Sifariş vermək və onu izləmək üçün hesab lazımdır.",
+    "signUpTitle": "Hesab yarat",
+    "signUpLead": "Bir hesab sifariş, sifarişin vəziyyəti və qəbzləriniz üçün kifayətdir.",
+    "google": "Google ilə davam et",
+    "microsoft": "Microsoft ilə davam et",
+    "orEmail": "və ya e-poçtunuzla",
+    "email": "E-poçt",
+    "password": "Şifrə",
+    "passwordHint": "Ən azı 8 simvol.",
+    "displayName": "Adınız",
+    "signInAction": "Daxil ol",
+    "signUpAction": "Hesab yarat",
+    "noAccount": "Hesabınız yoxdur?",
+    "haveAccount": "Artıq hesabınız var?",
+    "forgot": "Şifrəni unutmusunuz?",
+    "resetTitle": "Şifrəni yeniləyin",
+    "resetLead": "E-poçtunuzu yazın, yeni şifrə təyin etmək üçün link göndərək.",
+    "resetAction": "Linki göndər",
+    "resetSent": "Link göndərildi — poçtunuzu yoxlayın.",
+    "verifyTitle": "E-poçtunuzu yoxlayın",
+    "verifyBody": "{{email}} ünvanına təsdiq linki göndərdik. Hesabı tamamlamaq üçün onu açın.",
+    "signingIn": "Daxil olunur…",
+    "signedOut": "Hesabdan çıxdınız.",
+    "errorInvalid": "Bu e-poçt və şifrə heç bir hesaba uyğun gəlmir.",
+    "errorGeneric": "Daxil olmaq alınmadı. Bir də cəhd edin.",
+    "errorProviderOff": "Bu giriş üsulu hələ aktiv deyil. Aşağıdakı e-poçt və şifrədən istifadə edin.",
+    "notConfigured": "Giriş sistemi hələ qoşulmayıb. Supabase açarlarınızı .env.local faylına əlavə edin — README-yə baxın.",
+    "backToSite": "Sayta qayıt"
+  },
+  "request": {
+    "pageTitle": "Sayt sifariş et",
+    "lead": "Altı qısa addım. Burada heç nə öhdəlik deyil — qiymət və tarix alacaqsınız, qərarı ondan sonra verəcəksiniz.",
+    "stepOf": "{{total}} addımdan {{current}}-si",
+    "steps": {
+      "business": "Biznesiniz",
+      "pages": "Nə lazımdır",
+      "style": "Görünüş",
+      "budget": "Büdcə və vaxt",
+      "contact": "Əlaqə",
+      "review": "Yoxla və göndər"
+    },
+    "businessName": "Biznesin adı",
+    "businessType": "Biznes nə ilə məşğuldur?",
+    "businessTypePlaceholder": "Kafe, diş klinikası, hüquq bürosu, onlayn mağaza…",
+    "businessDesc": "Bilməli olduğum nəsə var?",
+    "businessDescPlaceholder": "Müştəriləriniz kimlərdir, saytın nəyi dəyişməsini istəyirsiniz. Bir-iki cümlə kifayətdir.",
+    "hasWebsite": "Hazırda saytınız var?",
+    "hasWebsiteNo": "Xeyr, bu birincisi olacaq",
+    "hasWebsiteYes": "Bəli, dəyişdirilməlidir",
+    "currentUrl": "Hazırkı saytın ünvanı",
+    "pagesLabel": "Hansı səhifələr lazımdır?",
+    "pagesHint": "Uyğun gələnləri seçin — sonra dəqiqləşdirə bilərik.",
+    "pageOptions": {
+      "home": "Ana səhifə",
+      "about": "Haqqımızda",
+      "services": "Xidmətlər və ya menyu",
+      "catalog": "Məhsul kataloqu",
+      "shop": "Ödənişli onlayn mağaza",
+      "booking": "Rezervasiya və ya qeydiyyat",
+      "gallery": "Şəkil qalereyası",
+      "blog": "Xəbərlər və ya bloq",
+      "contact": "Əlaqə və xəritə",
+      "careers": "Vakansiyalar"
+    },
+    "featuresLabel": "Başqa nə etməlidir?",
+    "featureOptions": {
+      "multilang": "Üç dil (AZ / RU / EN)",
+      "crm": "Müraciətlər e-poçtuma və ya WhatsApp-a gəlsin",
+      "analytics": "Ziyarətçi statistikası",
+      "seo": "Google axtarışında görünsün",
+      "social": "Saytda Instagram lenti",
+      "admin": "Mətnləri özüm dəyişə bilim"
+    },
+    "styleRefs": "Görünüşünü bəyəndiyiniz saytlar",
+    "styleRefsPlaceholder": "Bir-iki ünvan yazın — rəqiblər, ya da sadəcə xoşunuza gələn istənilən sayt.",
+    "styleNotes": "Qətiyyən istəmədiyiniz nəsə var?",
+    "styleNotesPlaceholder": "İstəmədiyiniz rənglər, xoşunuza gəlməyən rəqib saytı, “çox rəsmi olmasın”…",
+    "hasBranding": "Loqonuz və brend rəngləriniz var?",
+    "brandingYes": "Bəli, göndərəcəyəm",
+    "brandingNo": "Xeyr, onlar da lazımdır",
+    "budgetLabel": "Təxminən nə qədər xərcləməyi gözləyirsiniz?",
+    "budgetHint": "Dürüst aralıq deməklə mümkün olub-olmadığını tez deyə bilərəm. Bu, öhdəlik deyil.",
+    "budgetOptions": {
+      "under500": "500 ₼-dən az",
+      "500to1500": "500 – 1 500 ₼",
+      "1500to3000": "1 500 – 3 000 ₼",
+      "over3000": "3 000 ₼-dən çox",
+      "unsure": "Bilmirəm — siz deyin nə qədər olmalıdır"
+    },
+    "timelineLabel": "Nə vaxta hazır olmalıdır?",
+    "timelineOptions": {
+      "asap": "Mümkün qədər tez",
+      "month": "Bir ay ərzində",
+      "quarter": "Üç ay ərzində",
+      "flexible": "Dəqiq tarix yoxdur"
+    },
+    "contactName": "Adınız",
+    "contactEmail": "E-poçt",
+    "contactPhone": "Telefon və ya WhatsApp",
+    "contactPreferred": "Sizinlə necə əlaqə saxlayım?",
+    "preferredEmail": "E-poçt",
+    "preferredPhone": "Telefon",
+    "preferredWhatsapp": "WhatsApp",
+    "reviewLead": "Göndərəcəyiniz məlumat budur. Səhv olan yeri dəyişmək üçün geri qayıdın.",
+    "submit": "Sifarişi göndər",
+    "submitting": "Göndərilir…",
+    "sentTitle": "Sifariş göndərildi",
+    "sentBody": "Növbəmdədir. Qiyməti və hazır olma tarixini e-poçtla alacaqsınız, sifariş isə “Sifarişlərim” bölməsində statusu ilə birlikdə görünəcək.",
+    "sentAction": "Sifarişlərimə bax",
+    "sentBrowse": "Bu arada hazır saytlara nəzər salın",
+    "validation": {
+      "businessName": "Biznesin adını yazın.",
+      "businessType": "Biznesin nə etdiyini bir-iki sözlə yazın.",
+      "pages": "Ən azı bir səhifə seçin.",
+      "name": "Sizə necə müraciət edim?",
+      "email": "Qiyməti göndərmək üçün e-poçt ünvanı lazımdır.",
+      "emailFormat": "Bu, e-poçt ünvanına oxşamır.",
+      "contact": "Ən azı bir əlaqə yolu yazın."
+    }
+  },
+  "portfolio": {
+    "pageTitle": "İşlər",
+    "lead": "Aşağıdakı hər layihə real sahibi olan real saytdır. Hər birində başlanğıc problem, nəyin qurulduğu və sonra nəyin dəyişdiyi göstərilib.",
+    "filterAll": "Hamısı",
+    "filterIndustry": "Sahə",
+    "filterTech": "Texnologiya",
+    "empty": "Bu filtrlərə uyğun layihə yoxdur.",
+    "clearFilters": "Filtrləri sıfırla",
+    "problem": "Problem",
+    "built": "Nə qurdum",
+    "outcome": "Nə dəyişdi",
+    "stack": "Texnologiya",
+    "industry": "Sahə",
+    "year": "İl",
+    "liveDemo": "Canlı sayta bax",
+    "nextCase": "Növbəti layihə",
+    "backToPortfolio": "Bütün işlər",
+    "notFound": "Bu layihə burada yoxdur."
+  },
+  "market": {
+    "pageTitle": "Hazır saytlar",
+    "lead": "Öz domeninizə qoya biləcəyiniz hazır, yoxlanılmış saytlar. Nümunədə gördüyünüz elə aldığınızdır — mətninizi, şəkillərinizi və loqonuzu yerinə qoyub təhvil verirəm.",
+    "sortLabel": "Sıralama",
+    "sortNewest": "Əvvəlcə yenilər",
+    "sortPriceAsc": "Qiymət: ucuzdan bahaya",
+    "sortPriceDesc": "Qiymət: bahadan ucuza",
+    "filterCategory": "Kateqoriya",
+    "empty": "Hələ heç nə yerləşdirilməyib.",
+    "liveDemo": "Canlı nümunəni aç",
+    "buy": "Bu saytı al",
+    "included": "Nə alırsınız",
+    "license": "Lisenziya",
+    "licenseSingle": "Bir biznes, bir domen",
+    "licenseSingleNote": "Bu saytı bir biznes üçün bir domendə istədiyiniz qədər istifadə edə bilərsiniz. İçindəki hər şeyi dəyişə bilərsiniz. Onu şablon kimi başqasına satmaq olmaz.",
+    "pages": "Səhifələr",
+    "stack": "Texnologiya",
+    "bestFor": "Kimə uyğundur",
+    "screenshots": "Ekranlar",
+    "notFound": "Bu elan burada yoxdur.",
+    "sold": "Satılıb",
+    "soldNote": "Bu, eksklüziv satış idi və artıq mövcud deyil.",
+    "similar": "Digər hazır saytlar",
+    "includedItems": [
+      "Bütün mənbə kodu, sizə təhvil verilir",
+      "Sizin domen və hostinqdə quraşdırılma",
+      "Mətn, şəkil və loqonuzun yerləşdirilməsi",
+      "Telefonda düzgün işləyir",
+      "Əsas Google axtarış tənzimləmələri",
+      "Təhvildən sonra iki dəfə düzəliş"
+    ]
+  },
+  "checkout": {
+    "pageTitle": "Ödəniş",
+    "lead": "Aşağıdakı məbləği artıq istifadə etdiyiniz bank tətbiqindən köçürün, sonra qəbzi yükləyin. Pulun gəldiyini təsdiqləməyincə heç nə təhvil verilmir.",
+    "orderSummary": "Nəyin ödənişi",
+    "amountDue": "Köçürüləcək məbləğ",
+    "reference": "Sifariş kodu",
+    "referenceHelp": "Bu kodu köçürmənin təyinatına yazın. Ödənişiniz sifarişinizlə məhz bu kodla uyğunlaşdırılır — kodsuz köçürməni tapmaq günlər çəkə bilər.",
+    "sendTo": "Bura göndərin",
+    "bank": "Bank",
+    "accountHolder": "Hesab sahibi",
+    "cardNumber": "Kart nömrəsi",
+    "iban": "IBAN",
+    "wallets": "Bunlardan da işləyir",
+    "noCardData": "Bu səhifə yalnız pulu qəbul edən hesabı göstərir. Bu saytda kart nömrəniz, kartın bitmə tarixi və ya CVV kodu üçün heç bir yerdə xana yoxdur və olmayacaq — bunlar kartdan pul xərcləmək üçün lazımdır, karta pul göndərmək üçün yox.",
+    "detailsMissing": "Ödəniş rekvizitləri hələ qurulmayıb. Sayt sahibi mühit faylında VITE_PAY_* dəyərlərini doldurmalıdır — README-yə baxın.",
+    "depositSplit": "Ödənişi bölün",
+    "depositExplain": "İşə başlamaq üçün indi {{percent}}%, qalığını isə sayt hazır olub siz onu görəndən sonra ödəyin. Başlanğıc bir az gec olur, amma hələ mövcud olmayan şeyin tam pulunu ödəmirsiniz.",
+    "payFull": "Tam məbləği indi ödə",
+    "payDeposit": "İndi {{percent}}% beh ödə",
+    "depositNow": "İndi beh",
+    "balanceLater": "Təhvildə qalıq",
+    "uploadTitle": "Qəbzi yükləyin",
+    "uploadHelp": "Bank tətbiqinizdən ekran şəkli və ya PDF. JPG, PNG, WebP və ya PDF, 8 MB-a qədər.",
+    "uploadAction": "Fayl seç",
+    "uploadChange": "Başqa fayl seç",
+    "uploadedFile": "Əlavə olundu: {{name}}",
+    "amountPaid": "Köçürdüyünüz məbləğ",
+    "paidAt": "Köçürmə tarixi",
+    "noteLabel": "Bilməli olduğum nəsə var?",
+    "notePlaceholder": "Başqa adla ödənilib, iki hissədə köçürülüb və s.",
+    "submit": "Ödədim — yoxlamaya göndər",
+    "submitting": "Göndərilir…",
+    "submitted": "Ödəniş göndərildi",
+    "submittedBody": "Bank çıxarışımla tutuşdurub təsdiqləyəcəyəm. Nəticədən asılı olmayaraq e-poçt alacaqsınız, status isə burada yenilənəcək.",
+    "toOrder": "Bu sifarişi izlə",
+    "errors": {
+      "file": "Bank tətbiqindən qəbzi əlavə edin.",
+      "fileType": "Bu fayl növü açılmır. JPG, PNG, WebP və ya PDF istifadə edin.",
+      "fileSize": "Fayl 8 MB-dan böyükdür. Tam çıxarış yerinə ekran şəkli göndərin.",
+      "amount": "Nə qədər köçürdüyünüzü yazın.",
+      "upload": "Yükləmə tamamlanmadı. İnternetinizi yoxlayıb bir də cəhd edin."
+    }
+  },
+  "status": {
+    "draft": "Qaralama",
+    "quote_requested": "Qiymət gözlənilir",
+    "quoted": "Qiymət göndərildi",
+    "quote_declined": "Qiymətdən imtina edildi",
+    "awaiting_payment": "Ödəniş gözlənilir",
+    "payment_submitted": "Ödəniş yoxlanılır",
+    "paid": "Ödənildi",
+    "in_progress": "İşlənir",
+    "delivered": "Təhvil verildi",
+    "completed": "Tamamlandı",
+    "payment_rejected": "Ödəniş təsdiqlənmədi",
+    "cancelled": "Ləğv edildi",
+    "help": {
+      "quote_requested": "Müraciətiniz məndədir, qiymətləndirirəm.",
+      "quoted": "Qiymətə və tarixə baxın, sonra qəbul edin və ya imtina edin.",
+      "awaiting_payment": "Davam etmək üçün məbləği köçürün və qəbzi yükləyin.",
+      "payment_submitted": "Köçürməni bank çıxarışımla tutuşdururam. Adətən bir gün ərzində.",
+      "paid": "Pul təsdiqləndi. İş indi başlayır.",
+      "in_progress": "Qurulur. Baxmalı bir şey olan kimi sizə nümunə linki göndərəcəyəm.",
+      "delivered": "Hazırdır və təhvil verilib. Hər şeyi yoxlayın, sonra tamamlandı olaraq işarələyin.",
+      "completed": "Bitdi və bağlandı. İndi rəy yaza bilərsiniz.",
+      "payment_rejected": "Köçürməni tapa bilmədim. Səbəbi aşağıda yazılıb, qəbzi yenidən yükləyin.",
+      "cancelled": "Bu sifariş ləğv edildi."
+    }
+  },
+  "order": {
+    "pageTitle": "Sifariş",
+    "reference": "Sifariş",
+    "placed": "Verilib",
+    "updated": "Son yenilənmə",
+    "total": "Yekun",
+    "deposit": "Beh",
+    "balance": "Qalıq",
+    "item": "Nə",
+    "customBuild": "Fərdi sayt",
+    "timeline": "Gediş",
+    "receipt": "Qəbziniz",
+    "receiptSubmitted": "{{date}} tarixində göndərilib",
+    "viewReceipt": "Qəbzi aç",
+    "rejectedReason": "Nəyə görə təsdiqlənmədi",
+    "reupload": "Yeni qəbz yüklə",
+    "payNow": "İndi ödə",
+    "payBalance": "Qalığı ödə",
+    "quoteTitle": "Qiymət təklifi",
+    "quoteAmount": "Qiymət",
+    "quoteDelivery": "Hazır olacaq",
+    "quoteScope": "Nə daxildir",
+    "quoteNote": "Məndən qeyd",
+    "acceptQuote": "Qəbul et və ödə",
+    "declineQuote": "İmtina et",
+    "declineReason": "Səbəbini yazın (istəyə bağlı — daha yaxşı qiymət verməyə kömək edir)",
+    "declined": "Qiymətdən imtina edildi",
+    "quoteExpires": "Bu qiymət {{date}} tarixinədək qüvvədədir",
+    "deliveryTitle": "Təhvil",
+    "deliveryBody": "Saytınıza aid hər şey aşağıdadır.",
+    "deliveryLink": "Canlı sayt",
+    "deliveryFiles": "Fayllar və girişlər",
+    "markComplete": "Hər şey yerindədir — sifarişi bağla",
+    "markedComplete": "Sifariş tamamlandı",
+    "messages": "Yazışma",
+    "messagePlaceholder": "Bu sifarişlə bağlı istənilən sualı yazın.",
+    "sendMessage": "Göndər",
+    "noMessages": "Hələ mesaj yoxdur.",
+    "notFound": "Belə bir sifariş yoxdur, ya da sizin deyil.",
+    "awaitingOwner": "Növbə məndədir — sizin tərəfdən hazırda ediləsi bir şey yoxdur."
+  },
+  "dashboard": {
+    "pageTitle": "Sifarişlərim",
+    "lead": "Sifariş etdiyiniz hər şey və hansı mərhələdə olduğu.",
+    "active": "Davam edən",
+    "past": "Bitmiş",
+    "requests": "Müraciətlər",
+    "noOrders": "Hələ heç nə sifariş etməmisiniz.",
+    "noOrdersAction": "Hazır saytlara bax",
+    "noRequests": "Hələ fərdi müraciət yoxdur.",
+    "noRequestsAction": "Sayt sifariş et",
+    "actionNeeded": "Sizdən asılıdır",
+    "viewOrder": "Aç"
+  },
+  "profile": {
+    "pageTitle": "Profil",
+    "details": "Məlumatlarınız",
+    "displayName": "Görünən ad",
+    "email": "E-poçt",
+    "emailImmutable": "Giriş e-poçtu — dəyişmək üçün bizə yazın.",
+    "phone": "Telefon",
+    "avatar": "Şəkil",
+    "avatarChange": "Şəkli dəyiş",
+    "avatarRemove": "Sil",
+    "saved": "Yadda saxlanıldı",
+    "savedSites": "Seçilmiş saytlar",
+    "noSaved": "Seçilmiş yoxdur. İstənilən elandakı əlfəcin işarəsinə toxunun ki, burada saxlansın.",
+    "myReviews": "Yazdığınız rəylər",
+    "noReviews": "Hələ rəy yazmamısınız.",
+    "dangerZone": "Hesab",
+    "signOutEverywhere": "Çıxış",
+    "deleteAccount": "Hesabımı sil",
+    "deleteWarning": "Bu, profilinizi və seçilmiş saytlarınızı silir. Tamamlanmış sifarişlər və onların qəbzləri qanunun tələb etdiyi kimi mühasibat üçün saxlanılır."
+  },
+  "admin": {
+    "pageTitle": "İdarə paneli",
+    "lead": "Qiymətləndiriləcək müraciətlər, təsdiqlənəcək ödənişlər və növbədəki hər şey.",
+    "notOwner": "Bu səhifə sayt sahibi üçündür.",
+    "tabs": {
+      "payments": "Yoxlanacaq ödənişlər",
+      "requests": "Yeni müraciətlər",
+      "orders": "Bütün sifarişlər",
+      "listings": "Elanlar",
+      "cases": "Layihələr"
+    },
+    "queueEmpty": "Gözləyən yoxdur.",
+    "statusPublished": "Saytda",
+    "statusDraft": "Saytda deyil",
+    "reviewPayment": "Bu ödənişi yoxla",
+    "claimedAmount": "Alıcının dediyi məbləğ",
+    "expectedAmount": "Sifarişin məbləği",
+    "amountMismatch": "Sifarişin məbləği ilə uyğun gəlmir",
+    "buyerNote": "Alıcının qeydi",
+    "receiptWarning": "Qəbz sübut deyil, sadəcə xəbərdarlıqdır — redaktə oluna bilər. Yalnız pulu öz hesab çıxarışınızda gördükdən sonra təsdiqləyin.",
+    "confirm": "Təsdiqlə — pul gəldi",
+    "reject": "Rədd et",
+    "rejectReasonLabel": "Alıcıya nə deyilsin?",
+    "rejectReasons": {
+      "notFound": "Bu kodla heç nə gəlməyib",
+      "amount": "Məbləğ uyğun gəlmir",
+      "reference": "Köçürmədə sifariş kodu yox idi",
+      "other": "Başqa səbəb"
+    },
+    "rejectDetail": "Ətraflı yazın (alıcı bunu görür)",
+    "confirmed": "Təsdiqləndi — alıcıya bildirildi",
+    "rejected": "Rədd edildi — alıcıya bildirildi",
+    "sendQuote": "Qiymət göndər",
+    "quoteAmount": "Qiymət (₼)",
+    "quoteDelivery": "Hazır olacaq",
+    "quoteScope": "Nə daxildir",
+    "quoteNote": "Alıcıya qeyd",
+    "quoteValidDays": "Qiymət neçə gün qüvvədədir",
+    "sendQuoteAction": "Qiyməti göndər",
+    "quoteSent": "Qiymət göndərildi",
+    "setInProgress": "İşə başla",
+    "markDelivered": "Təhvil verildi olaraq işarələ",
+    "deliveryLink": "Canlı saytın ünvanı",
+    "deliveryNotes": "Təhvil qeydləri və girişlər",
+    "newListing": "Yeni elan",
+    "editListing": "Redaktə et",
+    "publish": "Dərc et",
+    "unpublish": "Dərcdən çıxar",
+    "delete": "Sil",
+    "confirmDelete": "Bu, birdəfəlik silinsin?"
+  },
+  "legal": {
+    "lastUpdated": "Son yenilənmə: {{date}}",
+    "terms": {
+      "title": "İstifadə şərtləri",
+      "intro": "Bu şərtlər WebSale.az vasitəsilə sayt sifariş edəndə nə aldığınızı və hər iki tərəfdən nə gözlənildiyini izah edir. Oxunmaq üçün yazılıb, dözülmək üçün yox.",
+      "sections": [
+        {
+          "h": "Kiminlə işiniz var",
+          "b": "WebSale.az Bakıda yaşayan bir nəfər tərəfindən idarə olunur. Arxasında agentlik yoxdur. Mesaj göndərəndə onu həmin adam oxuyur. Əlaqə məlumatları hər səhifənin altındadır."
+        },
+        {
+          "h": "Hazır saytlar",
+          "b": "Elanda hazır sayt, onun qiyməti və lisenziyası siz almazdan əvvəl göstərilir. Alanda mənbə kodunu, sayt üçün domendə quraşdırmanı və öz mətn, şəkil, loqonuzun yerləşdirilməsini alırsınız. Lisenziya bir biznes üçün bir domeni əhatə edir — saytı istədiyiniz kimi dəyişə bilərsiniz, amma onu şablon kimi yenidən sata bilməzsiniz."
+        },
+        {
+          "h": "Fərdi saytlar",
+          "b": "Siz müraciət göndərirsiniz, cavabında sabit qiymət, nəyin daxil olduğunun yazılı siyahısı və hazır olma tarixi alırsınız. Siz qəbul etməyincə iş başlamır. Sonradan bu siyahıdan kənar nəsə istəsəniz, o, səssizcə içəri salınmır və atılmır — ayrıca qiymətləndirilir."
+        },
+        {
+          "h": "Düzəlişlər",
+          "b": "İlk işlək versiyadan sonra iki tam düzəliş dövrü həm hazır, həm də fərdi saytlar üçün qiymətə daxildir. Razılaşdırılmış siyahıya uyğun olmayan bir şeyin düzəldilməsi düzəliş dövrü sayılmır — bu sadəcə işin tamamlanmasıdır və pulsuzdur."
+        },
+        {
+          "h": "Ödəniş",
+          "b": "Ödəniş, ödəniş səhifəsində göstərilən hesaba bank köçürməsi və ya elektron pul kisəsi ilə, təyinatda sifariş kodu yazılmaqla edilir. Ödənişiniz qəbzi yüklədiyiniz an deyil, pul qəbul edən bankın çıxarışında göründüyü an təsdiqlənmiş sayılır. Bu sayt kart nömrənizi, bitmə tarixini, CVV kodunu və ya bank girişinizi heç vaxt soruşmur, qəbul etmir və saxlamır."
+        },
+        {
+          "h": "Sizin təqdim etdikləriniz",
+          "b": "Mətn, şəkil, loqo və saytın qoşulacağı hesablar. Bunlar gəlməsə, hazır olma tarixi onların gecikdiyi qədər sürüşür. Göndərdiyiniz hər şey göndərmək hüququnuz olan material olmalıdır — hüququ sizə aid olmayan şəkil və ya mətn versəniz, məsuliyyəti sizin üzərinizdədir."
+        },
+        {
+          "h": "Təhvildən sonra mülkiyyət",
+          "b": "Son ödəniş təsdiqlənən kimi sayt sizindir: domen, hostinq hesabı, kod və məzmun — hamısı sizin adınıza. Davamlı lisenziya haqqı yoxdur və saytı dəyişmək, yaxud başqasına dəyişdirtmək üçün icazə almağa ehtiyacınız yoxdur."
+        },
+        {
+          "h": "Nələr daxil deyil",
+          "b": "Hostinq və domen haqları birbaşa həmin şirkətlərə, onların qiymətinə ödənilir. Davamlı baxım, təhvildən sonrakı yeni funksiyalar və məzmun yeniləmələri ayrıca işdir. Axtarış sistemində sıralama, satış rəqəmləri və ziyarətçi sayı heç kimin söz verə biləcəyi şeylər deyil və burada da söz verilmir."
+        },
+        {
+          "h": "Razılaşmanın dayandırılması",
+          "b": "Fərdi saytı təhvildən əvvəl istənilən vaxt ləğv edə bilərsiniz. Artıq ödənilmiş pulun taleyi qaytarma qaydasında yazılıb. İş gedərkən 60 gün ərzində sizinlə əlaqə saxlamaq mümkün olmasa, sifariş dayandırılır və bu müddətdən sonra qaytarma qaydası tətbiq olunmaqla bağlanır."
+        },
+        {
+          "h": "Tətbiq olunan qanun",
+          "b": "Bu şərtlər Azərbaycan Respublikasının qanunvericiliyinə tabedir. Nəsə səhv gedərsə, əvvəlcə e-poçt yazın — demək olar ki, hər şey bu yolla həll olunur."
+        }
+      ]
+    },
+    "privacy": {
+      "title": "Məxfilik siyasəti",
+      "intro": "Bu saytın nə topladığı, niyə topladığı və onunla nə etdiyi. Qısadır, çünki çox şey toplamır.",
+      "sections": [
+        {
+          "h": "Nə toplanır",
+          "b": "Hesab yaradanda adınız və e-poçtunuz. Sayt müraciətində yazdıqlarınız. Sifariş tarixçəniz. Özünüzün yüklədiyiniz ödəniş qəbzləri. Google və ya Microsoft ilə daxil olsanız, onlar bu sayta adınızı, e-poçtunuzu və profil şəklinizi verir — başqa heç nə, fayllarınıza və poçtunuza giriş isə ümumiyyətlə yox."
+        },
+        {
+          "h": "Nə heç vaxt toplanmır",
+          "b": "Kart nömrələri, bitmə tarixləri, CVV kodları, bank girişləri. Bu saytın heç bir yerində bunlar üçün xana yoxdur, çünki ödəniş sizin öz bank tətbiqinizin içində baş verir və buradan keçmir."
+        },
+        {
+          "h": "Niyə toplanır",
+          "b": "Layihənizi qiymətləndirmək, qurmaq, sizi məlumatlandırmaq, ödənişləri təsdiqləmək və vergi qanunvericiliyinin tələb etdiyi mühasibat qeydlərini aparmaq üçün. Siyahı bundan ibarətdir. Heç nə heç kimə satılmır və bu saytda reklam şəbəkəsi yoxdur."
+        },
+        {
+          "h": "Harada saxlanılır",
+          "b": "Hesab məlumatları, sifarişlər və yüklənmiş qəbzlər bu saytın arxasındakı verilənlər bazası və fayl saxlama xidməti olan Supabase-də saxlanılır. Qəbz faylları məxfidir: onları yalnız siz və sayt sahibi aça bilər."
+        },
+        {
+          "h": "Nə qədər saxlanılır",
+          "b": "Hesab məlumatlarınız siz hesabı silənə qədər qalır. Tamamlanmış sifarişlər və onların qəbzləri mühasibat qanunvericiliyinin tələb etdiyi müddət ərzində saxlanılır — hesabı silmək bunları silmir, səbəbi budur."
+        },
+        {
+          "h": "Kukilər",
+          "b": "Brauzerinizdə iki şey saxlanılır: giriş sessiyanız və dil seçiminiz. İzləyici və reklam kukiləri yoxdur, deməli, kliklənəsi kuki bildirişi də yoxdur."
+        },
+        {
+          "h": "Sizin seçimləriniz",
+          "b": "Məlumatlarınızı profil səhifəsində görüb dəyişə, hesabınızı silə, yaxud e-poçt yazıb haqqınızda saxlanılan hər şeyin surətini istəyə bilərsiniz. Belə müraciətlər 30 gün ərzində cavablandırılır."
+        }
+      ]
+    },
+    "refund": {
+      "title": "Qaytarma və mübahisə qaydası",
+      "intro": "Burada ödəniş birbaşa sizin bankınızla mənim bankım arasında gedir, ona görə də mübahisəni həll edəcək kart prosessoru yoxdur. Bu, qaydaların əvvəlcədən aydın yazılmasını daha az yox, daha vacib edir. Qayda bundan ibarətdir.",
+      "sections": [
+        {
+          "h": "İş başlamamışdan əvvəl",
+          "b": "Beh, mən qurmağa başlayana qədər istənilən an tam qaytarılır. Sadəcə deyin, beş iş günü ərzində gəldiyi yolla geri qayıdır."
+        },
+        {
+          "h": "Sayt qurulan müddətdə",
+          "b": "İş gedərkən ləğv etsəniz, artıq görülmüş işin haqqını ödəyirsiniz, qalığı geri qaytarılır. Bunun nəyi əhatə etdiyi maddə-maddə yazılıb sizə verilir — havadan yuvarlaq rəqəm çıxmır — və o ana qədər qurulmuş hər şey sizdə qalır."
+        },
+        {
+          "h": "Təhvildən sonra",
+          "b": "Təhvil verilmiş sayt qəbul etdiyiniz təklifdə yazılan işi görmürsə, mən onu düzəldirəm. Düzəlmirsə, pulunuz tam qaytarılır və təhvil verilən heç nə sizdə qalmır. Sayt təklifə uyğundursa və siz sadəcə fikrinizi dəyişmisinizsə, bu qaytarılmır — iş mövcuddur və sizin tapşırığınıza görə görülüb."
+        },
+        {
+          "h": "Hazır saytlar",
+          "b": "Ödəməzdən əvvəl tam işlək nümunəni görürsünüz, ona görə gizli sürpriz yoxdur. Kod və girişlər sizə təhvil verildikdən sonra satış qəti sayılır. Təhvil hələ baş verməyibsə, tələb üzərinə pul tam qaytarılır."
+        },
+        {
+          "h": "Ödənişdə problem olarsa",
+          "b": "Adətən problem sifariş kodu yazılmayan köçürmələrdən çıxır — onlar itmir, sadəcə gec tapılır. Qəbzi və köçürmənin dəqiq vaxtını göndərin, taparam. İki dəfə ödəmisinizsə, təkrar məbləğ beş iş günü ərzində geri qayıdır."
+        },
+        {
+          "h": "Mübahisələr",
+          "b": "Həmişə əvvəlcə e-poçt yazın: problemi və nəyin onu həll edəcəyini yazın. İki iş günü ərzində cavab verməyə, on iş günü ərzində məsələni bağlamağa çalışıram. Doğrudan da razılığa gələ bilməsək, hər iki tərəf Azərbaycan Respublikasının məhkəmələrinə müraciət edə bilər — amma bu ölçüdə bir işdə bu, heç kimə fayda vermir və indiyədək ehtiyac olmayıb."
+        },
+        {
+          "h": "Pul necə qaytarılır",
+          "b": "Razılaşdıqdan sonra beş iş günü ərzində, manatla, pulun gəldiyi həmin hesaba. Öz bankınızın tutduğu köçürmə haqqı onlara aiddir, mənə yox, və onu qaytara bilmirəm."
+        }
+      ]
+    }
+  },
+  "seo": {
+    "home": {
+      "title": "WebSale.az — Bakıda qurulan və satılan saytlar",
+      "description": "Azərbaycan bizneslərinə fərdi və hazır saytlar. Sabit qiymət, dəqiq tarix və işlədiyini gördükdən sonra ödəniş."
+    },
+    "portfolio": {
+      "title": "İşlər — WebSale.az",
+      "description": "Layihə hekayələri: hər saytın başladığı tapşırıq, nəyin qurulduğu və işə düşəndən sonra nəyin dəyişdiyi."
+    },
+    "market": {
+      "title": "Hazır saytlar — WebSale.az",
+      "description": "Elə bu həftə öz domeninizə qoya biləcəyiniz hazır saytlar. Hər elanda canlı nümunə və tam qiymət."
+    },
+    "request": {
+      "title": "Sayt sifariş et — WebSale.az",
+      "description": "Biznesinizə nə lazım olduğunu yazın, sabit qiymət və hazır olma tarixi alın. Öhdəlik yoxdur."
+    }
+  },
+  "notFound": {
+    "title": "Bu ünvanda heç nə yoxdur",
+    "body": "Axtardığınız səhifə ya köçüb, ya da heç vaxt olmayıb. Aşağıdakı ölçülər düzgündür; səhifə isə yox.",
+    "action": "Ana səhifəyə qayıt"
+  },
+  "a11y": {
+    "rating": "5 baldan {{rating}}",
+    "openInNewTab": "yeni pəncərədə açılır",
+    "currentStep": "hazırkı addım",
+    "completedStep": "tamamlanıb",
+    "imagePlaceholder": "Şəkil hələ əlavə edilməyib"
+  }
+}

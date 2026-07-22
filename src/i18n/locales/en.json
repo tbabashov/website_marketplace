@@ -1,0 +1,703 @@
+{
+  "common": {
+    "loading": "Loading…",
+    "errorTitle": "That didn't load",
+    "errorBody": "Something broke on our side. Try again, and if it keeps happening, email us.",
+    "retry": "Try again",
+    "back": "Back",
+    "next": "Next",
+    "cancel": "Cancel",
+    "close": "Close",
+    "save": "Save",
+    "saving": "Saving…",
+    "optional": "optional",
+    "required": "required",
+    "copy": "Copy",
+    "copied": "Copied",
+    "from": "from",
+    "notFilledIn": "not filled in yet",
+    "demoNotice": "Demo data — connect Supabase to see real listings.",
+    "signInToContinue": "Sign in to continue",
+    "viewAll": "View all"
+  },
+  "nav": {
+    "portfolio": "Work",
+    "marketplace": "Ready-made sites",
+    "request": "Request a site",
+    "how": "How it works",
+    "faq": "FAQ",
+    "dashboard": "My orders",
+    "admin": "Owner desk",
+    "profile": "Profile",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "skip": "Skip to content",
+    "primaryLabel": "Primary",
+    "footerLabel": "Footer"
+  },
+  "lang": {
+    "label": "Language",
+    "switchTo": "Switch language to {{language}}"
+  },
+  "hero": {
+    "eyebrow": "Baku · one-person web studio",
+    "titleLine1": "Built to your",
+    "titleEmphasis": "measurements",
+    "titleLine2": "not a template's.",
+    "sub": "Tell me what your business actually needs — I'll price it honestly, build it, and hand over every login. Or take a site I've already finished and be live this week.",
+    "ctaPrimary": "Request a site",
+    "ctaSecondary": "Browse ready-made sites",
+    "spec": {
+      "title": "Sheet",
+      "drawnBy": "Drawn by",
+      "sheetNo": "Sheet no.",
+      "scale": "Scale",
+      "scaleValue": "1:1",
+      "locale": "Locale",
+      "viewport": "Viewport",
+      "revision": "Rev.",
+      "status": "Status",
+      "statusValue": "Taking work",
+      "notes": "Notes",
+      "notesValue": "Every site here was drawn, built and shipped by one person. No agency markup, no account manager between you and the code."
+    }
+  },
+  "stats": {
+    "label": "By the numbers",
+    "sitesShipped": "Sites shipped",
+    "industries": "Industries served",
+    "turnaround": "Avg. build time",
+    "turnaroundUnit": "weeks",
+    "years": "Years building",
+    "ownerNote": "Owner: fill these in from your own records — they stay blank until you do."
+  },
+  "portfolioPreview": {
+    "label": "Selected work",
+    "title": "Sites already doing their job",
+    "lead": "A few builds with the brief they started from and what changed after launch.",
+    "viewAll": "See all work",
+    "empty": "The first case studies go up as soon as the current builds launch."
+  },
+  "how": {
+    "label": "The process",
+    "title": "Four steps, no surprises",
+    "lead": "This is the whole thing. There is no discovery phase you pay for separately.",
+    "steps": [
+      {
+        "title": "Tell me what you need",
+        "body": "Fill in the request form — your business, the pages you need, sites whose look you like, roughly what you want to spend. Ten minutes, and you don't need to know any technical terms."
+      },
+      {
+        "title": "Get a price and a date",
+        "body": "I reply with a fixed price, what's included, and the date it'll be finished. If it isn't a fit, I'll say so rather than pad the quote."
+      },
+      {
+        "title": "I build, you review",
+        "body": "You get a working link early and watch it fill in. Two rounds of changes are included at no extra cost — tell me what's wrong and I fix it."
+      },
+      {
+        "title": "Pay, then take the keys",
+        "body": "Transfer the balance from whatever banking app you already use, upload the receipt, and once I've confirmed it in my own statement you get the domain, the hosting, the code — all of it in your name."
+      }
+    ]
+  },
+  "marketPreview": {
+    "label": "Ready to go",
+    "title": "Finished sites, priced up front",
+    "lead": "Already built and tested. You get the code and the design; I set it up on your domain and swap in your text and photos.",
+    "viewAll": "See all ready-made sites",
+    "empty": "New ready-made sites go up here regularly. Nothing listed at the moment."
+  },
+  "reviews": {
+    "label": "Client reviews",
+    "title": "What clients said afterwards",
+    "emptyTitle": "No reviews yet — and none invented",
+    "emptyBody": "Reviews here can only be left by someone who has actually completed and paid for an order on this site. Until the first one comes in, this space stays empty on purpose.",
+    "leaveReview": "Leave a review",
+    "yourRating": "Your rating",
+    "yourReview": "What was working with me like?",
+    "reviewPlaceholder": "What you ordered, how it went, anything another buyer should know.",
+    "submit": "Publish review",
+    "submitted": "Review published",
+    "onlyCompleted": "You can review an order once it's completed.",
+    "ratingStars_one": "{{count}} star",
+    "ratingStars_other": "{{count}} stars",
+    "verified": "Verified order"
+  },
+  "faq": {
+    "label": "Questions",
+    "title": "Asked before you ask",
+    "items": [
+      {
+        "q": "What does a site actually cost?",
+        "a": "Ready-made sites carry their price on the listing. Custom builds are quoted per project — a one-page site for a small business sits at the low end, a multi-page site with booking, a catalogue or online payments sits higher. You get one fixed number before anything starts, and it doesn't move unless you add pages."
+      },
+      {
+        "q": "How long does it take?",
+        "a": "A ready-made site can be on your domain within a few days — most of that time is you sending text and photos. A custom build depends on how many pages there are; you'll get a specific completion date with the quote, not a range."
+      },
+      {
+        "q": "What's included in the price?",
+        "a": "Design, build, mobile layout, the three-language setup if you want it, basic search-engine setup, and putting it live on your domain. Domain registration and hosting fees are paid to those providers directly — I'll tell you exactly what they cost before you commit, and I never mark them up."
+      },
+      {
+        "q": "How many changes can I ask for?",
+        "a": "Two full rounds of revisions are included after the first working version. That's the point where most sites land. Beyond that, changes are billed by the hour at a rate I'll tell you up front, and small fixes — a wrong phone number, a typo — are always free."
+      },
+      {
+        "q": "How do I pay, and is it safe?",
+        "a": "You transfer the amount from whichever banking or e-wallet app you already use, to the card or IBAN shown at checkout, with your order reference in the description. Then you upload the receipt. This site never sees your card number, your CVV or your bank login — there is no field for them anywhere. For custom orders you can split it: a deposit to start, the rest when the site is finished and you've seen it working."
+      },
+      {
+        "q": "What if I pay and don't get what I asked for?",
+        "a": "Read the refund policy in full — it's linked in the footer and it's short. In brief: before I start work, a deposit is fully refundable. After delivery, if the site doesn't do what the quote said it would, I fix it or refund it. What isn't refundable is changing your mind about a finished, delivered site that matches its brief."
+      },
+      {
+        "q": "Can the site be in Azerbaijani, Russian and English?",
+        "a": "Yes, and it's the normal case here rather than an add-on — this site itself runs in all three. If you supply text in one language only, I'll tell you what translation will cost before adding it."
+      },
+      {
+        "q": "Who owns the site when it's done?",
+        "a": "You do — the domain, the hosting account, the code and the content are all registered in your name and handed over. You are not renting anything from me and you don't need me to make changes later. If you want me to keep maintaining it, that's a separate arrangement you can end at any time."
+      }
+    ]
+  },
+  "finalCta": {
+    "title": "Two ways to start",
+    "lead": "Take something finished, or have something drawn for you.",
+    "readyTitle": "Buy a ready-made site",
+    "readyBody": "Pick one, pay, and be online this week. You see exactly what you're getting before you spend anything.",
+    "readyAction": "Browse ready-made sites",
+    "customTitle": "Request a custom site",
+    "customBody": "Ten minutes to describe it, then a fixed price and a date from me. No obligation to go ahead.",
+    "customAction": "Request a site"
+  },
+  "footer": {
+    "tagline": "Websites for Azerbaijani businesses, built and sold by one person in Baku.",
+    "explore": "Explore",
+    "account": "Account",
+    "legalHeading": "Legal",
+    "contactHeading": "Get in touch",
+    "terms": "Terms of service",
+    "privacy": "Privacy policy",
+    "refund": "Refund & dispute policy",
+    "rights": "© {{year}} WebSale.az. All rights reserved.",
+    "builtNote": "This site is the portfolio piece — it was built the same way yours would be."
+  },
+  "auth": {
+    "signInTitle": "Sign in",
+    "signInLead": "You need an account to place an order and follow it through.",
+    "signUpTitle": "Create an account",
+    "signUpLead": "One account covers ordering, order status and your receipts.",
+    "google": "Continue with Google",
+    "microsoft": "Continue with Microsoft",
+    "orEmail": "or use your email",
+    "email": "Email",
+    "password": "Password",
+    "passwordHint": "At least 8 characters.",
+    "displayName": "Your name",
+    "signInAction": "Sign in",
+    "signUpAction": "Create account",
+    "noAccount": "No account yet?",
+    "haveAccount": "Already have an account?",
+    "forgot": "Forgot your password?",
+    "resetTitle": "Reset your password",
+    "resetLead": "Enter your email and we'll send you a link to set a new password.",
+    "resetAction": "Send reset link",
+    "resetSent": "Reset link sent — check your inbox.",
+    "verifyTitle": "Check your email",
+    "verifyBody": "We sent a confirmation link to {{email}}. Open it to finish creating your account.",
+    "signingIn": "Signing in…",
+    "signedOut": "You're signed out.",
+    "errorInvalid": "That email and password don't match an account.",
+    "errorGeneric": "Sign-in didn't go through. Try again.",
+    "errorProviderOff": "That sign-in method is not switched on yet. Use your email and password below.",
+    "notConfigured": "Sign-in isn't connected yet. Add your Supabase keys to .env.local — see the README.",
+    "backToSite": "Back to the site"
+  },
+  "request": {
+    "pageTitle": "Request a site",
+    "lead": "Six short steps. Nothing here is a commitment — you'll get a price and a date, and you decide after that.",
+    "stepOf": "Step {{current}} of {{total}}",
+    "steps": {
+      "business": "Your business",
+      "pages": "What it needs",
+      "style": "The look",
+      "budget": "Budget & timing",
+      "contact": "How to reach you",
+      "review": "Check and send"
+    },
+    "businessName": "Business name",
+    "businessType": "What does the business do?",
+    "businessTypePlaceholder": "Café, dental clinic, law office, online shop…",
+    "businessDesc": "Anything I should know about it?",
+    "businessDescPlaceholder": "Who your customers are, what you want the site to change. A couple of sentences is plenty.",
+    "hasWebsite": "Do you have a site already?",
+    "hasWebsiteNo": "No, this would be the first",
+    "hasWebsiteYes": "Yes, it needs replacing",
+    "currentUrl": "Current site address",
+    "pagesLabel": "Which pages do you need?",
+    "pagesHint": "Pick anything that sounds right — we can adjust later.",
+    "pageOptions": {
+      "home": "Home",
+      "about": "About us",
+      "services": "Services or menu",
+      "catalog": "Product catalogue",
+      "shop": "Online shop with payments",
+      "booking": "Booking or appointments",
+      "gallery": "Photo gallery",
+      "blog": "News or blog",
+      "contact": "Contact and map",
+      "careers": "Jobs"
+    },
+    "featuresLabel": "Anything else it has to do?",
+    "featureOptions": {
+      "multilang": "Three languages (AZ / RU / EN)",
+      "crm": "Send enquiries to my email or WhatsApp",
+      "analytics": "Visitor statistics",
+      "seo": "Show up on Google searches",
+      "social": "Instagram feed on the site",
+      "admin": "I want to edit the text myself"
+    },
+    "styleRefs": "Sites whose look you like",
+    "styleRefsPlaceholder": "Paste one or two addresses — competitors, or anything at all that you like the look of.",
+    "styleNotes": "Anything you definitely don't want?",
+    "styleNotesPlaceholder": "Colours to avoid, a competitor's site you dislike, \"nothing too corporate\"…",
+    "hasBranding": "Do you have a logo and brand colours?",
+    "brandingYes": "Yes, I'll send them",
+    "brandingNo": "No, I need those too",
+    "budgetLabel": "Roughly what are you expecting to spend?",
+    "budgetHint": "An honest range helps me tell you quickly whether it's doable. It isn't binding.",
+    "budgetOptions": {
+      "under500": "Under 500 ₼",
+      "500to1500": "500 – 1 500 ₼",
+      "1500to3000": "1 500 – 3 000 ₼",
+      "over3000": "Over 3 000 ₼",
+      "unsure": "I don't know — tell me what it should cost"
+    },
+    "timelineLabel": "When do you need it live?",
+    "timelineOptions": {
+      "asap": "As soon as possible",
+      "month": "Within a month",
+      "quarter": "Within three months",
+      "flexible": "No fixed date"
+    },
+    "contactName": "Your name",
+    "contactEmail": "Email",
+    "contactPhone": "Phone or WhatsApp",
+    "contactPreferred": "Best way to reach you",
+    "preferredEmail": "Email",
+    "preferredPhone": "Phone",
+    "preferredWhatsapp": "WhatsApp",
+    "reviewLead": "Here's what you're sending. Go back and change anything that's off.",
+    "submit": "Send request",
+    "submitting": "Sending…",
+    "sentTitle": "Request sent",
+    "sentBody": "It's in my queue. You'll get a price and a completion date by email, and the request will show up under “My orders” with its status.",
+    "sentAction": "See my orders",
+    "sentBrowse": "Look at ready-made sites meanwhile",
+    "validation": {
+      "businessName": "Tell me the business name.",
+      "businessType": "One or two words about what the business does.",
+      "pages": "Pick at least one page.",
+      "name": "What should I call you?",
+      "email": "I need an email address to send the quote to.",
+      "emailFormat": "That doesn't look like an email address.",
+      "contact": "Give me at least one way to reach you."
+    }
+  },
+  "portfolio": {
+    "pageTitle": "Work",
+    "lead": "Every build below is a real site with a real owner. Each one shows the problem it started from, what got built, and what changed afterwards.",
+    "filterAll": "All",
+    "filterIndustry": "Industry",
+    "filterTech": "Built with",
+    "empty": "No case studies match those filters.",
+    "clearFilters": "Clear filters",
+    "problem": "The problem",
+    "built": "What I built",
+    "outcome": "What changed",
+    "stack": "Built with",
+    "industry": "Industry",
+    "year": "Year",
+    "liveDemo": "Visit the live site",
+    "nextCase": "Next project",
+    "backToPortfolio": "All work",
+    "notFound": "That case study isn't here."
+  },
+  "market": {
+    "pageTitle": "Ready-made sites",
+    "lead": "Finished, tested sites you can put on your own domain. What you see in the demo is what you get — I swap in your text, photos and logo, then hand it over.",
+    "sortLabel": "Sort",
+    "sortNewest": "Newest first",
+    "sortPriceAsc": "Price: low to high",
+    "sortPriceDesc": "Price: high to low",
+    "filterCategory": "Category",
+    "empty": "Nothing listed here yet.",
+    "liveDemo": "Open live demo",
+    "buy": "Buy this site",
+    "included": "What you get",
+    "license": "Licence",
+    "licenseSingle": "One business, one domain",
+    "licenseSingleNote": "You can use this site for one business on one domain, for as long as you like. You can change anything in it. You can't resell it as a template to someone else.",
+    "pages": "Pages",
+    "stack": "Built with",
+    "bestFor": "Best for",
+    "screenshots": "Screens",
+    "notFound": "That listing isn't here.",
+    "sold": "Sold",
+    "soldNote": "This one was an exclusive sale and is no longer available.",
+    "similar": "Other ready-made sites",
+    "includedItems": [
+      "Full source code, handed over to you",
+      "Set up on your domain and hosting",
+      "Your text, photos and logo put in",
+      "Works properly on phones",
+      "Basic Google search setup",
+      "Two rounds of changes after handover"
+    ]
+  },
+  "checkout": {
+    "pageTitle": "Payment",
+    "lead": "Transfer the amount below from whatever banking app you already use, then upload the receipt. Nothing is delivered until I've confirmed the money arrived.",
+    "orderSummary": "What you're paying for",
+    "amountDue": "Amount to transfer",
+    "reference": "Reference code",
+    "referenceHelp": "Put this code in the transfer description. It's how your payment gets matched to your order — a transfer without it can take days to trace.",
+    "sendTo": "Send it to",
+    "bank": "Bank",
+    "accountHolder": "Account name",
+    "cardNumber": "Card number",
+    "iban": "IBAN",
+    "wallets": "Also works from",
+    "noCardData": "This page only shows the account receiving the money. This site has no field for your card number, expiry date or CVV anywhere, and never will — those are only needed to spend from a card, not to send money to one.",
+    "detailsMissing": "Payment details haven't been set up yet. The Owner needs to fill in VITE_PAY_* in the environment file — see the README.",
+    "depositSplit": "Split this payment",
+    "depositExplain": "Pay {{percent}}% now to start the work and the rest when the site is finished and you've seen it. Slightly slower to start, but you're not paying in full for something that doesn't exist yet.",
+    "payFull": "Pay the full amount now",
+    "payDeposit": "Pay {{percent}}% deposit now",
+    "depositNow": "Deposit now",
+    "balanceLater": "Balance on delivery",
+    "uploadTitle": "Upload your receipt",
+    "uploadHelp": "A screenshot or PDF from your banking app. JPG, PNG, WebP or PDF, up to 8 MB.",
+    "uploadAction": "Choose file",
+    "uploadChange": "Choose a different file",
+    "uploadedFile": "Attached: {{name}}",
+    "amountPaid": "Amount you transferred",
+    "paidAt": "Date of transfer",
+    "noteLabel": "Anything I should know?",
+    "notePlaceholder": "Paid from a different name, transferred in two parts, etc.",
+    "submit": "I've paid — submit for review",
+    "submitting": "Sending…",
+    "submitted": "Payment submitted",
+    "submittedBody": "I'll check it against my bank statement and confirm. You'll get an email either way, and the order status updates here.",
+    "toOrder": "Follow this order",
+    "errors": {
+      "file": "Attach the receipt from your banking app.",
+      "fileType": "That file type won't open. Use JPG, PNG, WebP or PDF.",
+      "fileSize": "That file is over 8 MB. Send a screenshot instead of a full statement.",
+      "amount": "Tell me how much you transferred.",
+      "upload": "The upload didn't finish. Check your connection and try again."
+    }
+  },
+  "status": {
+    "draft": "Draft",
+    "quote_requested": "Waiting for a quote",
+    "quoted": "Quote sent",
+    "quote_declined": "Quote declined",
+    "awaiting_payment": "Awaiting payment",
+    "payment_submitted": "Payment under review",
+    "paid": "Paid",
+    "in_progress": "In progress",
+    "delivered": "Delivered",
+    "completed": "Completed",
+    "payment_rejected": "Payment not confirmed",
+    "cancelled": "Cancelled",
+    "help": {
+      "quote_requested": "I've got your request and I'm pricing it.",
+      "quoted": "Have a look at the price and the date, then accept or turn it down.",
+      "awaiting_payment": "Transfer the amount and upload your receipt to move this along.",
+      "payment_submitted": "I'm checking the transfer against my bank statement. Usually within a day.",
+      "paid": "Money confirmed. Work starts now.",
+      "in_progress": "Being built. You'll get a preview link as soon as there's something to look at.",
+      "delivered": "It's finished and handed over. Check everything, then mark it complete.",
+      "completed": "Done and closed. You can leave a review.",
+      "payment_rejected": "I couldn't match the transfer. See the reason below and re-upload.",
+      "cancelled": "This order was cancelled."
+    }
+  },
+  "order": {
+    "pageTitle": "Order",
+    "reference": "Order",
+    "placed": "Placed",
+    "updated": "Last update",
+    "total": "Total",
+    "deposit": "Deposit",
+    "balance": "Balance",
+    "item": "Item",
+    "customBuild": "Custom build",
+    "timeline": "Progress",
+    "receipt": "Your receipt",
+    "receiptSubmitted": "Submitted {{date}}",
+    "viewReceipt": "Open receipt",
+    "rejectedReason": "Why it wasn't confirmed",
+    "reupload": "Upload a new receipt",
+    "payNow": "Pay now",
+    "payBalance": "Pay the balance",
+    "quoteTitle": "Your quote",
+    "quoteAmount": "Price",
+    "quoteDelivery": "Finished by",
+    "quoteScope": "What's included",
+    "quoteNote": "Note from me",
+    "acceptQuote": "Accept and pay",
+    "declineQuote": "Turn this down",
+    "declineReason": "Tell me why (optional — it helps me quote better)",
+    "declined": "Quote declined",
+    "quoteExpires": "This price holds until {{date}}",
+    "deliveryTitle": "Handover",
+    "deliveryBody": "Everything for your site is below.",
+    "deliveryLink": "Live site",
+    "deliveryFiles": "Files and logins",
+    "markComplete": "Everything's there — close this order",
+    "markedComplete": "Order completed",
+    "messages": "Messages",
+    "messagePlaceholder": "Ask me anything about this order.",
+    "sendMessage": "Send",
+    "noMessages": "No messages yet.",
+    "notFound": "That order isn't here, or it isn't yours.",
+    "awaitingOwner": "Waiting on me — nothing for you to do right now."
+  },
+  "dashboard": {
+    "pageTitle": "My orders",
+    "lead": "Everything you've ordered and where it stands.",
+    "active": "Active",
+    "past": "Finished",
+    "requests": "Requests",
+    "noOrders": "You haven't ordered anything yet.",
+    "noOrdersAction": "Browse ready-made sites",
+    "noRequests": "No custom requests yet.",
+    "noRequestsAction": "Request a site",
+    "actionNeeded": "Needs you",
+    "viewOrder": "Open"
+  },
+  "profile": {
+    "pageTitle": "Profile",
+    "details": "Your details",
+    "displayName": "Display name",
+    "email": "Email",
+    "emailImmutable": "Sign-in email — contact us to change it.",
+    "phone": "Phone",
+    "avatar": "Photo",
+    "avatarChange": "Change photo",
+    "avatarRemove": "Remove",
+    "saved": "Saved",
+    "savedSites": "Saved sites",
+    "noSaved": "Nothing saved. Tap the bookmark on any listing to keep it here.",
+    "myReviews": "Reviews you've left",
+    "noReviews": "You haven't left a review yet.",
+    "dangerZone": "Account",
+    "signOutEverywhere": "Sign out",
+    "deleteAccount": "Delete my account",
+    "deleteWarning": "This removes your profile and saved sites. Completed orders and their receipts are kept for accounting, as the law requires."
+  },
+  "admin": {
+    "pageTitle": "Owner desk",
+    "lead": "Requests to quote, payments to confirm, and everything currently in the queue.",
+    "notOwner": "This page is for the site owner.",
+    "tabs": {
+      "payments": "Payments to check",
+      "requests": "New requests",
+      "orders": "All orders",
+      "listings": "Listings",
+      "cases": "Case studies"
+    },
+    "queueEmpty": "Nothing waiting.",
+    "statusPublished": "Live",
+    "statusDraft": "Not live",
+    "reviewPayment": "Check this payment",
+    "claimedAmount": "Buyer says they sent",
+    "expectedAmount": "Order total",
+    "amountMismatch": "Doesn't match the order total",
+    "buyerNote": "Buyer's note",
+    "receiptWarning": "A receipt is a notification, not proof — it can be edited. Confirm this only after you've seen the money in your own statement.",
+    "confirm": "Confirm — money received",
+    "reject": "Reject",
+    "rejectReasonLabel": "What should the buyer be told?",
+    "rejectReasons": {
+      "notFound": "Nothing arrived with this reference",
+      "amount": "The amount doesn't match",
+      "reference": "The transfer had no reference code",
+      "other": "Something else"
+    },
+    "rejectDetail": "Add detail (the buyer sees this)",
+    "confirmed": "Confirmed — buyer notified",
+    "rejected": "Rejected — buyer notified",
+    "sendQuote": "Send a quote",
+    "quoteAmount": "Price (₼)",
+    "quoteDelivery": "Finished by",
+    "quoteScope": "What's included",
+    "quoteNote": "Note to the buyer",
+    "quoteValidDays": "Price holds for (days)",
+    "sendQuoteAction": "Send quote",
+    "quoteSent": "Quote sent",
+    "setInProgress": "Start work",
+    "markDelivered": "Mark as delivered",
+    "deliveryLink": "Live site address",
+    "deliveryNotes": "Handover notes and logins",
+    "newListing": "New listing",
+    "editListing": "Edit",
+    "publish": "Publish",
+    "unpublish": "Unpublish",
+    "delete": "Delete",
+    "confirmDelete": "Delete this for good?"
+  },
+  "legal": {
+    "lastUpdated": "Last updated {{date}}",
+    "terms": {
+      "title": "Terms of service",
+      "intro": "These terms cover what you get when you order a site through WebSale.az and what is expected from both sides. They're written to be read, not to be survived.",
+      "sections": [
+        {
+          "h": "Who you're dealing with",
+          "b": "WebSale.az is run by one person based in Baku, Azerbaijan. There is no agency behind it. When you send a message, that person reads it. Contact details are in the footer of every page."
+        },
+        {
+          "h": "Ready-made sites",
+          "b": "A listing shows the finished site, its price and its licence before you buy. Buying one gets you the source code, setup on your domain, and your own text, photos and logo put in place. The licence covers one business on one domain — you can modify the site however you like, but you can't resell it as a template."
+        },
+        {
+          "h": "Custom builds",
+          "b": "You send a request, you get back a fixed price, a written scope of what's included and a completion date. Nothing starts until you accept. If you later want something outside that scope, it gets quoted separately rather than absorbed silently or dropped."
+        },
+        {
+          "h": "Revisions",
+          "b": "Two full rounds of changes are included after the first working version, for both ready-made and custom sites. Fixing something that doesn't match the agreed scope isn't a revision round — that's just finishing the job, and it's free."
+        },
+        {
+          "h": "Payment",
+          "b": "Payment is by bank transfer or e-wallet to the account shown at checkout, with your order reference in the description. Your payment is confirmed once it appears in the receiving bank statement — not when you upload the receipt. This site never asks for, receives or stores your card number, expiry date, CVV or bank login."
+        },
+        {
+          "h": "What you provide",
+          "b": "Text, photos, logo and any accounts the site needs to connect to. If those don't arrive, the completion date moves by however long it takes them to. Anything you send has to be yours to send — if you supply photos or text you don't own the rights to, that's on you."
+        },
+        {
+          "h": "Ownership after handover",
+          "b": "Once the final payment is confirmed, the site is yours: domain, hosting account, code and content, all in your name. There is no ongoing licence fee and you don't need permission to change it or to have someone else work on it."
+        },
+        {
+          "h": "What isn't covered",
+          "b": "Hosting and domain fees are paid to those providers directly at their prices. Ongoing maintenance, new features after handover, and content updates are separate work. Search-engine rankings, sales figures and traffic levels are not something anyone can promise, and are not promised here."
+        },
+        {
+          "h": "Ending the arrangement",
+          "b": "You can cancel a custom build at any time before delivery. What happens to money already paid is set out in the refund policy. If you become impossible to reach for 60 days mid-build, the order is paused and, after that, closed with the refund policy applied."
+        },
+        {
+          "h": "Governing law",
+          "b": "These terms are governed by the law of the Republic of Azerbaijan. If something goes wrong, email first — nearly everything is fixable that way."
+        }
+      ]
+    },
+    "privacy": {
+      "title": "Privacy policy",
+      "intro": "What this site collects, why, and what happens to it. Short, because it doesn't collect much.",
+      "sections": [
+        {
+          "h": "What's collected",
+          "b": "Your name and email when you create an account. Whatever you write in a site request. Your order history. Payment receipts you choose to upload. If you sign in with Google or Microsoft, they give this site your name, email and profile picture — nothing else, and no access to your files or mail."
+        },
+        {
+          "h": "What is never collected",
+          "b": "Card numbers, expiry dates, CVV codes, bank logins. There is no form field for any of these anywhere on this site, because payments happen inside your own banking app and never pass through here."
+        },
+        {
+          "h": "Why it's collected",
+          "b": "To quote your project, build it, keep you updated, confirm payments, and keep the accounting records that tax law requires. That's the whole list. Nothing is sold to anyone and there is no advertising network embedded on this site."
+        },
+        {
+          "h": "Where it lives",
+          "b": "Account details, orders and uploaded receipts are stored with Supabase, the database and file-storage provider behind this site. Receipt files are private: only you and the site owner can open them."
+        },
+        {
+          "h": "How long it's kept",
+          "b": "Your account data stays until you delete your account. Completed orders and their receipts are kept for as long as accounting law requires them, which is why deleting your account doesn't erase those."
+        },
+        {
+          "h": "Cookies",
+          "b": "Two things are stored in your browser: your sign-in session, and your language choice. There are no tracking or advertising cookies, and therefore no cookie banner to click through."
+        },
+        {
+          "h": "Your choices",
+          "b": "You can see and edit your details on your profile page, delete your account, or email and ask for a copy of everything held about you. Requests like that are answered within 30 days."
+        }
+      ]
+    },
+    "refund": {
+      "title": "Refund & dispute policy",
+      "intro": "Payments here go directly between your bank and mine, so there's no card processor to arbitrate. That makes it more important, not less, that the rules are written down plainly in advance. This is the whole policy.",
+      "sections": [
+        {
+          "h": "Before work starts",
+          "b": "A deposit is fully refundable at any point before I begin building. Say the word and it goes back the way it came, within five working days."
+        },
+        {
+          "h": "While the site is being built",
+          "b": "If you cancel mid-build, you pay for the work already done and the rest is returned. You get an itemised note of what that covers — no round numbers pulled out of the air — and you keep whatever has been built so far."
+        },
+        {
+          "h": "After delivery",
+          "b": "If the delivered site doesn't do what the accepted quote said it would, I fix it. If it can't be fixed, you get a full refund and keep nothing that was delivered. If it does match the quote and you've simply changed your mind, that isn't refundable — the work exists and it was done to your brief."
+        },
+        {
+          "h": "Ready-made sites",
+          "b": "You can see the full working demo before you pay, so there's no hidden surprise. Once the code and logins have been handed to you, the sale is final. If handover hasn't happened yet, you get a full refund on request."
+        },
+        {
+          "h": "If a payment goes wrong",
+          "b": "Transfers without the order reference are the usual problem — they're slow to trace, not lost. Send me the receipt and the exact time of the transfer and I'll find it. If you paid twice, the duplicate goes back within five working days."
+        },
+        {
+          "h": "Disputes",
+          "b": "Email first, always: describe the problem and what would fix it. I aim to reply within two working days and to settle it within ten. If we genuinely can't agree, either side can take it to the courts of the Republic of Azerbaijan — but in a business this size, that helps nobody, and it has never been necessary."
+        },
+        {
+          "h": "How refunds are sent",
+          "b": "To the same account the money came from, in AZN, within five working days of being agreed. Any transfer fee charged by your own bank is theirs, not mine, and I can't refund it."
+        }
+      ]
+    }
+  },
+  "seo": {
+    "home": {
+      "title": "WebSale.az — websites built and sold in Baku",
+      "description": "Custom websites and ready-made sites for Azerbaijani businesses. Fixed price, a firm date, and you pay after you've seen it working."
+    },
+    "portfolio": {
+      "title": "Work — WebSale.az",
+      "description": "Case studies: the brief each site started from, what got built, and what changed after launch."
+    },
+    "market": {
+      "title": "Ready-made sites — WebSale.az",
+      "description": "Finished websites you can put on your own domain this week. Live demo and full price on every listing."
+    },
+    "request": {
+      "title": "Request a site — WebSale.az",
+      "description": "Describe what your business needs and get a fixed price and completion date. No obligation."
+    }
+  },
+  "notFound": {
+    "title": "Nothing at this address",
+    "body": "The page you're after has moved or never existed. The measurements below are correct; the page isn't.",
+    "action": "Back to the home page"
+  },
+  "a11y": {
+    "rating": "Rated {{rating}} out of 5",
+    "openInNewTab": "opens in a new tab",
+    "currentStep": "current step",
+    "completedStep": "completed",
+    "imagePlaceholder": "Image not yet supplied"
+  }
+}

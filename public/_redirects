@@ -1,0 +1,4 @@
+# Netlify: this is a single-page app, so every unknown path has to reach
+# index.html and let the router decide — otherwise a direct link to
+# /marketplace/vitrin 404s at the CDN before React ever runs.
+/*  /index.html  200

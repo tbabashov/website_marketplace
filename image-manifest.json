@@ -1,0 +1,150 @@
+{
+  "$comment": "Every image slot in the site. Drop a file at `expected_path` and it appears — no code changes. Until then the slot renders a deliberate duotone placeholder at the right crop. `search_terms` is written to be pasted straight into a stock-photo search or an image tool.",
+  "version": 1,
+  "asset_root": "/assets/images",
+  "slots": [
+    {
+      "id": "hero-workspace",
+      "expected_path": "/assets/images/hero/hero-workspace.jpg",
+      "search_terms": "overhead desk at night, laptop with code editor, paper notebook with wireframe sketches, warm desk lamp, dark wood, no people, wide crop",
+      "aspect_ratio": "16:9",
+      "min_width_px": 2400,
+      "alt_text": {
+        "az": "Gecə işıqlandırılmış iş masası: noutbukda kod redaktoru və yanında sayt eskizləri çəkilmiş dəftər",
+        "en": "A desk at night with a code editor open on a laptop and a notebook of website sketches beside it",
+        "ru": "Рабочий стол ночью: на ноутбуке открыт редактор кода, рядом блокнот с набросками сайта"
+      },
+      "placement_note": "Sits inside the hero drafting frame on screens ≥1024px, behind the headline at low opacity. Keep the centre calm — text sits over the left two thirds."
+    },
+    {
+      "id": "owner-portrait",
+      "expected_path": "/assets/images/owner/owner-portrait.jpg",
+      "search_terms": "replace with a real photo of the Owner — natural light, plain dark background, waist up, looking at camera, no stock photography here",
+      "aspect_ratio": "4:5",
+      "min_width_px": 1200,
+      "alt_text": {
+        "az": "WebSale.az-ın qurucusunun portreti",
+        "en": "Portrait of the person behind WebSale.az",
+        "ru": "Портрет основателя WebSale.az"
+      },
+      "placement_note": "Left column of the 'how it works' section on desktop. This one must be the real Owner — a stock portrait next to 'one person in Baku' undoes the whole page."
+    },
+    {
+      "id": "portfolio-nargiz-dental-cover",
+      "expected_path": "/assets/images/portfolio/nargiz-dental-cover.jpg",
+      "search_terms": "dental clinic website shown on a laptop screen, clean bright reception in background, blurred",
+      "aspect_ratio": "3:2",
+      "min_width_px": 1600,
+      "alt_text": {
+        "az": "Nargiz Dental saytının noutbuk ekranındakı görünüşü",
+        "en": "The Nargiz Dental site shown on a laptop screen",
+        "ru": "Сайт Nargiz Dental на экране ноутбука"
+      },
+      "placement_note": "Portfolio grid card and the top plate of the case study page."
+    },
+    {
+      "id": "portfolio-kaspi-yuk-cover",
+      "expected_path": "/assets/images/portfolio/kaspi-yuk-cover.jpg",
+      "search_terms": "freight truck loading bay at dusk, cargo pallets, warehouse doors, muted colours",
+      "aspect_ratio": "3:2",
+      "min_width_px": 1600,
+      "alt_text": {
+        "az": "Kaspi Yük şirkətinin yükləmə meydançası",
+        "en": "The Kaspi Yük loading bay",
+        "ru": "Погрузочная площадка компании Kaspi Yük"
+      },
+      "placement_note": "Portfolio grid card and case study header."
+    },
+    {
+      "id": "portfolio-cay-evi-cover",
+      "expected_path": "/assets/images/portfolio/cay-evi-cover.jpg",
+      "search_terms": "azerbaijani tea house interior, armudu pear-shaped tea glasses on a table, warm lamps, evening",
+      "aspect_ratio": "3:2",
+      "min_width_px": 1600,
+      "alt_text": {
+        "az": "Çay Evi Şirvanın içərisi, masada armudu stəkanlar",
+        "en": "Inside Çay Evi Şirvan, armudu tea glasses on a table",
+        "ru": "Интерьер чайханы «Ширван», на столе стаканы армуду"
+      },
+      "placement_note": "Portfolio grid card and case study header."
+    },
+    {
+      "id": "portfolio-atlas-huquq-cover",
+      "expected_path": "/assets/images/portfolio/atlas-huquq-cover.jpg",
+      "search_terms": "law office meeting room, dark wood table, window light, bookshelf out of focus, no people",
+      "aspect_ratio": "3:2",
+      "min_width_px": 1600,
+      "alt_text": {
+        "az": "Atlas Hüquq bürosunun iclas otağı",
+        "en": "The meeting room at Atlas Legal",
+        "ru": "Переговорная юридического бюро Atlas Legal"
+      },
+      "placement_note": "Portfolio grid card and case study header."
+    },
+    {
+      "id": "marketplace-vitrin-cover",
+      "expected_path": "/assets/images/marketplace/vitrin-cover.jpg",
+      "search_terms": "screenshot of a one-page business website on a phone and laptop side by side, dark background, product-shot lighting",
+      "aspect_ratio": "16:10",
+      "min_width_px": 1600,
+      "alt_text": {
+        "az": "Vitrin şablonunun telefon və noutbukda görünüşü",
+        "en": "The Vitrin template shown on a phone and a laptop",
+        "ru": "Шаблон Vitrin на телефоне и ноутбуке"
+      },
+      "placement_note": "Marketplace row thumbnail (left) and listing page hero plate."
+    },
+    {
+      "id": "marketplace-menyu-cover",
+      "expected_path": "/assets/images/marketplace/menyu-cover.jpg",
+      "search_terms": "restaurant QR code menu open on a phone held above a laid table, warm interior, shallow depth of field",
+      "aspect_ratio": "16:10",
+      "min_width_px": 1600,
+      "alt_text": {
+        "az": "Menyu şablonu: masanın üstündə telefonda açılmış QR menyu",
+        "en": "The Menyu template: a QR menu open on a phone above a laid table",
+        "ru": "Шаблон Menyu: QR-меню открыто на телефоне над накрытым столом"
+      },
+      "placement_note": "Marketplace row thumbnail and listing page hero plate."
+    },
+    {
+      "id": "marketplace-kataloq-cover",
+      "expected_path": "/assets/images/marketplace/kataloq-cover.jpg",
+      "search_terms": "online product catalogue grid shown on a large monitor, furniture products, dark UI, straight-on shot",
+      "aspect_ratio": "16:10",
+      "min_width_px": 1600,
+      "alt_text": {
+        "az": "Kataloq şablonunun monitorda məhsul siyahısı görünüşü",
+        "en": "The Kataloq template showing a product grid on a monitor",
+        "ru": "Шаблон Kataloq: сетка товаров на мониторе"
+      },
+      "placement_note": "Marketplace row thumbnail and listing page hero plate."
+    },
+    {
+      "id": "marketplace-klinika-cover",
+      "expected_path": "/assets/images/marketplace/klinika-cover.jpg",
+      "search_terms": "medical clinic booking page on a tablet, clean waiting room behind, soft daylight",
+      "aspect_ratio": "16:10",
+      "min_width_px": 1600,
+      "alt_text": {
+        "az": "Klinika şablonunun planşetdə qeydiyyat səhifəsi",
+        "en": "The Klinika template booking page on a tablet",
+        "ru": "Шаблон Klinika: страница записи на планшете"
+      },
+      "placement_note": "Marketplace row thumbnail and listing page hero plate."
+    },
+    {
+      "id": "og-default",
+      "expected_path": "/assets/images/og/og-default.jpg",
+      "search_terms": "export this one from the site itself: the hero section at 1200×630, WebSale.az wordmark legible at small size",
+      "aspect_ratio": "1.91:1",
+      "min_width_px": 1200,
+      "alt_text": {
+        "az": "WebSale.az — Bakıda qurulan və satılan saytlar",
+        "en": "WebSale.az — websites built and sold in Baku",
+        "ru": "WebSale.az — сайты, собранные и проданные в Баку"
+      },
+      "placement_note": "Default OpenGraph card for links shared to WhatsApp, Telegram and Facebook. Listing and case study pages override it with their own cover when one exists."
+    }
+  ]
+}

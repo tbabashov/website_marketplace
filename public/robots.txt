@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Signed-in areas: nothing here is useful in a search result, and order pages
+# carry a reference code that should not be indexed.
+Disallow: /dashboard
+Disallow: /orders/
+Disallow: /checkout/
+Disallow: /profile
+Disallow: /admin
+Disallow: /auth
+
+Sitemap: https://websale.az/sitemap.xml
