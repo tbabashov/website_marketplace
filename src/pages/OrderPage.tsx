@@ -300,7 +300,6 @@ export default function OrderPage() {
                           <TextArea
                             id={fid}
                             rows={3}
-                            className="bg-paper"
                             value={declineReason}
                             onChange={(e) => setDeclineReason(e.target.value)}
                           />

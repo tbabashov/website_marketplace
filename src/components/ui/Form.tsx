@@ -11,10 +11,15 @@ import clsx from 'clsx';
  * loses the instruction the moment they get something wrong.
  */
 
+/**
+ * Fields carry their own lighter surface *and* a hairline, so they stay
+ * legible on every ground the site has — paper, a paper-2 card, or a tinted
+ * panel. Relying on fill alone is what made them disappear inside cards.
+ */
 const fieldBase =
-  'w-full rounded-2xl bg-paper-2 px-5 py-4 text-base text-ink placeholder:text-ink-faint ' +
-  'border border-transparent transition-colors duration-200 ' +
-  'hover:bg-paper-3 focus:border-blue focus:bg-paper-2 focus:outline-none';
+  'w-full rounded-2xl bg-field px-5 py-4 text-base text-ink placeholder:text-ink-mute ' +
+  'border border-line transition-colors duration-200 ' +
+  'hover:border-ink/25 focus:border-blue focus:outline-none';
 
 interface FieldProps {
   label: string;

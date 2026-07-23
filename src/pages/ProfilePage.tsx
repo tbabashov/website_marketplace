@@ -90,7 +90,6 @@ export default function ProfilePage() {
                     <TextInput
                       id={id}
                       autoComplete="name"
-                      className="bg-paper"
                       value={displayName}
                       onChange={(e) => setDisplayName(e.target.value)}
                     />
@@ -102,7 +101,7 @@ export default function ProfilePage() {
                     <TextInput
                       id={id}
                       aria-describedby={describedBy}
-                      className="bg-paper opacity-60"
+                      className="opacity-60"
                       value={user?.email ?? ''}
                       disabled
                       readOnly
@@ -118,7 +117,6 @@ export default function ProfilePage() {
                       inputMode="tel"
                       autoComplete="tel"
                       placeholder="+994"
-                      className="bg-paper"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                     />

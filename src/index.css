@@ -17,8 +17,12 @@
 @theme {
   /* --- Paper: the canvas ---------------------------------------------- */
   --color-paper: #efede7;
-  --color-paper-2: #e6e3da; /* inset wells, hovered rows */
+  --color-paper-2: #e6e3da; /* raised panels, hovered rows */
   --color-paper-3: #dcd8cc; /* pressed, active track */
+  /* Form fields get their own surface, lighter than any ground they sit on.
+     They previously reused paper-2, which made every input inside a paper-2
+     card invisible — same fill, same colour, no edge. */
+  --color-field: #f8f7f3;
 
   /* --- Ink: text on paper, darkest to lightest ------------------------ */
   --color-ink: #121210;
