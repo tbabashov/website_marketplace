@@ -13,12 +13,36 @@
  * tags the app writes at runtime.
  */
 
-import { writeFile, mkdir } from 'node:fs/promises';
+import { writeFile, mkdir, readFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const outFile = resolve(here, '../public/sitemap.xml');
+
+/**
+ * This script runs before Vite, so it never sees the variables Vite loads
+ * from .env.local — locally that silently produced a sitemap full of the
+ * default domain. On Vercel the values are already in process.env and this
+ * is a no-op; locally it makes the output match the app.
+ */
+for (const file of ['.env.local', '.env']) {
+  try {
+    const text = await readFile(resolve(here, '..', file), 'utf8');
+    for (const line of text.split('\n')) {
+      const trimmed = line.trim();
+      if (!trimmed || trimmed.startsWith('#')) continue;
+      const eq = trimmed.indexOf('=');
+      if (eq === -1) continue;
+      const key = trimmed.slice(0, eq).trim();
+      const value = trimmed.slice(eq + 1).trim();
+      // Anything already in the real environment wins.
+      if (value && !process.env[key]) process.env[key] = value;
+    }
+  } catch {
+    // No such file — expected on CI and on a fresh clone.
+  }
+}
 
 const SITE = (process.env.VITE_SITE_URL || 'https://websale.az').replace(/\/+$/, '');
 const SUPABASE_URL = process.env.VITE_SUPABASE_URL?.trim();

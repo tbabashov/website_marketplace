@@ -2,66 +2,86 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://websale.az/</loc>
-    <xhtml:link rel="alternate" hreflang="az" href="https://websale.az/?lang=az"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://websale.az/?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://websale.az/?lang=ru"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://websale.az/"/>
+    <loc>https://websale-gules.vercel.app/</loc>
+    <xhtml:link rel="alternate" hreflang="az" href="https://websale-gules.vercel.app/?lang=az"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://websale-gules.vercel.app/?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://websale-gules.vercel.app/?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://websale-gules.vercel.app/"/>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://websale.az/portfolio</loc>
-    <xhtml:link rel="alternate" hreflang="az" href="https://websale.az/portfolio?lang=az"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://websale.az/portfolio?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://websale.az/portfolio?lang=ru"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://websale.az/portfolio"/>
+    <loc>https://websale-gules.vercel.app/portfolio</loc>
+    <xhtml:link rel="alternate" hreflang="az" href="https://websale-gules.vercel.app/portfolio?lang=az"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://websale-gules.vercel.app/portfolio?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://websale-gules.vercel.app/portfolio?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://websale-gules.vercel.app/portfolio"/>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://websale.az/marketplace</loc>
-    <xhtml:link rel="alternate" hreflang="az" href="https://websale.az/marketplace?lang=az"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://websale.az/marketplace?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://websale.az/marketplace?lang=ru"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://websale.az/marketplace"/>
+    <loc>https://websale-gules.vercel.app/marketplace</loc>
+    <xhtml:link rel="alternate" hreflang="az" href="https://websale-gules.vercel.app/marketplace?lang=az"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://websale-gules.vercel.app/marketplace?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://websale-gules.vercel.app/marketplace?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://websale-gules.vercel.app/marketplace"/>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://websale.az/request</loc>
-    <xhtml:link rel="alternate" hreflang="az" href="https://websale.az/request?lang=az"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://websale.az/request?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://websale.az/request?lang=ru"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://websale.az/request"/>
+    <loc>https://websale-gules.vercel.app/request</loc>
+    <xhtml:link rel="alternate" hreflang="az" href="https://websale-gules.vercel.app/request?lang=az"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://websale-gules.vercel.app/request?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://websale-gules.vercel.app/request?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://websale-gules.vercel.app/request"/>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://websale.az/terms</loc>
-    <xhtml:link rel="alternate" hreflang="az" href="https://websale.az/terms?lang=az"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://websale.az/terms?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://websale.az/terms?lang=ru"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://websale.az/terms"/>
+    <loc>https://websale-gules.vercel.app/terms</loc>
+    <xhtml:link rel="alternate" hreflang="az" href="https://websale-gules.vercel.app/terms?lang=az"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://websale-gules.vercel.app/terms?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://websale-gules.vercel.app/terms?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://websale-gules.vercel.app/terms"/>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://websale.az/privacy</loc>
-    <xhtml:link rel="alternate" hreflang="az" href="https://websale.az/privacy?lang=az"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://websale.az/privacy?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://websale.az/privacy?lang=ru"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://websale.az/privacy"/>
+    <loc>https://websale-gules.vercel.app/privacy</loc>
+    <xhtml:link rel="alternate" hreflang="az" href="https://websale-gules.vercel.app/privacy?lang=az"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://websale-gules.vercel.app/privacy?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://websale-gules.vercel.app/privacy?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://websale-gules.vercel.app/privacy"/>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://websale.az/refund</loc>
-    <xhtml:link rel="alternate" hreflang="az" href="https://websale.az/refund?lang=az"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://websale.az/refund?lang=en"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://websale.az/refund?lang=ru"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://websale.az/refund"/>
+    <loc>https://websale-gules.vercel.app/refund</loc>
+    <xhtml:link rel="alternate" hreflang="az" href="https://websale-gules.vercel.app/refund?lang=az"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://websale-gules.vercel.app/refund?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://websale-gules.vercel.app/refund?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://websale-gules.vercel.app/refund"/>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://websale-gules.vercel.app/marketplace/vitrin</loc>
+    <xhtml:link rel="alternate" hreflang="az" href="https://websale-gules.vercel.app/marketplace/vitrin?lang=az"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://websale-gules.vercel.app/marketplace/vitrin?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://websale-gules.vercel.app/marketplace/vitrin?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://websale-gules.vercel.app/marketplace/vitrin"/>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://websale-gules.vercel.app/portfolio/client-slug</loc>
+    <xhtml:link rel="alternate" hreflang="az" href="https://websale-gules.vercel.app/portfolio/client-slug?lang=az"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://websale-gules.vercel.app/portfolio/client-slug?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://websale-gules.vercel.app/portfolio/client-slug?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://websale-gules.vercel.app/portfolio/client-slug"/>
+    <lastmod>2026-07-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>
