@@ -116,7 +116,11 @@ export function Header() {
           </nav>
 
           <div className="ml-auto flex items-center gap-3 md:gap-5">
-            <LanguageSwitcher className="hidden sm:inline-flex" />
+            {/* Below lg the header is only wordmark + hamburger. The language
+                switcher and the request CTA both live in the mobile menu, so
+                crowding them into the bar — where the CTA label clipped and
+                the hamburger was pushed off the edge — buys nothing. */}
+            <LanguageSwitcher className="hidden lg:inline-flex" />
 
             {user ? (
               <div className="hidden items-center gap-5 lg:flex">
@@ -151,7 +155,7 @@ export function Header() {
               </NavLink>
             )}
 
-            <ButtonLink to="/request" size="sm" className="hidden md:inline-flex">
+            <ButtonLink to="/request" size="sm" className="hidden lg:inline-flex">
               {t('nav.request')}
             </ButtonLink>
 

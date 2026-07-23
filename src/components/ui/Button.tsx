@@ -14,6 +14,10 @@ type Size = 'sm' | 'md' | 'lg';
  */
 const base =
   'group/btn relative inline-flex items-center justify-center gap-2.5 rounded-full font-semibold ' +
+  // A fixed height with no wrap guard is a trap: the moment a flex row squeezes
+  // a button, its label wraps to a second line and the fixed height clips it —
+  // which is exactly how the header CTA showed ghosted, half-cut text.
+  'whitespace-nowrap ' +
   'transition-[background-color,color,border-color] duration-300 ' +
   'disabled:pointer-events-none disabled:opacity-40';
 
