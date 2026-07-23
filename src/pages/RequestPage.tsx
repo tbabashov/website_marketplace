@@ -6,7 +6,7 @@ import clsx from 'clsx';
 import { PageHead } from '@/components/layout/PageHead';
 import { Arrow, Button, ButtonLink } from '@/components/ui/Button';
 import { CheckChip, Field, RadioRow, TextArea, TextInput } from '@/components/ui/Form';
-import { Spinner } from '@/components/ui/Bits';
+import { Shell, Spinner } from '@/components/ui/Bits';
 import { readableError, supabase } from '@/lib/supabase';
 import { useSeo } from '@/lib/seo';
 import { useAuth } from '@/store/auth';
@@ -242,9 +242,11 @@ export default function RequestPage() {
     <>
       <PageHead label={t('nav.request')} title={t('request.pageTitle')} lead={t('request.lead')} />
 
-      <div className="px-6 py-14 md:px-10">
-        <div className="mx-auto max-w-[1440px]">
-          {/* Progress reads as a dimension line across the six steps. */}
+      <Shell className="pb-28 pt-14">
+        <div>
+          {/* Progress: pills that fill in as you go. Earlier steps stay
+              clickable; later ones do not, because they depend on answers you
+              have not given yet. */}
           <ol className="flex flex-wrap items-center gap-x-2 gap-y-3">
             {STEPS.map((s, i) => {
               const done = i < stepIndex;
@@ -605,7 +607,7 @@ export default function RequestPage() {
             </div>
           </div>
         </div>
-      </div>
+      </Shell>
     </>
   );
 }

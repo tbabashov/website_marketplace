@@ -70,7 +70,7 @@ function PaymentCard({ row, onDone }: { row: PaymentReviewRow; onDone: () => voi
   }
 
   return (
-    <article className="rounded-3xl bg-paper-2 p-6">
+    <article className="rounded-3xl bg-paper-2 p-7">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
         <Link to={`/orders/${row.order_id}`} className="label text-blue hover:text-blue">
           {row.order?.ref ?? row.order_id.slice(0, 8)}
@@ -249,9 +249,16 @@ function RequestCard({ request, onDone }: { request: SiteRequest; onDone: () => 
   }
 
   return (
-    <article className="rounded-3xl bg-paper-2 p-6">
+    <article className="rounded-3xl bg-paper-2 p-7">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <span className="label text-blue">{request.status}</span>
+        <span
+          className={clsx(
+            'label rounded-full px-3 py-1.5',
+            request.status === 'quoted' ? 'bg-blue/10 text-blue' : 'bg-amber/12 text-amber',
+          )}
+        >
+          {request.status === 'quoted' ? t('status.quoted') : t('status.quote_requested')}
+        </span>
         <span className="label text-ink-mute">{formatDate(request.created_at, locale)}</span>
       </div>
 
@@ -586,12 +593,12 @@ export default function AdminPage() {
     <>
       <PageHead label={t('nav.admin')} title={t('admin.pageTitle')} lead={t('admin.lead')} />
 
-      <div className="px-5 py-10 pb-24 md:px-10">
-        <div className="mx-auto max-w-[1440px]">
+      <div className="mx-auto w-full max-w-[1440px] px-6 pb-28 pt-14 md:px-10">
+        <div>
           {/* Plain toggle buttons rather than role="tablist": a real tablist
               owes the user arrow-key navigation and matching tabpanels, and a
               half-implemented one is worse for screen readers than none. */}
-          <div className="flex flex-wrap gap-x-6 gap-y-3 border-b border-line pb-4">
+          <div className="flex flex-wrap gap-2">
             {TABS.map((name) => {
               const count =
                 name === 'payments'
@@ -611,8 +618,10 @@ export default function AdminPage() {
                   aria-pressed={tab === name}
                   onClick={() => setTab(name)}
                   className={clsx(
-                    'label flex items-center gap-2 py-1 transition-colors',
-                    tab === name ? 'text-blue' : 'text-ink-mute hover:text-ink',
+                    'label flex items-center gap-2 rounded-full px-3.5 py-2 transition-colors duration-200',
+                    tab === name
+                      ? 'bg-blue text-paper'
+                      : 'bg-paper-2 text-ink-mute hover:bg-paper-3 hover:text-ink',
                   )}
                 >
                   {t(`admin.tabs.${name}`)}

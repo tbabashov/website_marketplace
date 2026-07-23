@@ -79,10 +79,10 @@ export function Header() {
 
   return (
     <header className="pointer-events-none fixed inset-x-0 top-0 z-[120] pt-4 md:pt-5">
-      <div className="mx-auto w-full max-w-[1440px] px-4 md:px-8">
+      <div className="mx-auto w-full max-w-[1440px] px-2 md:px-6">
         <div
           className={clsx(
-            'pointer-events-auto flex h-16 items-center gap-6 rounded-full pl-6 pr-3 transition-all duration-500',
+            'pointer-events-auto flex h-16 items-center gap-6 rounded-full pl-4 pr-3 transition-all duration-500',
             lifted
               ? 'bg-paper/80 shadow-[0_8px_40px_-12px_rgba(18,18,16,0.22)] backdrop-blur-xl'
               : 'bg-transparent',
