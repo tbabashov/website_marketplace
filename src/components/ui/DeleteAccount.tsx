@@ -64,11 +64,13 @@ export function DeleteAccount() {
 
   if (!asking) {
     return (
+      // The negative margin cancels the button's own left padding, so the
+      // label lines up with the text above it instead of sitting indented.
       <button
         type="button"
         onClick={() => setAsking(true)}
         data-cursor="link"
-        className="rounded-full px-3 py-2 text-sm font-medium text-ink-mute transition-colors hover:bg-red/10 hover:text-red"
+        className="-ml-3 rounded-full px-3 py-2 text-sm font-semibold text-red/80 transition-colors hover:bg-red/10 hover:text-red"
       >
         {t('profile.deleteAccount')}
       </button>

@@ -61,10 +61,16 @@ export function Faq() {
   return (
     <section id="faq" className="scroll-mt-24 py-24 md:py-32" aria-labelledby="faq-heading">
       <Shell>
-        <div className="grid gap-14 lg:grid-cols-[minmax(0,24rem)_1fr] lg:gap-20">
+        <div className="grid gap-14 lg:grid-cols-[minmax(0,27rem)_1fr] lg:gap-20">
           <div className="min-w-0 lg:sticky lg:top-32 lg:self-start">
             <Eyebrow>{t('faq.label')}</Eyebrow>
-            <h2 id="faq-heading" className="mt-7 text-d2 font-display">
+            {/* Sized so the longest Azerbaijani word in any locale's heading
+                ("soruşmamış") fits the sticky column without break-word ever
+                having to split it. */}
+            <h2
+              id="faq-heading"
+              className="mt-7 text-[clamp(1.75rem,3.4vw,2.75rem)] font-display leading-[1.05] tracking-[-0.03em]"
+            >
               {t('faq.title')}
             </h2>
           </div>

@@ -131,23 +131,27 @@ export default function ProfilePage() {
               </div>
             </div>
 
-            <div className="mt-10">
+            <div className="mt-12 border-t border-line pt-8">
               <p className="label text-ink-mute">{t('profile.dangerZone')}</p>
-              <Button
-                variant="outline"
-                className="mt-4"
-                onClick={() => {
-                  void signOut().then(() => navigate('/'));
-                }}
-              >
-                {t('nav.signOut')}
-              </Button>
-              <p className="mt-6 max-w-sm text-sm leading-relaxed text-ink-mute">
-                {t('profile.deleteWarning')}
-              </p>
 
-              <div className="mt-5">
-                <DeleteAccount />
+              <div className="mt-5 flex items-start">
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    void signOut().then(() => navigate('/'));
+                  }}
+                >
+                  {t('nav.signOut')}
+                </Button>
+              </div>
+
+              <div className="mt-8">
+                <p className="max-w-sm text-sm leading-relaxed text-ink-mute">
+                  {t('profile.deleteWarning')}
+                </p>
+                <div className="mt-3">
+                  <DeleteAccount />
+                </div>
               </div>
             </div>
           </section>

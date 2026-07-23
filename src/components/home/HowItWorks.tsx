@@ -23,10 +23,13 @@ export function HowItWorks() {
   return (
     <section id="how" className="scroll-mt-24 py-24 md:py-32" aria-labelledby="how-heading">
       <Shell>
-        <div className="grid gap-16 lg:grid-cols-[minmax(0,24rem)_1fr] lg:gap-20">
+        <div className="grid gap-16 lg:grid-cols-[minmax(0,27rem)_1fr] lg:gap-20">
           <div className="min-w-0 lg:sticky lg:top-32 lg:self-start">
             <Eyebrow>{t('how.label')}</Eyebrow>
-            <h2 id="how-heading" className="mt-7 text-d2 font-display">
+            <h2
+              id="how-heading"
+              className="mt-7 text-[clamp(1.75rem,3.4vw,2.75rem)] font-display leading-[1.05] tracking-[-0.03em]"
+            >
               {t('how.title')}
             </h2>
             <p className="mt-6 max-w-md text-xl text-ink-soft">{t('how.lead')}</p>

@@ -37,10 +37,27 @@ export function formatSecondary(amount: number | null | undefined, locale: Local
   }).format(converted);
 }
 
+/**
+ * Azerbaijani month names, written out by hand.
+ *
+ * Many JS runtimes ship a trimmed ICU dataset with no `az` month names, so
+ * `Intl.DateTimeFormat('az-AZ', { month: 'long' })` falls back to "M07" — which
+ * is what put "2026 M07 23" on screen. English and Russian ICU data is
+ * reliable, so only Azerbaijani is formatted manually.
+ */
+const AZ_MONTHS = [
+  'yanvar', 'fevral', 'mart', 'aprel', 'may', 'iyun',
+  'iyul', 'avqust', 'sentyabr', 'oktyabr', 'noyabr', 'dekabr',
+] as const;
+
 export function formatDate(value: string | null | undefined, locale: Locale): string {
   if (!value) return '—';
   const d = new Date(value);
   if (Number.isNaN(d.getTime())) return '—';
+
+  if (locale === 'az') {
+    return `${d.getDate()} ${AZ_MONTHS[d.getMonth()]} ${d.getFullYear()}`;
+  }
   return new Intl.DateTimeFormat(INTL_LOCALE[locale], {
     day: 'numeric',
     month: 'long',
@@ -52,6 +69,14 @@ export function formatDateTime(value: string | null | undefined, locale: Locale)
   if (!value) return '—';
   const d = new Date(value);
   if (Number.isNaN(d.getTime())) return '—';
+
+  if (locale === 'az') {
+    const time = new Intl.DateTimeFormat('az-AZ', {
+      hour: '2-digit',
+      minute: '2-digit',
+    }).format(d);
+    return `${d.getDate()} ${AZ_MONTHS[d.getMonth()]} ${d.getFullYear()}, ${time}`;
+  }
   return new Intl.DateTimeFormat(INTL_LOCALE[locale], {
     day: 'numeric',
     month: 'short',
