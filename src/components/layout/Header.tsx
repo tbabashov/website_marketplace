@@ -9,23 +9,24 @@ import { useAuth } from '@/store/auth';
 import { useUI } from '@/store/ui';
 import { initialsOf } from '@/lib/format';
 
-/** Small shopping-bag mark for the orders link. */
-function BagIcon({ className }: { className?: string }) {
+/** Shopping-cart mark (with wheels) for the orders link. */
+function CartIcon({ className }: { className?: string }) {
   return (
     <svg
-      viewBox="0 0 16 16"
-      width="15"
-      height="15"
+      viewBox="0 0 24 24"
+      width="16"
+      height="16"
       aria-hidden="true"
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.4"
+      strokeWidth="1.8"
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
     >
-      <path d="M3.5 5h9l-.7 8.2a1 1 0 0 1-1 .8H5.2a1 1 0 0 1-1-.8L3.5 5Z" />
-      <path d="M5.8 5V4a2.2 2.2 0 0 1 4.4 0v1" />
+      <circle cx="9" cy="20" r="1.4" />
+      <circle cx="18" cy="20" r="1.4" />
+      <path d="M2 3h2.2l2.35 12.2a1.6 1.6 0 0 0 1.6 1.3h8.5a1.6 1.6 0 0 0 1.57-1.27L21 7.5H5.4" />
     </svg>
   );
 }
@@ -157,7 +158,7 @@ export function Header() {
                     clsx(link({ isActive }), 'inline-flex items-center gap-1.5')
                   }
                 >
-                  <BagIcon />
+                  <CartIcon />
                   {t('nav.dashboard')}
                 </NavLink>
                 <Link
@@ -238,7 +239,7 @@ export function Header() {
                 className="fade-up flex items-center gap-3 border-b border-line py-5 font-display text-d3"
                 style={{ '--d': `${i * 45}ms` } as React.CSSProperties}
               >
-                {l.key === 'nav.dashboard' && <BagIcon className="h-5 w-5" />}
+                {l.key === 'nav.dashboard' && <CartIcon className="h-5 w-5" />}
                 {t(l.key)}
               </Link>
             ))}

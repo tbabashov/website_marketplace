@@ -131,12 +131,13 @@ export default function ProfilePage() {
               </div>
             </div>
 
-            <div className="mt-12 border-t border-line pt-8">
-              <p className="label text-ink-mute">{t('profile.dangerZone')}</p>
+            <div className="mt-12">
+              <Eyebrow>{t('profile.dangerZone')}</Eyebrow>
 
-              {/* Neutral account action, kept clearly apart from the red
-                  delete card so signing out never reads as destructive. */}
-              <div className="mt-5">
+              {/* Everything account-related in one bordered card, matching the
+                  details card above. Sign-out sits up top; the delete action is
+                  fenced below a rule and marked red — grouped, not floating. */}
+              <div className="mt-6 rounded-3xl border border-line p-6 md:p-7">
                 <Button
                   variant="outline"
                   onClick={() => {
@@ -145,11 +146,10 @@ export default function ProfilePage() {
                 >
                   {t('nav.signOut')}
                 </Button>
-              </div>
 
-              {/* The delete card carries its own warning and red border. */}
-              <div className="mt-6">
-                <DeleteAccount />
+                <div className="mt-6 border-t border-line pt-6">
+                  <DeleteAccount />
+                </div>
               </div>
             </div>
           </section>

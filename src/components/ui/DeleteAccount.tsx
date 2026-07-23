@@ -62,11 +62,11 @@ export function DeleteAccount() {
     navigate('/', { replace: true });
   }
 
-  // A single self-contained card with a red border, so the destructive action
-  // is visually fenced off rather than a button floating in the page. The
-  // description is always visible; confirmation swaps in below it.
+  // Inline content — it lives inside the account card on the profile page, so
+  // it carries no border of its own. Red heading and button are the danger
+  // cue; the description is always visible and confirmation swaps in below it.
   return (
-    <div className="rounded-3xl border border-red/35 bg-red/[0.04] p-6">
+    <div>
       <p className="label text-red">{t('profile.deleteTitle')}</p>
       <p className="mt-3 max-w-md text-sm leading-relaxed text-ink-soft">
         {t('profile.deleteWarning')}
