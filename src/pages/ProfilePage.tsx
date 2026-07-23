@@ -134,7 +134,9 @@ export default function ProfilePage() {
             <div className="mt-12 border-t border-line pt-8">
               <p className="label text-ink-mute">{t('profile.dangerZone')}</p>
 
-              <div className="mt-5 flex items-start">
+              {/* Neutral account action, kept clearly apart from the red
+                  delete card so signing out never reads as destructive. */}
+              <div className="mt-5">
                 <Button
                   variant="outline"
                   onClick={() => {
@@ -145,13 +147,9 @@ export default function ProfilePage() {
                 </Button>
               </div>
 
-              <div className="mt-8">
-                <p className="max-w-sm text-sm leading-relaxed text-ink-mute">
-                  {t('profile.deleteWarning')}
-                </p>
-                <div className="mt-3">
-                  <DeleteAccount />
-                </div>
+              {/* The delete card carries its own warning and red border. */}
+              <div className="mt-6">
+                <DeleteAccount />
               </div>
             </div>
           </section>

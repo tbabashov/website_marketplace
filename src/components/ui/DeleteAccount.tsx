@@ -62,53 +62,53 @@ export function DeleteAccount() {
     navigate('/', { replace: true });
   }
 
-  if (!asking) {
-    return (
-      // The negative margin cancels the button's own left padding, so the
-      // label lines up with the text above it instead of sitting indented.
-      <button
-        type="button"
-        onClick={() => setAsking(true)}
-        data-cursor="link"
-        className="-ml-3 rounded-full px-3 py-2 text-sm font-semibold text-red/80 transition-colors hover:bg-red/10 hover:text-red"
-      >
-        {t('profile.deleteAccount')}
-      </button>
-    );
-  }
-
+  // A single self-contained card with a red border, so the destructive action
+  // is visually fenced off rather than a button floating in the page. The
+  // description is always visible; confirmation swaps in below it.
   return (
-    <div className="rounded-3xl bg-red/8 p-6">
-      <p className="text-d4 font-display text-ink">{t('profile.deleteTitle')}</p>
-      <p className="mt-3 text-sm text-ink-soft">{t('profile.deleteAsk')}</p>
+    <div className="rounded-3xl border border-red/35 bg-red/[0.04] p-6">
+      <p className="label text-red">{t('profile.deleteTitle')}</p>
+      <p className="mt-3 max-w-md text-sm leading-relaxed text-ink-soft">
+        {t('profile.deleteWarning')}
+      </p>
 
-      {orderCount === null ? (
-        <p className="mt-3 flex items-center gap-2 text-sm text-ink-mute">
-          <Spinner />
-          {t('common.loading')}
-        </p>
+      {!asking ? (
+        <Button variant="danger" size="sm" className="mt-5" onClick={() => setAsking(true)}>
+          {t('profile.deleteAccount')}
+        </Button>
       ) : (
-        <p className="mt-3 text-sm text-ink-soft">
-          {orderCount > 0
-            ? t('profile.deleteKeptOrders', { count: orderCount })
-            : t('profile.deleteNoOrders')}
-        </p>
-      )}
+        <div className="mt-5 border-t border-red/20 pt-5">
+          <p className="text-sm font-semibold text-ink">{t('profile.deleteAsk')}</p>
 
-      <div className="mt-6 flex flex-wrap gap-2.5">
-        <Button
-          variant="danger"
-          size="sm"
-          disabled={busy || orderCount === null}
-          onClick={() => void confirm()}
-        >
-          {busy && <Spinner />}
-          {busy ? t('profile.deleting') : t('profile.deleteConfirm')}
-        </Button>
-        <Button variant="ghost" size="sm" disabled={busy} onClick={() => setAsking(false)}>
-          {t('profile.deleteCancel')}
-        </Button>
-      </div>
+          {orderCount === null ? (
+            <p className="mt-3 flex items-center gap-2 text-sm text-ink-mute">
+              <Spinner />
+              {t('common.loading')}
+            </p>
+          ) : (
+            <p className="mt-3 text-sm text-ink-soft">
+              {orderCount > 0
+                ? t('profile.deleteKeptOrders', { count: orderCount })
+                : t('profile.deleteNoOrders')}
+            </p>
+          )}
+
+          <div className="mt-6 flex flex-wrap gap-2.5">
+            <Button
+              variant="danger"
+              size="sm"
+              disabled={busy || orderCount === null}
+              onClick={() => void confirm()}
+            >
+              {busy && <Spinner />}
+              {busy ? t('profile.deleting') : t('profile.deleteConfirm')}
+            </Button>
+            <Button variant="ghost" size="sm" disabled={busy} onClick={() => setAsking(false)}>
+              {t('profile.deleteCancel')}
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

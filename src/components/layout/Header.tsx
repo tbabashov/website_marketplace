@@ -9,6 +9,27 @@ import { useAuth } from '@/store/auth';
 import { useUI } from '@/store/ui';
 import { initialsOf } from '@/lib/format';
 
+/** Small shopping-bag mark for the orders link. */
+function BagIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      width="15"
+      height="15"
+      aria-hidden="true"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M3.5 5h9l-.7 8.2a1 1 0 0 1-1 .8H5.2a1 1 0 0 1-1-.8L3.5 5Z" />
+      <path d="M5.8 5V4a2.2 2.2 0 0 1 4.4 0v1" />
+    </svg>
+  );
+}
+
 export function Wordmark({ className, tone = 'ink' }: { className?: string; tone?: 'ink' | 'paper' }) {
   return (
     <span
@@ -129,7 +150,14 @@ export function Header() {
                     {t('nav.admin')}
                   </NavLink>
                 )}
-                <NavLink to="/dashboard" data-cursor="link" className={link}>
+                <NavLink
+                  to="/dashboard"
+                  data-cursor="link"
+                  className={({ isActive }) =>
+                    clsx(link({ isActive }), 'inline-flex items-center gap-1.5')
+                  }
+                >
+                  <BagIcon />
                   {t('nav.dashboard')}
                 </NavLink>
                 <Link
@@ -207,9 +235,10 @@ export function Header() {
               <Link
                 key={l.to}
                 to={l.to}
-                className="fade-up border-b border-line py-5 font-display text-d3"
+                className="fade-up flex items-center gap-3 border-b border-line py-5 font-display text-d3"
                 style={{ '--d': `${i * 45}ms` } as React.CSSProperties}
               >
+                {l.key === 'nav.dashboard' && <BagIcon className="h-5 w-5" />}
                 {t(l.key)}
               </Link>
             ))}
