@@ -5,7 +5,15 @@ import { useTranslation } from 'react-i18next';
 import { ManagedImage } from '@/components/media/ManagedImage';
 import { ListingRow } from '@/components/marketplace/ListingRow';
 import { Arrow, Button, ButtonLink } from '@/components/ui/Button';
-import { DemoNotice, EmptyState, LoadingBlock, Spinner } from '@/components/ui/Bits';
+import {
+  DemoNotice,
+  EmptyState,
+  Eyebrow,
+  LoadingBlock,
+  Reveal,
+  Shell,
+  Spinner,
+} from '@/components/ui/Bits';
 import { fetchListing, fetchListings } from '@/lib/api';
 import { formatAzn, formatSecondary, pickText } from '@/lib/format';
 import { readableError, supabase } from '@/lib/supabase';
@@ -41,7 +49,9 @@ export default function ListingPage() {
       setIsDemo(demo);
     });
     void fetchListings().then(({ data }) => {
-      if (alive) setOthers(data.filter((l) => l.slug !== slug && l.status === 'published').slice(0, 2));
+      if (alive) {
+        setOthers(data.filter((l) => l.slug !== slug && l.status === 'published').slice(0, 3));
+      }
     });
 
     return () => {
@@ -90,16 +100,16 @@ export default function ListingPage() {
 
   if (listing === null) {
     return (
-      <div className="mx-auto max-w-3xl px-5 py-32">
+      <Shell className="max-w-3xl py-40">
         <EmptyState
           title={t('market.notFound')}
           action={
-            <ButtonLink to="/marketplace" variant="secondary">
+            <ButtonLink to="/marketplace" variant="outline">
               {t('nav.marketplace')}
             </ButtonLink>
           }
         />
-      </div>
+      </Shell>
     );
   }
 
@@ -110,123 +120,139 @@ export default function ListingPage() {
 
   return (
     <>
-      <div className="px-5 pt-14 sm:px-8">
-        <div className="mx-auto max-w-[1400px]">
-          <Link to="/marketplace" className="spec text-bone-faint hover:text-cyan">
-            ← {t('nav.marketplace')}
-          </Link>
-        </div>
-      </div>
+      <Shell className="pt-36 md:pt-44">
+        <Link
+          to="/marketplace"
+          data-cursor="link"
+          className="ul-swipe label text-ink-mute hover:text-ink"
+        >
+          ← {t('nav.marketplace')}
+        </Link>
 
-      <div className="px-5 py-10 sm:px-8">
-        <div className="mx-auto grid max-w-[1400px] gap-12 lg:grid-cols-[1.6fr_1fr] lg:gap-16">
+        <div className="mt-10 grid gap-14 lg:grid-cols-[1.55fr_1fr] lg:gap-20">
           <div>
-            <h1 className="font-display text-display text-bone">{title}</h1>
-            <p className="mt-5 max-w-2xl text-lg text-bone-mute">
+            <h1 className="fade-up text-d1 font-display">{title}</h1>
+            <p
+              className="fade-up mt-6 max-w-2xl text-xl text-ink-soft"
+              style={{ '--d': '120ms' } as React.CSSProperties}
+            >
               {pickText(listing.tagline, locale)}
             </p>
 
-            {isDemo && <DemoNotice className="mt-5" />}
+            {isDemo && <DemoNotice className="mt-6" />}
 
-            <div className="cropmarks mt-10">
+            <div className="group mt-12">
               <ManagedImage
                 slotId={`marketplace-${listing.slug}-cover`}
                 src={listing.cover_image}
+                alt={title}
                 aspect="16:10"
                 label={listing.slug}
                 priority
-                className="border border-rule-soft"
               />
             </div>
 
-            <div className="mt-12 border-t border-rule-soft pt-10">
-              <p className="max-w-2xl text-lg leading-relaxed text-bone-mute">
+            <div className="mt-14 border-t border-line pt-12">
+              <p className="max-w-2xl text-xl leading-relaxed text-ink-soft">
                 {pickText(listing.description, locale)}
               </p>
             </div>
 
             {pickText(listing.best_for, locale) && (
-              <div className="mt-10 grid gap-4 border-t border-rule-soft pt-10 lg:grid-cols-[14rem_1fr] lg:gap-12">
-                <h2 className="spec pt-1 text-cyan">{t('market.bestFor')}</h2>
-                <p className="max-w-2xl text-bone-mute">{pickText(listing.best_for, locale)}</p>
+              <div className="mt-12 grid gap-5 border-t border-line pt-12 lg:grid-cols-[14rem_1fr] lg:gap-12">
+                <h2 className="label pt-1.5 text-blue">{t('market.bestFor')}</h2>
+                <p className="max-w-2xl text-lg text-ink-soft">
+                  {pickText(listing.best_for, locale)}
+                </p>
               </div>
             )}
 
-            <div className="mt-10 grid gap-4 border-t border-rule-soft pt-10 lg:grid-cols-[14rem_1fr] lg:gap-12">
-              <h2 className="spec pt-1 text-cyan">{t('market.included')}</h2>
-              <ul className="flex max-w-2xl flex-col gap-3">
+            <div className="mt-12 grid gap-5 border-t border-line pt-12 lg:grid-cols-[14rem_1fr] lg:gap-12">
+              <h2 className="label pt-1.5 text-blue">{t('market.included')}</h2>
+              <ul className="flex max-w-2xl flex-col gap-4">
                 {included.map((item) => (
-                  <li key={item} className="flex items-start gap-3 text-bone-mute">
-                    <span className="mt-2.5 h-px w-4 shrink-0 bg-cyan-dim" aria-hidden="true" />
+                  <li key={item} className="flex items-start gap-3.5 text-lg text-ink-soft">
+                    <svg
+                      viewBox="0 0 16 16"
+                      width="18"
+                      height="18"
+                      aria-hidden="true"
+                      className="mt-1.5 shrink-0 text-blue"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <path d="M3 8.5l3.5 3.5L13 4.5" />
+                    </svg>
                     {item}
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="mt-10 grid gap-4 border-y border-rule-soft py-10 lg:grid-cols-[14rem_1fr] lg:gap-12">
-              <h2 className="spec pt-1 text-cyan">{t('market.license')}</h2>
+            <div className="mt-12 grid gap-5 border-y border-line py-12 lg:grid-cols-[14rem_1fr] lg:gap-12">
+              <h2 className="label pt-1.5 text-blue">{t('market.license')}</h2>
               <div className="max-w-2xl">
-                <p className="text-bone">{t('market.licenseSingle')}</p>
-                <p className="mt-2 text-sm text-bone-mute">{t('market.licenseSingleNote')}</p>
+                <p className="text-lg font-semibold">{t('market.licenseSingle')}</p>
+                <p className="mt-3 text-ink-soft">{t('market.licenseSingleNote')}</p>
               </div>
             </div>
           </div>
 
-          {/* Buy panel. Sticks on desktop so the price stays with you as you
-              read down the specification. */}
-          <aside className="lg:sticky lg:top-24 lg:self-start">
-            <div className="border border-rule bg-surface p-6 sm:p-7">
-              <p className="font-display text-h1 text-bone tabular-nums">
+          {/* Buy panel. Sticky on desktop so the price stays with you while you
+              read the specification. */}
+          <aside className="lg:sticky lg:top-32 lg:self-start">
+            <div className="rounded-3xl bg-paper-2 p-7 md:p-8">
+              <p className="text-d1 font-display leading-none">
                 {formatAzn(listing.price_azn, locale)}
               </p>
-              {secondary && <p className="spec mt-2 text-bone-faint">≈ {secondary}</p>}
+              {secondary && <p className="label mt-3 text-ink-mute">≈ {secondary}</p>}
 
-              <dl className="mt-6 border-t border-rule-soft pt-5">
+              <dl className="mt-8 flex flex-col gap-3.5 border-t border-line pt-6 text-sm">
                 {listing.page_count !== null && (
-                  <div className="flex items-baseline justify-between gap-4 border-b border-rule-soft py-2.5">
-                    <dt className="spec text-bone-faint">{t('market.pages')}</dt>
-                    <dd className="font-mono text-xs text-bone tabular-nums">{listing.page_count}</dd>
+                  <div className="flex items-baseline justify-between gap-4">
+                    <dt className="text-ink-mute">{t('market.pages')}</dt>
+                    <dd className="num font-medium">{listing.page_count}</dd>
                   </div>
                 )}
                 {listing.stack.length > 0 && (
-                  <div className="flex items-baseline justify-between gap-4 border-b border-rule-soft py-2.5">
-                    <dt className="spec text-bone-faint">{t('market.stack')}</dt>
-                    <dd className="text-right font-mono text-xs text-bone">
-                      {listing.stack.join(' · ')}
-                    </dd>
+                  <div className="flex items-baseline justify-between gap-4">
+                    <dt className="text-ink-mute">{t('market.stack')}</dt>
+                    <dd className="text-right font-medium">{listing.stack.join(' · ')}</dd>
                   </div>
                 )}
-                <div className="flex items-baseline justify-between gap-4 py-2.5">
-                  <dt className="spec text-bone-faint">{t('market.license')}</dt>
-                  <dd className="text-right font-mono text-xs text-bone">
-                    {t('market.licenseSingle')}
-                  </dd>
+                <div className="flex items-baseline justify-between gap-4">
+                  <dt className="text-ink-mute">{t('market.license')}</dt>
+                  <dd className="text-right font-medium">{t('market.licenseSingle')}</dd>
                 </div>
               </dl>
 
               {sold ? (
-                <div className="mt-6 border border-rule px-4 py-4">
-                  <p className="spec text-bone-faint">{t('market.sold')}</p>
-                  <p className="mt-2 text-sm text-bone-mute">{t('market.soldNote')}</p>
+                <div className="mt-7 rounded-2xl bg-paper p-5">
+                  <p className="label text-ink-mute">{t('market.sold')}</p>
+                  <p className="mt-2 text-sm text-ink-soft">{t('market.soldNote')}</p>
                 </div>
               ) : (
                 <>
                   {depositAvailable && (
-                    <label className="mt-6 flex cursor-pointer items-start gap-3 border border-rule-soft p-3 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-cyan">
+                    <label
+                      data-cursor="link"
+                      className="mt-7 flex cursor-pointer items-start gap-3 rounded-2xl bg-paper p-4 has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-3 has-[:focus-visible]:outline-blue"
+                    >
                       <input
                         type="checkbox"
                         checked={useDeposit}
                         onChange={(e) => setUseDeposit(e.target.checked)}
-                        className="mt-1 accent-[#4fb6c4]"
+                        className="mt-0.5 h-4 w-4 accent-[#1B33E0]"
                       />
                       <span>
-                        <span className="text-sm text-bone">
+                        <span className="block text-sm font-semibold">
                           {t('checkout.payDeposit', { percent: payment.depositPercent })}
                         </span>
-                        <span className="mt-1 block text-xs text-bone-faint">
-                          {formatAzn(depositAmount, locale)} ·{' '}
-                          {t('checkout.balanceLater')}{' '}
+                        <span className="mt-1 block text-xs text-ink-mute">
+                          {formatAzn(depositAmount, locale)} · {t('checkout.balanceLater')}{' '}
                           {formatAzn(listing.price_azn - depositAmount, locale)}
                         </span>
                       </span>
@@ -248,7 +274,7 @@ export default function ListingPage() {
                     <ButtonLink
                       to={listing.demo_url}
                       external
-                      variant="secondary"
+                      variant="outline"
                       className="mt-3 w-full"
                     >
                       {t('market.liveDemo')}
@@ -257,26 +283,26 @@ export default function ListingPage() {
                 </>
               )}
 
-              <p className="mt-5 text-xs leading-relaxed text-bone-faint">
-                {t('checkout.noCardData')}
-              </p>
+              <p className="mt-6 text-xs leading-relaxed text-ink-mute">{t('checkout.noCardData')}</p>
             </div>
           </aside>
         </div>
-      </div>
+      </Shell>
 
       {others.length > 0 && (
-        <section className="border-t border-rule px-5 py-16 sm:px-8" aria-labelledby="similar-heading">
-          <div className="mx-auto max-w-[1400px]">
-            <h2 id="similar-heading" className="spec text-bone-faint">
-              {t('market.similar')}
-            </h2>
-            <div className="mt-8">
-              {others.map((other) => (
-                <ListingRow key={other.id} listing={other} />
+        <section className="pb-28 pt-12" aria-labelledby="similar-heading">
+          <Shell>
+            <Eyebrow>
+              <span id="similar-heading">{t('market.similar')}</span>
+            </Eyebrow>
+            <div className="mt-10 grid gap-x-8 gap-y-16 md:grid-cols-2 lg:grid-cols-3">
+              {others.map((other, i) => (
+                <Reveal key={other.id} delay={i * 90}>
+                  <ListingRow listing={other} />
+                </Reveal>
               ))}
             </div>
-          </div>
+          </Shell>
         </section>
       )}
     </>

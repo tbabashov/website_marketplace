@@ -14,7 +14,7 @@
         "en": "A desk at night with a code editor open on a laptop and a notebook of website sketches beside it",
         "ru": "Рабочий стол ночью: на ноутбуке открыт редактор кода, рядом блокнот с набросками сайта"
       },
-      "placement_note": "Sits inside the hero drafting frame on screens ≥1024px, behind the headline at low opacity. Keep the centre calm — text sits over the left two thirds."
+      "placement_note": "Set INLINE inside the hero headline, on the baseline between two words, at roughly 0.7em tall. It is read at small size, so pick something with one clear subject and strong contrast — a busy frame turns to mush at this scale. Hidden below 640px."
     },
     {
       "id": "owner-portrait",

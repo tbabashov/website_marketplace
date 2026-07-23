@@ -3,14 +3,13 @@ import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
 import { ManagedImage } from '@/components/media/ManagedImage';
-import { Arrow } from '@/components/ui/Button';
 import { formatAzn, formatSecondary, pickText } from '@/lib/format';
 import { useAuth } from '@/store/auth';
 import { useSaved } from '@/store/ui';
 import type { Locale } from '@/config/site';
 import type { Listing } from '@/types/db';
 
-function BookmarkButton({ listingId }: { listingId: string }) {
+function Bookmark({ listingId, tone }: { listingId: string; tone: 'ink' | 'paper' }) {
   const { t } = useTranslation();
   const userId = useAuth((s) => s.user?.id ?? null);
   const saved = useSaved((s) => s.ids.includes(listingId));
@@ -22,20 +21,23 @@ function BookmarkButton({ listingId }: { listingId: string }) {
       onClick={() => void toggle(listingId, userId)}
       aria-pressed={saved}
       aria-label={t('profile.savedSites')}
+      data-cursor="link"
       className={clsx(
-        'flex h-8 w-8 shrink-0 items-center justify-center rounded-[2px] border transition-colors',
+        'flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-colors duration-200',
         saved
-          ? 'border-cyan/60 text-cyan'
-          : 'border-rule-soft text-bone-faint hover:border-rule hover:text-bone',
+          ? 'bg-blue text-paper'
+          : tone === 'paper'
+            ? 'bg-paper/10 text-paper/60 hover:bg-paper/20 hover:text-paper'
+            : 'bg-paper-2 text-ink-mute hover:bg-paper-3 hover:text-ink',
       )}
     >
-      <svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true">
+      <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true">
         <path
-          d="M4 2h8v12l-4-3.2L4 14z"
+          d="M4 2.5h8v11l-4-3.4-4 3.4z"
           fill={saved ? 'currentColor' : 'none'}
           stroke="currentColor"
-          strokeWidth="1.4"
-          strokeLinejoin="miter"
+          strokeWidth="1.5"
+          strokeLinejoin="round"
         />
       </svg>
     </button>
@@ -43,90 +45,100 @@ function BookmarkButton({ listingId }: { listingId: string }) {
 }
 
 /**
- * Listings read as rows in a parts catalogue — thumbnail, specification,
- * price — rather than as another card grid. The page above already uses a grid
- * for portfolio plates, and a marketplace where you compare prices wants a
- * column you can run your eye down.
+ * A marketplace card. Renders on either ground: `tone="paper"` for the
+ * marketplace page, `tone="night"` for the inverted band on the landing page.
+ * Price is set in the display face at heading scale, because on a page where
+ * everything is being compared, the number is the headline.
  */
-export function ListingRow({ listing }: { listing: Listing }) {
+export function ListingRow({
+  listing,
+  tone = 'ink',
+}: {
+  listing: Listing;
+  tone?: 'ink' | 'paper';
+}) {
   const { t, i18n } = useTranslation();
   const locale = i18n.language as Locale;
   const secondary = formatSecondary(listing.price_azn, locale);
   const sold = listing.status === 'sold';
+  const title = pickText(listing.title, locale);
+  const onNight = tone === 'paper';
 
   return (
-    <article className="group border-b border-rule-soft py-8 first:border-t">
-      <div className="grid gap-6 md:grid-cols-[13rem_1fr_auto] md:items-start md:gap-8">
-        {/* The title link below is the accessible target for this row; the
-            thumbnail is the same destination, so it is hidden from assistive
-            tech rather than announced twice. */}
-        <Link to={`/marketplace/${listing.slug}`} tabIndex={-1} aria-hidden="true" className="block">
+    <article className="group relative flex flex-col">
+      <Link
+        to={`/marketplace/${listing.slug}`}
+        data-cursor="view"
+        data-cursor-label={sold ? t('market.sold') : t('market.viewListing')}
+        className="block rounded-[1.25rem] focus-visible:outline-2 focus-visible:outline-offset-8"
+      >
+        <div className="relative">
           <ManagedImage
             slotId={`marketplace-${listing.slug}-cover`}
             src={listing.cover_image}
-            alt=""
-            aspect="16:10"
+            alt={title}
+            aspect="4:3"
             label={listing.slug}
-            className="border border-rule-soft transition-colors group-hover:border-rule"
           />
-        </Link>
-
-        <div className="min-w-0">
-          <div className="flex items-start justify-between gap-4">
-            <h3 className="font-display text-h3 text-bone">
-              <Link
-                to={`/marketplace/${listing.slug}`}
-                className="transition-colors hover:text-cyan-bright"
-              >
-                {pickText(listing.title, locale)}
-              </Link>
-            </h3>
-            <BookmarkButton listingId={listing.id} />
-          </div>
-
-          <p className="mt-2 max-w-xl text-bone-mute">{pickText(listing.tagline, locale)}</p>
-
-          <dl className="mt-5 flex flex-wrap gap-x-8 gap-y-2">
-            {listing.page_count !== null && (
-              <div className="flex items-baseline gap-2">
-                <dt className="spec text-bone-faint">{t('market.pages')}</dt>
-                <dd className="font-mono text-xs text-bone tabular-nums">{listing.page_count}</dd>
-              </div>
-            )}
-            {listing.stack.length > 0 && (
-              <div className="flex items-baseline gap-2">
-                <dt className="spec text-bone-faint">{t('market.stack')}</dt>
-                <dd className="font-mono text-xs text-bone">{listing.stack.join(' · ')}</dd>
-              </div>
-            )}
-            <div className="flex items-baseline gap-2">
-              <dt className="spec text-bone-faint">{t('market.license')}</dt>
-              <dd className="font-mono text-xs text-bone">{t('market.licenseSingle')}</dd>
-            </div>
-          </dl>
-        </div>
-
-        <div className="flex items-end justify-between gap-6 md:min-w-[11rem] md:flex-col md:items-end">
-          <div className="text-right">
-            <p className="font-display text-h2 text-bone tabular-nums">
-              {formatAzn(listing.price_azn, locale)}
-            </p>
-            {secondary && <p className="spec mt-1 text-bone-faint">≈ {secondary}</p>}
-          </div>
-
-          {sold ? (
-            <span className="spec border border-rule px-3 py-2 text-bone-faint">
+          {sold && (
+            <span className="label absolute left-5 top-5 rounded-full bg-ink px-3.5 py-2 text-paper">
               {t('market.sold')}
             </span>
-          ) : (
-            <Link
-              to={`/marketplace/${listing.slug}`}
-              className="spec inline-flex items-center gap-2 text-cyan transition-colors hover:text-cyan-bright"
-            >
-              {t('market.buy')}
-              <Arrow />
-            </Link>
           )}
+        </div>
+
+        <div className="mt-6 flex items-baseline justify-between gap-5">
+          <h3
+            className={clsx(
+              'text-d3 font-display transition-colors duration-300',
+              onNight ? 'text-paper group-hover:text-blue-lift' : 'group-hover:text-blue',
+            )}
+          >
+            {title}
+          </h3>
+          <span className="shrink-0 text-right">
+            <span className={clsx('block text-d4 font-display', onNight ? 'text-paper' : 'text-ink')}>
+              {formatAzn(listing.price_azn, locale)}
+            </span>
+            {secondary && (
+              <span className={clsx('label block', onNight ? 'text-paper/40' : 'text-ink-faint')}>
+                ≈ {secondary}
+              </span>
+            )}
+          </span>
+        </div>
+
+        <p className={clsx('mt-2.5 max-w-md', onNight ? 'text-paper/60' : 'text-ink-soft')}>
+          {pickText(listing.tagline, locale)}
+        </p>
+      </Link>
+
+      <div className="mt-5 flex items-center gap-2">
+        <div className="flex flex-wrap gap-2">
+          {listing.page_count !== null && (
+            <span
+              className={clsx(
+                'label rounded-full px-3 py-1.5',
+                onNight ? 'bg-paper/8 text-paper/55' : 'bg-paper-2 text-ink-mute',
+              )}
+            >
+              {listing.page_count} {t('market.pages')}
+            </span>
+          )}
+          {listing.stack.slice(0, 2).map((tech) => (
+            <span
+              key={tech}
+              className={clsx(
+                'label rounded-full px-3 py-1.5',
+                onNight ? 'bg-paper/8 text-paper/55' : 'bg-paper-2 text-ink-mute',
+              )}
+            >
+              {tech}
+            </span>
+          ))}
+        </div>
+        <div className="ml-auto">
+          <Bookmark listingId={listing.id} tone={tone} />
         </div>
       </div>
     </article>

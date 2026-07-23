@@ -6,7 +6,7 @@ import { aspectValue, getSlot, placeholderTone } from '@/lib/images';
 import type { Locale } from '@/config/site';
 
 interface ManagedImageProps {
-  /** Manifest slot id. Supplies the path, crop, and alt text in all three languages. */
+  /** Manifest slot id. Supplies path, crop and alt text in all three languages. */
   slotId?: string;
   /** Overrides the manifest path — used for database-driven covers. */
   src?: string | null;
@@ -15,21 +15,20 @@ interface ManagedImageProps {
   /** Overrides the manifest crop, e.g. "3:2". */
   aspect?: string;
   className?: string;
-  /** Above the fold: skip lazy loading and decode synchronously. */
+  /** Above the fold: skip lazy loading and decode eagerly. */
   priority?: boolean;
-  /** Shown centred on the placeholder. Falls back to the slot id. */
+  /** Small caption on the placeholder. Pass "" to show none. */
   label?: string;
 }
 
 /**
  * An image slot that looks finished whether or not the file exists yet.
  *
- * Until the Owner drops a real file at `expected_path`, this renders a duotone
- * plate at exactly the final crop, with the drafting hatch and a small caption
- * — the same visual language as the rest of the site, so an unfilled slot
- * reads as "not plated yet" rather than as a broken build. The moment a
- * matching file appears in /public, it fades in over the placeholder with no
- * code change.
+ * Until a real file is dropped at `expected_path`, this renders a soft
+ * two-stop wash cropped to the exact final dimensions, with a faint cobalt
+ * corner mark — so an unfilled slot reads as a considered surface rather than
+ * a broken build. The moment a matching file appears in /public it fades in
+ * over the top, with no code change.
  */
 export function ManagedImage({
   slotId,
@@ -46,7 +45,7 @@ export function ManagedImage({
   const slot = slotId ? getSlot(slotId) : undefined;
   const path = src ?? slot?.expected_path ?? null;
   const ratio = aspect ?? slot?.aspect_ratio ?? '16:9';
-  const altText = alt ?? (slot ? slot.alt_text[locale] ?? slot.alt_text.en : '');
+  const altText = alt ?? (slot ? (slot.alt_text[locale] ?? slot.alt_text.en) : '');
 
   const [loaded, setLoaded] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -63,28 +62,23 @@ export function ManagedImage({
 
   return (
     <div
-      className={clsx('relative overflow-hidden bg-ink-deep', className)}
+      className={clsx('plate', className)}
       style={{ aspectRatio: aspectValue(ratio) }}
     >
       <div
         aria-hidden="true"
         className={clsx(
-          'absolute inset-0 transition-opacity duration-500',
+          'plate-fill absolute inset-0 transition-opacity duration-700',
           showPlaceholder ? 'opacity-100' : 'opacity-0',
         )}
-        style={{
-          backgroundImage: `
-            repeating-linear-gradient(135deg, rgb(255 255 255 / 0.022) 0 1px, transparent 1px 7px),
-            linear-gradient(142deg, ${tone.from}, ${tone.to})
-          `,
-        }}
+        style={{ backgroundImage: `linear-gradient(148deg, ${tone.from}, ${tone.to})` }}
       >
-        <div className="absolute inset-3 border border-rule-soft" />
+        <span
+          className="absolute left-5 top-5 h-6 w-6 rounded-tl-md border-l-2 border-t-2"
+          style={{ borderColor: 'rgb(27 51 224 / 0.22)' }}
+        />
         {caption && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 px-4 text-center">
-            <span className="spec text-bone-faint/70">{caption}</span>
-            <span className="spec text-bone-faint/40">{ratio}</span>
-          </div>
+          <span className="label absolute bottom-5 left-5 text-ink/25">{caption}</span>
         )}
       </div>
 
@@ -98,17 +92,15 @@ export function ManagedImage({
           onLoad={() => setLoaded(true)}
           onError={() => setFailed(true)}
           className={clsx(
-            'absolute inset-0 h-full w-full object-cover transition-opacity duration-500',
+            'absolute inset-0 h-full w-full object-cover transition-opacity duration-700',
             loaded ? 'opacity-100' : 'opacity-0',
           )}
         />
       )}
 
-      {/* A missing file is not an error the visitor caused, but a screen reader
-          should still be told there is nothing here rather than nothing at all. */}
-      {showPlaceholder && !path && (
-        <span className="sr-only">{t('a11y.imagePlaceholder')}</span>
-      )}
+      {/* A missing file is not the visitor's fault, but a screen reader should
+          still be told there is nothing here rather than nothing at all. */}
+      {showPlaceholder && !path && <span className="sr-only">{t('a11y.imagePlaceholder')}</span>}
     </div>
   );
 }

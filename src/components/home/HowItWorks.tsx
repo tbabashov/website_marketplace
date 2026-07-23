@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 
 import { ManagedImage } from '@/components/media/ManagedImage';
-import { Reveal, SectionLabel } from '@/components/ui/Bits';
+import { Eyebrow, Reveal, Shell } from '@/components/ui/Bits';
 
 interface Step {
   title: string;
@@ -9,63 +9,61 @@ interface Step {
 }
 
 /**
- * The one place on this page where numbered markers are honest: request →
- * quote → build → handover really is a sequence, and the numbers are the point
- * rather than decoration.
+ * The one place on this page where numbering is honest: request → quote →
+ * build → handover is a real sequence, and the order is the information.
  *
- * Laid out as a vertical rail against a portrait, not as four cards in a row —
- * the section above is already a grid, and repeating it here is how a page
- * starts to read as a template.
+ * Built as a sticky two-column: the heading and portrait hold their position
+ * on the left while the steps scroll past on the right. It is the only sticky
+ * moment on the landing page, which is what keeps it feeling like an event.
  */
 export function HowItWorks() {
   const { t } = useTranslation();
   const steps = t('how.steps', { returnObjects: true }) as Step[];
 
   return (
-    <section id="how" className="border-t border-rule-soft px-5 py-24 sm:px-8" aria-labelledby="how-heading">
-      <div className="mx-auto max-w-[1400px]">
-        <SectionLabel>{t('how.label')}</SectionLabel>
-
-        <div className="mt-8 grid gap-14 lg:grid-cols-[minmax(0,26rem)_1fr] lg:gap-20">
-          <div className="lg:sticky lg:top-28 lg:self-start">
-            <h2 id="how-heading" className="font-display text-h1 text-bone">
+    <section id="how" className="scroll-mt-24 py-24 md:py-32" aria-labelledby="how-heading">
+      <Shell>
+        <div className="grid gap-16 lg:grid-cols-[minmax(0,24rem)_1fr] lg:gap-24">
+          <div className="lg:sticky lg:top-32 lg:self-start">
+            <Eyebrow>{t('how.label')}</Eyebrow>
+            <h2 id="how-heading" className="mt-7 text-d1 font-display">
               {t('how.title')}
             </h2>
-            <p className="mt-4 max-w-md text-lg text-bone-mute">{t('how.lead')}</p>
+            <p className="mt-6 max-w-md text-xl text-ink-soft">{t('how.lead')}</p>
 
-            <div className="cropmarks mt-10 max-w-xs">
-              <ManagedImage
-                slotId="owner-portrait"
-                aspect="4:5"
-                label="owner-portrait"
-                className="border border-rule-soft"
-              />
-            </div>
+            <ManagedImage
+              slotId="owner-portrait"
+              aspect="4:5"
+              label="owner-portrait"
+              className="mt-12 max-w-[17rem]"
+            />
           </div>
 
-          <ol className="relative">
-            {/* The rail. Sits behind the markers and stops at the last one. */}
-            <span
-              className="absolute bottom-8 left-[15px] top-3 w-px bg-rule-soft"
-              aria-hidden="true"
-            />
-
-            {steps.map((step, index) => (
-              <Reveal as="li" key={step.title} delay={index * 70} className="relative pb-14 pl-14 last:pb-0">
-                <span
-                  className="absolute left-0 top-0 flex h-8 w-8 items-center justify-center border border-rule bg-ink font-mono text-xs text-cyan tabular-nums"
-                  aria-hidden="true"
-                >
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-
-                <h3 className="font-display text-h3 text-bone">{step.title}</h3>
-                <p className="mt-3 max-w-xl text-bone-mute">{step.body}</p>
+          <ol className="flex flex-col">
+            {steps.map((step, i) => (
+              <Reveal
+                as="li"
+                key={step.title}
+                delay={i * 60}
+                className="border-t border-line py-10 first:border-t-0 first:pt-0 md:py-14"
+              >
+                <div className="flex items-start gap-6 md:gap-10">
+                  <span
+                    aria-hidden="true"
+                    className="mt-1.5 shrink-0 font-display text-d4 font-extrabold text-blue tabular-nums"
+                  >
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <div>
+                    <h3 className="text-d3 font-display">{step.title}</h3>
+                    <p className="mt-4 max-w-xl text-lg text-ink-soft">{step.body}</p>
+                  </div>
+                </div>
               </Reveal>
             ))}
           </ol>
         </div>
-      </div>
+      </Shell>
     </section>
   );
 }

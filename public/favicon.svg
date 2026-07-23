@@ -1,7 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <rect width="32" height="32" fill="#12161C"/>
-  <!-- A drafting sheet with its corner turned: the mark the whole site is built on. -->
-  <path d="M7 5h13l5 5v17H7z" fill="none" stroke="#4FB6C4" stroke-width="1.6"/>
-  <path d="M20 5v5h5" fill="none" stroke="#4FB6C4" stroke-width="1.6"/>
-  <path d="M10.5 16h11M10.5 20h7" stroke="#E8E3D7" stroke-width="1.4" stroke-linecap="square"/>
+  <rect width="32" height="32" rx="7" fill="#1B33E0"/>
+  <!-- A bracket opening to the right: the mark of something being built. -->
+  <path d="M12.5 8L19 16l-6.5 8" fill="none" stroke="#EFEDE7" stroke-width="3"
+        stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

@@ -69,10 +69,10 @@ export default function ProfilePage() {
     <>
       <PageHead label={t('nav.profile')} title={t('profile.pageTitle')} />
 
-      <div className="px-5 py-12 pb-24 sm:px-8">
+      <div className="px-5 py-12 pb-24 md:px-10">
         <div className="mx-auto grid max-w-[1400px] gap-16 lg:grid-cols-[24rem_1fr] lg:gap-20">
           <section aria-labelledby="details-heading">
-            <h2 id="details-heading" className="spec text-cyan">
+            <h2 id="details-heading" className="label text-blue">
               {t('profile.details')}
             </h2>
 
@@ -114,10 +114,10 @@ export default function ProfilePage() {
               </Button>
             </div>
 
-            <div className="mt-14 border-t border-rule-soft pt-8">
-              <h2 className="spec text-bone-faint">{t('profile.dangerZone')}</h2>
+            <div className="mt-14 border-t border-line pt-8">
+              <h2 className="label text-ink-mute">{t('profile.dangerZone')}</h2>
               <Button
-                variant="secondary"
+                variant="outline"
                 className="mt-5"
                 onClick={() => {
                   void signOut().then(() => navigate('/'));
@@ -125,14 +125,14 @@ export default function ProfilePage() {
               >
                 {t('nav.signOut')}
               </Button>
-              <p className="mt-6 max-w-sm text-xs leading-relaxed text-bone-faint">
+              <p className="mt-6 max-w-sm text-xs leading-relaxed text-ink-mute">
                 {t('profile.deleteWarning')}
               </p>
             </div>
           </section>
 
           <section aria-labelledby="saved-heading">
-            <h2 id="saved-heading" className="spec text-cyan">
+            <h2 id="saved-heading" className="label text-blue">
               {t('profile.savedSites')} / {savedListings.length}
             </h2>
 

@@ -26,9 +26,9 @@ export function aspectValue(ratio: string): string {
 }
 
 /**
- * A stable colour pair per slot so each placeholder is distinguishable but all
- * of them stay inside the palette. Cheap string hash — this only needs to be
- * deterministic, not well distributed.
+ * A stable wash per slot, so placeholders are distinguishable from one another
+ * but every one of them stays inside the paper palette. Cheap string hash —
+ * this only needs to be deterministic, not well distributed.
  */
 export function placeholderTone(seed: string): { from: string; to: string } {
   let hash = 0;
@@ -36,10 +36,10 @@ export function placeholderTone(seed: string): { from: string; to: string } {
     hash = (hash * 31 + seed.charCodeAt(i)) | 0;
   }
   const tones: Array<{ from: string; to: string }> = [
-    { from: '#1b2530', to: '#243642' },
-    { from: '#1d2029', to: '#2b3340' },
-    { from: '#182028', to: '#22323a' },
-    { from: '#20232c', to: '#2c3a44' },
+    { from: '#e7e4db', to: '#d8dae8' },
+    { from: '#e9e5dc', to: '#dcd6ca' },
+    { from: '#e4e3e0', to: '#d3d8ea' },
+    { from: '#eae6de', to: '#d9dbd4' },
   ];
   return tones[Math.abs(hash) % tones.length]!;
 }

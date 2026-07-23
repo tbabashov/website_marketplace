@@ -18,38 +18,38 @@ function OrderRow({ order }: { order: Order }) {
   const needsYou = BUYER_ACTION_STATES.includes(order.status);
 
   return (
-    <li className="border-b border-rule-soft first:border-t">
+    <li className="border-b border-line first:border-t">
       <Link
         to={`/orders/${order.id}`}
         className="group grid gap-4 py-6 sm:grid-cols-[1fr_auto] sm:items-center sm:gap-8"
       >
         <div className="min-w-0">
           <div className="flex flex-wrap items-center gap-3">
-            <span className="spec text-cyan">{order.ref}</span>
+            <span className="label text-blue">{order.ref}</span>
             <StatusPill status={order.status} />
             {needsYou && (
-              <span className="spec rounded-[2px] bg-brass/15 px-2 py-1 text-brass">
+              <span className="label rounded-full bg-amber/15 px-2 py-1 text-amber">
                 {t('dashboard.actionNeeded')}
               </span>
             )}
           </div>
 
-          <p className="mt-3 font-display text-h4 text-bone transition-colors group-hover:text-cyan-bright">
+          <p className="mt-3 font-display text-d4 text-ink transition-colors group-hover:text-blue">
             {pickText(order.title, locale) || t('order.customBuild')}
           </p>
 
-          <p className="spec mt-2 text-bone-faint">
+          <p className="label mt-2 text-ink-mute">
             {t('order.placed')} {formatDate(order.created_at, locale)}
           </p>
         </div>
 
         <div className="flex items-center gap-6 sm:justify-end">
           {order.total_azn !== null && (
-            <span className="font-mono text-sm text-bone tabular-nums">
+            <span className="num text-sm text-ink tabular-nums">
               {formatAzn(order.total_azn, locale)}
             </span>
           )}
-          <span className="spec inline-flex items-center gap-2 text-cyan">
+          <span className="label inline-flex items-center gap-2 text-blue">
             {t('dashboard.viewOrder')}
             <Arrow className="transition-transform group-hover:translate-x-0.5" />
           </span>
@@ -87,14 +87,14 @@ export default function DashboardPage() {
         title={t('dashboard.pageTitle')}
         lead={t('dashboard.lead')}
         aside={
-          <ButtonLink to="/request" variant="secondary">
+          <ButtonLink to="/request" variant="outline">
             {t('nav.request')}
           </ButtonLink>
         }
       />
 
-      <div className="px-5 py-12 pb-24 sm:px-8">
-        <div className="mx-auto max-w-[1400px]">
+      <div className="px-5 py-12 pb-24 md:px-10">
+        <div className="mx-auto max-w-[1440px]">
           {orders === null ? (
             <LoadingBlock />
           ) : orders.length === 0 ? (
@@ -103,7 +103,7 @@ export default function DashboardPage() {
               action={
                 <div className="flex flex-col gap-3 sm:flex-row">
                   <ButtonLink to="/marketplace">{t('dashboard.noOrdersAction')}</ButtonLink>
-                  <ButtonLink to="/request" variant="secondary">
+                  <ButtonLink to="/request" variant="outline">
                     {t('dashboard.noRequestsAction')}
                   </ButtonLink>
                 </div>
@@ -113,7 +113,7 @@ export default function DashboardPage() {
             <>
               {active.length > 0 && (
                 <section aria-labelledby="active-heading">
-                  <h2 id="active-heading" className="spec text-cyan">
+                  <h2 id="active-heading" className="label text-blue">
                     {t('dashboard.active')} / {active.length}
                   </h2>
                   <ul className="mt-6">
@@ -126,7 +126,7 @@ export default function DashboardPage() {
 
               {past.length > 0 && (
                 <section aria-labelledby="past-heading" className="mt-16">
-                  <h2 id="past-heading" className="spec text-bone-faint">
+                  <h2 id="past-heading" className="label text-ink-mute">
                     {t('dashboard.past')} / {past.length}
                   </h2>
                   <ul className="mt-6">

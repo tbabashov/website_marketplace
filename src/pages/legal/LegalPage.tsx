@@ -2,6 +2,8 @@ import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 
 import { PageHead } from '@/components/layout/PageHead';
+import { Shell } from '@/components/ui/Bits';
+import { Arrow } from '@/components/ui/Button';
 import { useSeo } from '@/lib/seo';
 import { formatDate } from '@/lib/format';
 import type { Locale } from '@/config/site';
@@ -14,9 +16,9 @@ interface Section {
 }
 
 /**
- * The date these documents were last written. Kept as a constant rather than
- * `new Date()` so the page does not claim to have been updated today every
- * time someone loads it.
+ * The date these documents were last written. A constant rather than
+ * `new Date()`, so the page does not claim to have been updated today every
+ * time somebody loads it.
  */
 const LAST_UPDATED = '2026-01-15';
 
@@ -43,38 +45,43 @@ export default function LegalPage({ doc }: { doc: Doc }) {
         title={title}
         lead={intro}
         aside={
-          <span className="spec text-bone-faint">
+          <span className="label text-ink-mute">
             {t('legal.lastUpdated', { date: formatDate(LAST_UPDATED, locale) })}
           </span>
         }
       />
 
-      <div className="px-5 py-14 pb-24 sm:px-8">
-        <div className="mx-auto max-w-[1400px]">
-          <ol className="max-w-4xl">
-            {sections.map((section, index) => (
-              <li
-                key={section.h}
-                className="grid gap-3 border-b border-rule-soft py-8 lg:grid-cols-[3rem_14rem_1fr] lg:gap-8"
-              >
-                <span className="spec pt-1 tabular-nums text-cyan">
-                  {String(index + 1).padStart(2, '0')}
+      <Shell className="py-20 md:py-28">
+        <ol className="max-w-4xl">
+          {sections.map((section, i) => (
+            <li key={section.h} className="border-t border-line py-9 first:border-t-0 first:pt-0">
+              <div className="grid gap-4 lg:grid-cols-[3rem_1fr] lg:gap-8">
+                <span aria-hidden="true" className="label pt-1.5 text-blue tabular-nums">
+                  {String(i + 1).padStart(2, '0')}
                 </span>
-                <h2 className="font-display text-h4 text-bone">{section.h}</h2>
-                <p className="max-w-2xl leading-relaxed text-bone-mute">{section.b}</p>
-              </li>
-            ))}
-          </ol>
+                <div>
+                  <h2 className="text-d4 font-display">{section.h}</h2>
+                  <p className="mt-4 max-w-2xl text-lg leading-relaxed text-ink-soft">{section.b}</p>
+                </div>
+              </div>
+            </li>
+          ))}
+        </ol>
 
-          <nav aria-label={t('footer.legalHeading')} className="mt-14 flex flex-wrap gap-6">
-            {OTHER_DOCS[doc].map((other) => (
-              <Link key={other} to={`/${other}`} className="spec text-cyan hover:text-cyan-bright">
-                {t(`footer.${other}`)} →
-              </Link>
-            ))}
-          </nav>
-        </div>
-      </div>
+        <nav aria-label={t('footer.legalHeading')} className="mt-16 flex flex-wrap gap-8">
+          {OTHER_DOCS[doc].map((other) => (
+            <Link
+              key={other}
+              to={`/${other}`}
+              data-cursor="link"
+              className="group/btn inline-flex items-center gap-2 font-semibold text-blue"
+            >
+              {t(`footer.${other}`)}
+              <Arrow />
+            </Link>
+          ))}
+        </nav>
+      </Shell>
     </>
   );
 }

@@ -8,10 +8,10 @@ import type { Locale } from '@/config/site';
 import type { CaseStudy } from '@/types/db';
 
 /**
- * A portfolio plate. The index and the year sit on a rule above the image the
- * way a drawing numbers its figures; the crop marks pick up the accent on
- * hover and focus, so the whole card reads as one target rather than the title
- * being the only live thing on it.
+ * A portfolio plate. The whole card is one link, and it declares
+ * `data-cursor="view"` — so the cursor swells into a filled cobalt disc
+ * reading "Bax" the moment the pointer crosses it. That is the site's loudest
+ * interaction, spent on its most important content.
  */
 export function CaseCard({
   study,
@@ -24,70 +24,56 @@ export function CaseCard({
 }) {
   const { t, i18n } = useTranslation();
   const locale = i18n.language as Locale;
+  const title = pickText(study.title, locale);
 
   return (
     <article className={clsx('group', className)}>
       <Link
         to={`/portfolio/${study.slug}`}
-        className="block focus-visible:outline-none"
-        aria-labelledby={`case-${study.id}-title`}
+        data-cursor="view"
+        data-cursor-label={t('portfolio.viewCase')}
+        className="block rounded-[1.25rem] focus-visible:outline-2 focus-visible:outline-offset-8"
       >
-        <div className="flex items-center gap-3 pb-3">
-          <span className="spec tabular-nums text-cyan">
+        <ManagedImage
+          slotId={`portfolio-${study.slug}-cover`}
+          src={study.cover_image}
+          alt={title}
+          aspect="4:3"
+          label={study.slug}
+        />
+
+        <div className="mt-6 flex items-start justify-between gap-6">
+          <div className="min-w-0">
+            <h3 className="text-d3 font-display transition-colors duration-300 group-hover:text-blue">
+              {title}
+            </h3>
+            <p className="mt-2.5 max-w-md text-ink-soft">{pickText(study.summary, locale)}</p>
+          </div>
+          <span className="label mt-2 shrink-0 text-ink-faint">
             {String(index + 1).padStart(2, '0')}
           </span>
-          <span className="h-px flex-1 bg-rule-soft transition-colors group-hover:bg-cyan-dim" />
-          {study.year && <span className="spec text-bone-faint">{study.year}</span>}
         </div>
-
-        <div className="cropmarks transition-transform duration-500 group-focus-visible:outline group-focus-visible:outline-2 group-focus-visible:outline-offset-4 group-focus-visible:outline-cyan">
-          <ManagedImage
-            slotId={`portfolio-${study.slug}-cover`}
-            src={study.cover_image}
-            // Case studies added after this manifest was written have no slot,
-            // so the alt text comes from the row rather than being left empty
-            // — an empty alt would mark a content image as decorative.
-            alt={pickText(study.title, locale)}
-            aspect="3:2"
-            label={study.slug}
-            className="border border-rule-soft transition-colors duration-300 group-hover:border-rule"
-          />
-        </div>
-
-        <h3
-          id={`case-${study.id}-title`}
-          className="mt-5 font-display text-h3 text-bone transition-colors group-hover:text-cyan-bright"
-        >
-          {pickText(study.title, locale)}
-        </h3>
-
-        <p className="mt-2 max-w-md text-sm text-bone-mute">{pickText(study.summary, locale)}</p>
 
         {(study.industry || study.stack.length > 0) && (
-          <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2">
+          <div className="mt-5 flex flex-wrap gap-2">
             {study.industry && (
-              <span className="spec text-bone-faint">{study.industry}</span>
+              <span className="label rounded-full bg-paper-2 px-3 py-1.5 text-ink-mute">
+                {study.industry}
+              </span>
             )}
             {study.stack.slice(0, 3).map((tech) => (
-              <span key={tech} className="spec text-bone-faint/70">
+              <span key={tech} className="label rounded-full bg-paper-2 px-3 py-1.5 text-ink-mute">
                 {tech}
               </span>
             ))}
+            {study.year && (
+              <span className="label rounded-full bg-paper-2 px-3 py-1.5 text-ink-mute">
+                {study.year}
+              </span>
+            )}
           </div>
         )}
       </Link>
-
-      {study.live_url && (
-        <a
-          href={study.live_url}
-          target="_blank"
-          rel="noreferrer noopener"
-          className="spec mt-4 inline-flex text-cyan hover:text-cyan-bright"
-        >
-          {t('portfolio.liveDemo')}
-          <span className="sr-only"> ({t('a11y.openInNewTab')})</span>
-        </a>
-      )}
     </article>
   );
 }

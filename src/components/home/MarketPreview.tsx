@@ -2,47 +2,58 @@ import { useTranslation } from 'react-i18next';
 
 import { ListingRow } from '@/components/marketplace/ListingRow';
 import { Arrow, ButtonLink } from '@/components/ui/Button';
-import { DemoNotice, EmptyState, Reveal, SectionLabel } from '@/components/ui/Bits';
+import { DemoNotice, Eyebrow, Reveal, Shell } from '@/components/ui/Bits';
 import type { Listing } from '@/types/db';
 
+/**
+ * The single inverted band on the page. Going to night here does two things:
+ * it breaks a long run of paper before the reader tires of it, and it makes
+ * the ready-made sites feel like a distinct offer rather than more of the same
+ * page. Rounded off at both ends so it reads as an inset panel, not a stripe.
+ */
 export function MarketPreview({ listings, isDemo }: { listings: Listing[]; isDemo: boolean }) {
   const { t } = useTranslation();
   const shown = listings.filter((l) => l.status === 'published').slice(0, 3);
 
   return (
-    <section
-      className="border-t border-rule-soft px-5 py-24 sm:px-8"
-      aria-labelledby="market-heading"
-    >
-      <div className="mx-auto max-w-[1400px]">
-        <SectionLabel>{t('marketPreview.label')}</SectionLabel>
+    <section className="px-3 py-8 md:px-5" aria-labelledby="market-heading">
+      <div className="rounded-[2rem] bg-night py-24 text-paper md:rounded-[2.75rem] md:py-32">
+        <Shell>
+          <Eyebrow tone="paper">{t('marketPreview.label')}</Eyebrow>
 
-        <div className="mt-8 flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-          <div>
-            <h2 id="market-heading" className="max-w-2xl font-display text-h1 text-bone">
-              {t('marketPreview.title')}
-            </h2>
-            <p className="mt-4 max-w-xl text-lg text-bone-mute">{t('marketPreview.lead')}</p>
+          <div className="mt-8 flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+            <div>
+              <h2 id="market-heading" className="max-w-3xl text-d1 font-display text-paper">
+                {t('marketPreview.title')}
+              </h2>
+              <p className="mt-6 max-w-xl text-xl text-paper/60">{t('marketPreview.lead')}</p>
+            </div>
+            <ButtonLink
+              to="/marketplace"
+              variant="onNight"
+              className="shrink-0 self-start md:self-auto"
+            >
+              {t('marketPreview.viewAll')}
+              <Arrow />
+            </ButtonLink>
           </div>
-          <ButtonLink to="/marketplace" variant="secondary" className="shrink-0 self-start md:self-auto">
-            {t('marketPreview.viewAll')}
-            <Arrow />
-          </ButtonLink>
-        </div>
 
-        {isDemo && <DemoNotice className="mt-6" />}
+          {isDemo && <DemoNotice className="mt-8" />}
 
-        {shown.length === 0 ? (
-          <div className="mt-12">
-            <EmptyState title={t('marketPreview.empty')} />
-          </div>
-        ) : (
-          <Reveal className="mt-12">
-            {shown.map((listing) => (
-              <ListingRow key={listing.id} listing={listing} />
-            ))}
-          </Reveal>
-        )}
+          {shown.length === 0 ? (
+            <div className="mt-16 rounded-3xl bg-night-2 px-8 py-20 text-center">
+              <p className="font-display text-d3 text-paper">{t('marketPreview.empty')}</p>
+            </div>
+          ) : (
+            <div className="mt-16 grid gap-x-8 gap-y-16 md:mt-20 md:grid-cols-2 lg:grid-cols-3">
+              {shown.map((listing, i) => (
+                <Reveal key={listing.id} delay={i * 100}>
+                  <ListingRow listing={listing} tone="paper" />
+                </Reveal>
+              ))}
+            </div>
+          )}
+        </Shell>
       </div>
     </section>
   );

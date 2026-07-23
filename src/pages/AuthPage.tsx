@@ -130,15 +130,15 @@ export default function AuthPage() {
   const lead = mode === 'signup' ? t('auth.signUpLead') : mode === 'reset' ? t('auth.resetLead') : t('auth.signInLead');
 
   return (
-    <div className="mx-auto flex min-h-[70vh] max-w-md flex-col justify-center px-5 py-20">
-      <div className="cropmarks border border-rule bg-surface p-7 sm:p-9">
+    <div className="mx-auto flex min-h-[80vh] max-w-lg flex-col justify-center px-6 pb-24 pt-36 md:pt-44">
+      <div className="rounded-[1.75rem] bg-paper-2 p-8 md:p-10">
         <Wordmark />
 
-        <h1 className="mt-8 font-display text-h2 text-bone">{heading}</h1>
-        <p className="mt-3 text-sm text-bone-mute">{lead}</p>
+        <h1 className="mt-9 font-display text-d2">{heading}</h1>
+        <p className="mt-4 text-ink-soft">{lead}</p>
 
         {!isSupabaseConfigured && (
-          <p className="mt-6 border-l-2 border-brass/60 py-3 pl-4 text-sm text-bone-mute">
+          <p className="mt-6 rounded-2xl bg-amber/10 px-4 py-3 text-sm text-ink-soft">
             {t('auth.notConfigured')}
           </p>
         )}
@@ -147,13 +147,13 @@ export default function AuthPage() {
           <>
             <div className="mt-8 flex flex-col gap-3">
               {authProviders.google && (
-                <Button variant="secondary" onClick={() => void oauth('google')} disabled={busy}>
+                <Button variant="outline" onClick={() => void oauth('google')} disabled={busy}>
                   <GoogleMark />
                   {t('auth.google')}
                 </Button>
               )}
               {authProviders.microsoft && (
-                <Button variant="secondary" onClick={() => void oauth('azure')} disabled={busy}>
+                <Button variant="outline" onClick={() => void oauth('azure')} disabled={busy}>
                   <MicrosoftMark />
                   {t('auth.microsoft')}
                 </Button>
@@ -161,9 +161,9 @@ export default function AuthPage() {
             </div>
 
             <div className="my-8 flex items-center gap-4">
-              <span className="h-px flex-1 bg-rule-soft" />
-              <span className="spec text-bone-faint">{t('auth.orEmail')}</span>
-              <span className="h-px flex-1 bg-rule-soft" />
+              <span className="h-px flex-1 bg-line" />
+              <span className="label text-ink-mute">{t('auth.orEmail')}</span>
+              <span className="h-px flex-1 bg-line" />
             </div>
           </>
         )}
@@ -215,12 +215,12 @@ export default function AuthPage() {
           )}
 
           {error && (
-            <p role="alert" className="text-sm text-rust">
+            <p role="alert" className="text-sm text-red">
               {error}
             </p>
           )}
           {notice && (
-            <p role="status" className="text-sm text-sage">
+            <p role="status" className="text-sm text-green">
               {notice}
             </p>
           )}
@@ -235,28 +235,28 @@ export default function AuthPage() {
           </Button>
         </form>
 
-        <div className="mt-7 flex flex-col gap-2 border-t border-rule-soft pt-6 text-sm">
+        <div className="mt-7 flex flex-col gap-2 border-t border-line pt-6 text-sm">
           {mode === 'signin' && (
             <>
-              <p className="text-bone-mute">
+              <p className="text-ink-soft">
                 {t('auth.noAccount')}{' '}
-                <button type="button" onClick={() => setMode('signup')} className="text-cyan hover:text-cyan-bright">
+                <button type="button" onClick={() => setMode('signup')} className="text-blue hover:text-blue">
                   {t('auth.signUpAction')}
                 </button>
               </p>
               <button
                 type="button"
                 onClick={() => setMode('reset')}
-                className="self-start text-bone-faint hover:text-cyan"
+                className="self-start text-ink-mute hover:text-blue"
               >
                 {t('auth.forgot')}
               </button>
             </>
           )}
           {mode !== 'signin' && (
-            <p className="text-bone-mute">
+            <p className="text-ink-soft">
               {t('auth.haveAccount')}{' '}
-              <button type="button" onClick={() => setMode('signin')} className="text-cyan hover:text-cyan-bright">
+              <button type="button" onClick={() => setMode('signin')} className="text-blue hover:text-blue">
                 {t('auth.signInAction')}
               </button>
             </p>
@@ -264,7 +264,7 @@ export default function AuthPage() {
         </div>
       </div>
 
-      <Link to="/" className="spec mt-8 self-center text-bone-faint hover:text-cyan">
+      <Link to="/" className="label mt-8 self-center text-ink-mute hover:text-blue">
         ← {t('auth.backToSite')}
       </Link>
     </div>

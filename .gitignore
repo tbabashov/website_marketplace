@@ -19,3 +19,5 @@ tsconfig.tsbuildinfo
 .vscode/*
 !.vscode/extensions.json
 .idea/
+.vercel
+.env*

@@ -5,7 +5,7 @@ import clsx from 'clsx';
 import { PageHead } from '@/components/layout/PageHead';
 import { CaseCard } from '@/components/portfolio/CaseCard';
 import { Button } from '@/components/ui/Button';
-import { DemoNotice, EmptyState, LoadingBlock, Reveal } from '@/components/ui/Bits';
+import { DemoNotice, EmptyState, LoadingBlock, Reveal, Shell } from '@/components/ui/Bits';
 import { fetchCaseStudies } from '@/lib/api';
 import { useSeo } from '@/lib/seo';
 import type { CaseStudy } from '@/types/db';
@@ -25,19 +25,21 @@ function FilterGroup({
 }) {
   if (options.length === 0) return null;
 
+  const pill = (selected: boolean) =>
+    clsx(
+      'label rounded-full px-3.5 py-2 transition-colors duration-200',
+      selected ? 'bg-blue text-paper' : 'bg-paper-2 text-ink-mute hover:bg-paper-3 hover:text-ink',
+    );
+
   return (
-    <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-      <span className="spec text-bone-faint">{label}</span>
+    <div className="flex flex-wrap items-center gap-2">
+      <span className="label mr-1 text-ink-faint">{label}</span>
       <button
         type="button"
+        data-cursor="link"
         onClick={() => onChange(null)}
         aria-pressed={active === null}
-        className={clsx(
-          'spec rounded-[2px] border px-2.5 py-1.5 transition-colors',
-          active === null
-            ? 'border-cyan text-cyan-bright'
-            : 'border-rule-soft text-bone-faint hover:border-rule hover:text-bone',
-        )}
+        className={pill(active === null)}
       >
         {allLabel}
       </button>
@@ -45,14 +47,10 @@ function FilterGroup({
         <button
           key={option}
           type="button"
+          data-cursor="link"
           onClick={() => onChange(active === option ? null : option)}
           aria-pressed={active === option}
-          className={clsx(
-            'spec rounded-[2px] border px-2.5 py-1.5 transition-colors',
-            active === option
-              ? 'border-cyan text-cyan-bright'
-              : 'border-rule-soft text-bone-faint hover:border-rule hover:text-bone',
-          )}
+          className={pill(active === option)}
         >
           {option}
         </button>
@@ -86,81 +84,77 @@ export default function PortfolioPage() {
     () => [...new Set((studies ?? []).map((s) => s.industry).filter(Boolean))] as string[],
     [studies],
   );
-  const techs = useMemo(
-    () => [...new Set((studies ?? []).flatMap((s) => s.stack))],
-    [studies],
-  );
+  const techs = useMemo(() => [...new Set((studies ?? []).flatMap((s) => s.stack))], [studies]);
 
-  const filtered = useMemo(() => {
-    return (studies ?? []).filter(
-      (s) =>
-        (!industry || s.industry === industry) && (!tech || s.stack.includes(tech)),
-    );
-  }, [studies, industry, tech]);
+  const filtered = useMemo(
+    () =>
+      (studies ?? []).filter(
+        (s) => (!industry || s.industry === industry) && (!tech || s.stack.includes(tech)),
+      ),
+    [studies, industry, tech],
+  );
 
   return (
     <>
       <PageHead
-        label={`${t('nav.portfolio')} / ${filtered.length}`}
+        label={`${t('nav.portfolio')} — ${filtered.length}`}
         title={t('portfolio.pageTitle')}
         lead={t('portfolio.lead')}
       />
 
-      <div className="px-5 py-12 sm:px-8">
-        <div className="mx-auto max-w-[1400px]">
-          <div className="flex flex-col gap-4">
-            <FilterGroup
-              label={t('portfolio.filterIndustry')}
-              options={industries}
-              active={industry}
-              onChange={setIndustry}
-              allLabel={t('portfolio.filterAll')}
-            />
-            <FilterGroup
-              label={t('portfolio.filterTech')}
-              options={techs}
-              active={tech}
-              onChange={setTech}
-              allLabel={t('portfolio.filterAll')}
+      <Shell className="pb-28 pt-16">
+        <div className="flex flex-col gap-4">
+          <FilterGroup
+            label={t('portfolio.filterIndustry')}
+            options={industries}
+            active={industry}
+            onChange={setIndustry}
+            allLabel={t('portfolio.filterAll')}
+          />
+          <FilterGroup
+            label={t('portfolio.filterTech')}
+            options={techs}
+            active={tech}
+            onChange={setTech}
+            allLabel={t('portfolio.filterAll')}
+          />
+        </div>
+
+        {isDemo && <DemoNotice className="mt-8" />}
+
+        {studies === null ? (
+          <LoadingBlock />
+        ) : filtered.length === 0 ? (
+          <div className="mt-16">
+            <EmptyState
+              title={t('portfolio.empty')}
+              action={
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    setIndustry(null);
+                    setTech(null);
+                  }}
+                >
+                  {t('portfolio.clearFilters')}
+                </Button>
+              }
             />
           </div>
-
-          {isDemo && <DemoNotice className="mt-6" />}
-
-          {studies === null ? (
-            <LoadingBlock />
-          ) : filtered.length === 0 ? (
-            <div className="mt-14">
-              <EmptyState
-                title={t('portfolio.empty')}
-                action={
-                  <Button
-                    variant="secondary"
-                    onClick={() => {
-                      setIndustry(null);
-                      setTech(null);
-                    }}
-                  >
-                    {t('portfolio.clearFilters')}
-                  </Button>
-                }
-              />
-            </div>
-          ) : (
-            <div className="mt-16 grid gap-x-10 gap-y-20 pb-24 md:grid-cols-2">
-              {filtered.map((study, index) => (
-                <Reveal
-                  key={study.id}
-                  delay={(index % 2) * 80}
-                  className={index % 2 === 1 ? 'md:mt-24' : undefined}
-                >
-                  <CaseCard study={study} index={index} />
-                </Reveal>
-              ))}
-            </div>
-          )}
-        </div>
-      </div>
+        ) : (
+          <div className="mt-16 grid gap-x-10 gap-y-20 md:mt-20 md:grid-cols-2">
+            {filtered.map((study, i) => (
+              <Reveal
+                key={study.id}
+                delay={(i % 2) * 110}
+                className={i % 2 === 1 ? 'md:mt-28' : undefined}
+              >
+                <CaseCard study={study} index={i} />
+              </Reveal>
+            ))}
+          </div>
+        )}
+      </Shell>
     </>
   );
 }

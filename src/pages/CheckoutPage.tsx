@@ -140,11 +140,11 @@ export default function CheckoutPage() {
 
   if (order === null) {
     return (
-      <div className="mx-auto max-w-3xl px-5 py-32">
+      <div className="mx-auto max-w-3xl px-6 py-40">
         <EmptyState
           title={t('order.notFound')}
           action={
-            <ButtonLink to="/dashboard" variant="secondary">
+            <ButtonLink to="/dashboard" variant="outline">
               {t('nav.dashboard')}
             </ButtonLink>
           }
@@ -163,36 +163,36 @@ export default function CheckoutPage() {
         lead={t('checkout.lead')}
       />
 
-      <div className="px-5 py-12 sm:px-8">
+      <div className="px-6 py-14 md:px-10">
         <div className="mx-auto grid max-w-[1400px] gap-10 lg:grid-cols-[1fr_23rem] lg:gap-16">
           <div className="max-w-2xl">
             {/* 1 — where the money goes */}
             <section aria-labelledby="pay-to">
-              <h2 id="pay-to" className="spec text-cyan">
+              <h2 id="pay-to" className="label text-blue">
                 {t('checkout.sendTo')}
               </h2>
 
               {!detailsReady ? (
-                <p className="mt-4 border-l-2 border-brass/60 py-3 pl-4 text-sm text-bone-mute">
+                <p className="mt-4 rounded-2xl bg-amber/10 px-4 py-3.5 text-sm text-ink-soft">
                   {t('checkout.detailsMissing')}
                 </p>
               ) : (
-                <div className="mt-5 border border-rule bg-surface">
+                <div className="mt-5 rounded-3xl bg-paper-2">
                   {payConfig.bankName !== IS_PLACEHOLDER && (
-                    <div className="flex items-baseline justify-between gap-4 border-b border-rule-soft px-5 py-4">
-                      <span className="spec text-bone-faint">{t('checkout.bank')}</span>
-                      <span className="text-sm text-bone">{payConfig.bankName}</span>
+                    <div className="flex items-baseline justify-between gap-4 border-b border-line px-5 py-4">
+                      <span className="label text-ink-mute">{t('checkout.bank')}</span>
+                      <span className="text-sm text-ink">{payConfig.bankName}</span>
                     </div>
                   )}
                   {payConfig.accountHolder !== IS_PLACEHOLDER && (
-                    <div className="flex items-baseline justify-between gap-4 border-b border-rule-soft px-5 py-4">
-                      <span className="spec text-bone-faint">{t('checkout.accountHolder')}</span>
-                      <span className="text-sm text-bone">{payConfig.accountHolder}</span>
+                    <div className="flex items-baseline justify-between gap-4 border-b border-line px-5 py-4">
+                      <span className="label text-ink-mute">{t('checkout.accountHolder')}</span>
+                      <span className="text-sm text-ink">{payConfig.accountHolder}</span>
                     </div>
                   )}
                   {payConfig.cardNumber !== IS_PLACEHOLDER && (
-                    <div className="border-b border-rule-soft px-5 py-4">
-                      <p className="spec mb-2 text-bone-faint">{t('checkout.cardNumber')}</p>
+                    <div className="border-b border-line px-5 py-4">
+                      <p className="label mb-2 text-ink-mute">{t('checkout.cardNumber')}</p>
                       <CopyValue
                         value={payConfig.cardNumber.replace(/\s/g, '')}
                         display={formatCardNumber(payConfig.cardNumber)}
@@ -200,8 +200,8 @@ export default function CheckoutPage() {
                     </div>
                   )}
                   {payConfig.iban !== IS_PLACEHOLDER && (
-                    <div className="border-b border-rule-soft px-5 py-4">
-                      <p className="spec mb-2 text-bone-faint">{t('checkout.iban')}</p>
+                    <div className="border-b border-line px-5 py-4">
+                      <p className="label mb-2 text-ink-mute">{t('checkout.iban')}</p>
                       <CopyValue
                         value={payConfig.iban.replace(/\s/g, '')}
                         display={formatIban(payConfig.iban)}
@@ -210,8 +210,8 @@ export default function CheckoutPage() {
                   )}
                   {payConfig.wallets && (
                     <div className="flex items-baseline justify-between gap-4 px-5 py-4">
-                      <span className="spec text-bone-faint">{t('checkout.wallets')}</span>
-                      <span className="text-sm text-bone">{payConfig.wallets}</span>
+                      <span className="label text-ink-mute">{t('checkout.wallets')}</span>
+                      <span className="text-sm text-ink">{payConfig.wallets}</span>
                     </div>
                   )}
                 </div>
@@ -219,23 +219,23 @@ export default function CheckoutPage() {
 
               {/* The reference is the single most important field on the page —
                   it is what matches a transfer to this order. */}
-              <div className="mt-5 border border-cyan/40 bg-cyan/[0.05] px-5 py-5">
-                <p className="spec mb-3 text-cyan">{t('checkout.reference')}</p>
+              <div className="mt-5 rounded-3xl bg-blue-wash px-5 py-5">
+                <p className="label mb-3 text-blue">{t('checkout.reference')}</p>
                 <CopyValue value={order.ref} display={order.ref} />
-                <p className="mt-3 text-sm text-bone-mute">{t('checkout.referenceHelp')}</p>
+                <p className="mt-3 text-sm text-ink-soft">{t('checkout.referenceHelp')}</p>
               </div>
 
-              <p className="mt-6 text-xs leading-relaxed text-bone-faint">
+              <p className="mt-6 text-xs leading-relaxed text-ink-mute">
                 {t('checkout.noCardData')}
               </p>
             </section>
 
             {/* 2 — proof of transfer */}
-            <section aria-labelledby="upload" className="mt-14 border-t border-rule-soft pt-12">
-              <h2 id="upload" className="spec text-cyan">
+            <section aria-labelledby="upload" className="mt-14 border-t border-line pt-12">
+              <h2 id="upload" className="label text-blue">
                 {t('checkout.uploadTitle')}
               </h2>
-              <p className="mt-3 text-sm text-bone-mute">{t('checkout.uploadHelp')}</p>
+              <p className="mt-3 text-sm text-ink-soft">{t('checkout.uploadHelp')}</p>
 
               <div className="mt-6 flex flex-col gap-6">
                 <div>
@@ -249,17 +249,17 @@ export default function CheckoutPage() {
                   />
                   <Button
                     type="button"
-                    variant="secondary"
+                    variant="outline"
                     onClick={() => fileInput.current?.click()}
                   >
                     {file ? t('checkout.uploadChange') : t('checkout.uploadAction')}
                   </Button>
                   {file && (
-                    <p className="mt-3 font-mono text-xs text-sage">
+                    <p className="mt-3 num text-xs text-green">
                       {t('checkout.uploadedFile', { name: file.name })}
                     </p>
                   )}
-                  {errors.file && <p className="mt-3 text-sm text-rust">{errors.file}</p>}
+                  {errors.file && <p className="mt-3 text-sm text-red">{errors.file}</p>}
                 </div>
 
                 <div className="grid gap-6 sm:grid-cols-2">
@@ -314,49 +314,49 @@ export default function CheckoutPage() {
           </div>
 
           <aside className="lg:sticky lg:top-24 lg:self-start">
-            <div className="border border-rule bg-surface p-6">
-              <h2 className="spec text-bone-faint">{t('checkout.orderSummary')}</h2>
+            <div className="rounded-3xl bg-paper-2 p-6">
+              <h2 className="label text-ink-mute">{t('checkout.orderSummary')}</h2>
 
-              <p className="mt-4 font-display text-h4 text-bone">
+              <p className="mt-4 font-display text-d4 text-ink">
                 {pickText(order.title, locale) || t('order.customBuild')}
               </p>
 
-              <dl className="mt-6 border-t border-rule-soft pt-4">
+              <dl className="mt-6 border-t border-line pt-5">
                 {order.total_azn !== null && (
-                  <div className="flex items-baseline justify-between gap-4 border-b border-rule-soft py-2.5">
-                    <dt className="spec text-bone-faint">{t('order.total')}</dt>
-                    <dd className="font-mono text-sm text-bone tabular-nums">
+                  <div className="flex items-baseline justify-between gap-4 py-2.5">
+                    <dt className="label text-ink-mute">{t('order.total')}</dt>
+                    <dd className="num text-sm text-ink tabular-nums">
                       {formatAzn(order.total_azn, locale)}
                     </dd>
                   </div>
                 )}
                 {order.paid_azn > 0 && (
-                  <div className="flex items-baseline justify-between gap-4 border-b border-rule-soft py-2.5">
-                    <dt className="spec text-bone-faint">{t('order.deposit')}</dt>
-                    <dd className="font-mono text-sm text-sage tabular-nums">
+                  <div className="flex items-baseline justify-between gap-4 py-2.5">
+                    <dt className="label text-ink-mute">{t('order.deposit')}</dt>
+                    <dd className="num text-sm text-green tabular-nums">
                       {formatAzn(order.paid_azn, locale)}
                     </dd>
                   </div>
                 )}
                 {due.kind === 'deposit' && order.deposit_azn !== null && order.total_azn !== null && (
-                  <div className="flex items-baseline justify-between gap-4 border-b border-rule-soft py-2.5">
-                    <dt className="spec text-bone-faint">{t('checkout.balanceLater')}</dt>
-                    <dd className="font-mono text-sm text-bone-mute tabular-nums">
+                  <div className="flex items-baseline justify-between gap-4 py-2.5">
+                    <dt className="label text-ink-mute">{t('checkout.balanceLater')}</dt>
+                    <dd className="num text-sm text-ink-soft tabular-nums">
                       {formatAzn(order.total_azn - order.deposit_azn, locale)}
                     </dd>
                   </div>
                 )}
               </dl>
 
-              <div className="mt-5 border-t border-rule pt-5">
-                <p className="spec text-cyan">{t('checkout.amountDue')}</p>
-                <p className="mt-2 font-display text-h1 text-bone tabular-nums">
+              <div className="mt-5 border-t border-line pt-5">
+                <p className="label text-blue">{t('checkout.amountDue')}</p>
+                <p className="mt-2 font-display text-d2 tabular-nums">
                   {formatAzn(due.amount, locale)}
                 </p>
               </div>
 
               {due.kind === 'deposit' && (
-                <p className="mt-5 border-t border-rule-soft pt-4 text-xs leading-relaxed text-bone-faint">
+                <p className="mt-5 border-t border-line pt-4 text-xs leading-relaxed text-ink-mute">
                   {t('checkout.depositExplain', {
                     percent: Math.round(((order.deposit_azn ?? 0) / (order.total_azn || 1)) * 100),
                   })}

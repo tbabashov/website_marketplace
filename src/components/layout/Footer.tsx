@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import { Wordmark } from './Header';
 import { LanguageSwitcher } from './LanguageSwitcher';
+import { Shell } from '@/components/ui/Bits';
 import { site } from '@/config/site';
 
 const socials = [
@@ -12,71 +12,71 @@ const socials = [
   { key: 'telegram', label: 'Telegram', href: site.social.telegram },
 ].filter((s): s is { key: string; label: string; href: string } => Boolean(s.href));
 
+/**
+ * Night ground, with the wordmark blown up to fill the width as a closing
+ * gesture. It is the only place the logo appears at that scale, which is what
+ * makes the page feel finished rather than merely stopped.
+ */
 export function Footer() {
   const { t } = useTranslation();
 
+  const explore = [
+    { to: '/portfolio', key: 'nav.portfolio' },
+    { to: '/marketplace', key: 'nav.marketplace' },
+    { to: '/request', key: 'nav.request' },
+    { to: '/#faq', key: 'nav.faq' },
+  ];
+
+  const legal = [
+    { to: '/terms', key: 'footer.terms' },
+    { to: '/privacy', key: 'footer.privacy' },
+    { to: '/refund', key: 'footer.refund' },
+  ];
+
   return (
-    <footer className="border-t border-rule bg-ink-deep">
-      <div className="mx-auto max-w-[1400px] px-5 py-16 sm:px-8">
-        <div className="grid gap-12 lg:grid-cols-[1.6fr_1fr_1fr_1.2fr]">
+    <footer className="relative z-[2] bg-night text-paper">
+      <Shell className="pt-20 pb-10 md:pt-28">
+        <div className="grid gap-14 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
           <div>
-            <Wordmark />
-            <p className="mt-4 max-w-xs text-sm text-bone-mute">{t('footer.tagline')}</p>
-            <LanguageSwitcher className="mt-6" />
+            <p className="max-w-xs text-lg text-paper/70">{t('footer.tagline')}</p>
+            <LanguageSwitcher tone="paper" className="mt-8" />
           </div>
 
           <nav aria-label={t('nav.footerLabel')}>
-            <p className="spec mb-4 text-bone-faint">{t('footer.explore')}</p>
-            <ul className="flex flex-col gap-3 text-sm">
-              <li>
-                <Link to="/portfolio" className="text-bone-mute hover:text-cyan">
-                  {t('nav.portfolio')}
-                </Link>
-              </li>
-              <li>
-                <Link to="/marketplace" className="text-bone-mute hover:text-cyan">
-                  {t('nav.marketplace')}
-                </Link>
-              </li>
-              <li>
-                <Link to="/request" className="text-bone-mute hover:text-cyan">
-                  {t('nav.request')}
-                </Link>
-              </li>
-              <li>
-                <Link to="/#faq" className="text-bone-mute hover:text-cyan">
-                  {t('nav.faq')}
-                </Link>
-              </li>
+            <p className="label text-paper/40">{t('footer.explore')}</p>
+            <ul className="mt-5 flex flex-col gap-3.5">
+              {explore.map((l) => (
+                <li key={l.to}>
+                  <Link to={l.to} data-cursor="link" className="ul-swipe text-paper/75 hover:text-paper">
+                    {t(l.key)}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </nav>
 
           <nav aria-label={t('footer.legalHeading')}>
-            <p className="spec mb-4 text-bone-faint">{t('footer.legalHeading')}</p>
-            <ul className="flex flex-col gap-3 text-sm">
-              <li>
-                <Link to="/terms" className="text-bone-mute hover:text-cyan">
-                  {t('footer.terms')}
-                </Link>
-              </li>
-              <li>
-                <Link to="/privacy" className="text-bone-mute hover:text-cyan">
-                  {t('footer.privacy')}
-                </Link>
-              </li>
-              <li>
-                <Link to="/refund" className="text-bone-mute hover:text-cyan">
-                  {t('footer.refund')}
-                </Link>
-              </li>
+            <p className="label text-paper/40">{t('footer.legalHeading')}</p>
+            <ul className="mt-5 flex flex-col gap-3.5">
+              {legal.map((l) => (
+                <li key={l.to}>
+                  <Link to={l.to} data-cursor="link" className="ul-swipe text-paper/75 hover:text-paper">
+                    {t(l.key)}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </nav>
 
           <div>
-            <p className="spec mb-4 text-bone-faint">{t('footer.contactHeading')}</p>
-            <ul className="flex flex-col gap-3 text-sm">
+            <p className="label text-paper/40">{t('footer.contactHeading')}</p>
+            <ul className="mt-5 flex flex-col gap-3.5">
               <li>
-                <a href={`mailto:${site.email}`} className="text-bone-mute hover:text-cyan">
+                <a
+                  href={`mailto:${site.email}`}
+                  data-cursor="link"
+                  className="ul-swipe break-all text-paper/75 hover:text-paper"
+                >
                   {site.email}
                 </a>
               </li>
@@ -84,21 +84,23 @@ export function Footer() {
                 <li>
                   <a
                     href={`tel:${site.phone.replace(/\s/g, '')}`}
-                    className="font-mono text-bone-mute hover:text-cyan"
+                    data-cursor="link"
+                    className="ul-swipe num text-paper/75 hover:text-paper"
                   >
                     {site.phone}
                   </a>
                 </li>
               )}
               {socials.length > 0 && (
-                <li className="flex flex-wrap gap-4 pt-1">
+                <li className="flex flex-wrap gap-x-5 gap-y-2 pt-2">
                   {socials.map((s) => (
                     <a
                       key={s.key}
                       href={s.href}
                       target="_blank"
                       rel="noreferrer noopener"
-                      className="spec text-bone-faint hover:text-cyan"
+                      data-cursor="link"
+                      className="label text-paper/50 hover:text-paper"
                     >
                       {s.label}
                     </a>
@@ -109,11 +111,20 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-14 flex flex-col gap-3 border-t border-rule-soft pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="spec text-bone-faint">{t('footer.rights', { year: new Date().getFullYear() })}</p>
-          <p className="spec text-bone-faint/70">{t('footer.builtNote')}</p>
+        {/* Oversized wordmark. Decorative — the real one is in the header. */}
+        <div className="mt-24 select-none" aria-hidden="true">
+          <p className="font-display text-[clamp(3.5rem,15.5vw,15rem)] font-extrabold leading-[0.8] tracking-[-0.055em] text-paper/10">
+            websale<span className="text-blue/40">.</span>az
+          </p>
         </div>
-      </div>
+
+        <div className="mt-12 flex flex-col gap-3 border-t border-night-line pt-7 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-sm text-paper/40">
+            {t('footer.rights', { year: new Date().getFullYear() })}
+          </p>
+          <p className="text-sm text-paper/40">{t('footer.builtNote')}</p>
+        </div>
+      </Shell>
     </footer>
   );
 }

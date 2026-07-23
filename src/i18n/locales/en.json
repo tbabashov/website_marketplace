@@ -49,6 +49,7 @@
     "sub": "Tell me what your business actually needs — I'll price it honestly, build it, and hand over every login. Or take a site I've already finished and be live this week.",
     "ctaPrimary": "Request a site",
     "ctaSecondary": "Browse ready-made sites",
+    "scroll": "Scroll",
     "spec": {
       "title": "Sheet",
       "drawnBy": "Drawn by",
@@ -310,6 +311,7 @@
   },
   "portfolio": {
     "pageTitle": "Work",
+    "viewCase": "View",
     "lead": "Every build below is a real site with a real owner. Each one shows the problem it started from, what got built, and what changed afterwards.",
     "filterAll": "All",
     "filterIndustry": "Industry",
@@ -329,6 +331,7 @@
   },
   "market": {
     "pageTitle": "Ready-made sites",
+    "viewListing": "View",
     "lead": "Finished, tested sites you can put on your own domain. What you see in the demo is what you get — I swap in your text, photos and logo, then hand it over.",
     "sortLabel": "Sort",
     "sortNewest": "Newest first",
@@ -699,5 +702,15 @@
     "currentStep": "current step",
     "completedStep": "completed",
     "imagePlaceholder": "Image not yet supplied"
+  },
+  "marquee": {
+    "items": [
+      "Custom websites",
+      "Ready-made sites",
+      "Three languages",
+      "Fixed price",
+      "Built in Baku",
+      "Pay on delivery"
+    ]
   }
 }

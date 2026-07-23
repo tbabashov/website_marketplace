@@ -222,15 +222,15 @@ export default function RequestPage() {
 
   if (sent) {
     return (
-      <div className="mx-auto max-w-2xl px-5 py-32 text-center">
-        <span className="spec text-sage">{t('request.sentTitle')}</span>
-        <h1 className="mt-5 font-display text-h1 text-bone">{t('request.sentTitle')}</h1>
-        <p className="mt-5 text-lg text-bone-mute">{t('request.sentBody')}</p>
+      <div className="mx-auto max-w-2xl px-6 pb-32 pt-44 text-center">
+        <span className="label text-green">{t('request.sentTitle')}</span>
+        <h1 className="mt-5 font-display text-d2">{t('request.sentTitle')}</h1>
+        <p className="mt-5 text-lg text-ink-soft">{t('request.sentBody')}</p>
         <div className="mt-10 flex flex-col justify-center gap-3 sm:flex-row">
           <ButtonLink to="/dashboard" size="lg">
             {t('request.sentAction')}
           </ButtonLink>
-          <ButtonLink to="/marketplace" variant="secondary" size="lg">
+          <ButtonLink to="/marketplace" variant="outline" size="lg">
             {t('request.sentBrowse')}
           </ButtonLink>
         </div>
@@ -242,8 +242,8 @@ export default function RequestPage() {
     <>
       <PageHead label={t('nav.request')} title={t('request.pageTitle')} lead={t('request.lead')} />
 
-      <div className="px-5 py-12 sm:px-8">
-        <div className="mx-auto max-w-[1400px]">
+      <div className="px-6 py-14 md:px-10">
+        <div className="mx-auto max-w-[1440px]">
           {/* Progress reads as a dimension line across the six steps. */}
           <ol className="flex flex-wrap items-center gap-x-2 gap-y-3">
             {STEPS.map((s, i) => {
@@ -259,10 +259,10 @@ export default function RequestPage() {
                     disabled={i > stepIndex}
                     aria-current={current ? 'step' : undefined}
                     className={clsx(
-                      'spec flex items-center gap-2 rounded-[2px] px-2 py-1.5 transition-colors',
-                      current && 'text-cyan-bright',
-                      done && 'text-bone-mute hover:text-bone',
-                      !current && !done && 'cursor-default text-bone-faint/50',
+                      'label flex items-center gap-2 rounded-full px-3 py-2 transition-colors duration-200',
+                      current && 'bg-blue text-paper',
+                      done && 'bg-paper-2 text-ink-soft hover:bg-paper-3 hover:text-ink',
+                      !current && !done && 'cursor-default text-ink-mute/60',
                     )}
                   >
                     <span className="tabular-nums">{String(i + 1).padStart(2, '0')}</span>
@@ -272,7 +272,7 @@ export default function RequestPage() {
                   </button>
                   {i < STEPS.length - 1 && (
                     <span
-                      className={clsx('h-px w-4 sm:w-8', done ? 'bg-cyan-dim' : 'bg-rule-soft')}
+                      className={clsx('h-px w-4 sm:w-8', done ? 'bg-blue' : 'bg-line')}
                       aria-hidden="true"
                     />
                   )}
@@ -281,7 +281,7 @@ export default function RequestPage() {
             })}
           </ol>
 
-          <p className="spec mt-6 text-bone-faint">
+          <p className="label mt-6 text-ink-mute">
             {t('request.stepOf', { current: stepIndex + 1, total: STEPS.length })}
           </p>
 
@@ -326,7 +326,7 @@ export default function RequestPage() {
                 </Field>
 
                 <fieldset>
-                  <legend className="spec mb-3 text-bone-mute">{t('request.hasWebsite')}</legend>
+                  <legend className="label mb-3 text-ink-soft">{t('request.hasWebsite')}</legend>
                   <RadioRow
                     name="hasWebsite"
                     value={draft.hasWebsite ? 'yes' : 'no'}
@@ -358,8 +358,8 @@ export default function RequestPage() {
             {step === 'pages' && (
               <div className="flex flex-col gap-10">
                 <fieldset>
-                  <legend className="spec mb-2 text-bone-mute">{t('request.pagesLabel')}</legend>
-                  <p className="mb-4 text-sm text-bone-faint">{t('request.pagesHint')}</p>
+                  <legend className="label mb-2 text-ink-soft">{t('request.pagesLabel')}</legend>
+                  <p className="mb-4 text-sm text-ink-mute">{t('request.pagesHint')}</p>
                   <div className="flex flex-wrap gap-2">
                     {PAGE_OPTIONS.map((page) => (
                       <CheckChip
@@ -373,11 +373,11 @@ export default function RequestPage() {
                       </CheckChip>
                     ))}
                   </div>
-                  {errors.pages && <p className="mt-3 text-sm text-rust">{errors.pages}</p>}
+                  {errors.pages && <p className="mt-3 text-sm text-red">{errors.pages}</p>}
                 </fieldset>
 
                 <fieldset>
-                  <legend className="spec mb-4 text-bone-mute">{t('request.featuresLabel')}</legend>
+                  <legend className="label mb-4 text-ink-soft">{t('request.featuresLabel')}</legend>
                   <div className="flex flex-wrap gap-2">
                     {FEATURE_OPTIONS.map((feature) => (
                       <CheckChip
@@ -427,7 +427,7 @@ export default function RequestPage() {
                 </Field>
 
                 <fieldset>
-                  <legend className="spec mb-3 text-bone-mute">{t('request.hasBranding')}</legend>
+                  <legend className="label mb-3 text-ink-soft">{t('request.hasBranding')}</legend>
                   <RadioRow
                     name="hasBranding"
                     value={draft.hasBranding ? 'yes' : 'no'}
@@ -444,8 +444,8 @@ export default function RequestPage() {
             {step === 'budget' && (
               <div className="flex flex-col gap-10">
                 <fieldset>
-                  <legend className="spec mb-2 text-bone-mute">{t('request.budgetLabel')}</legend>
-                  <p className="mb-4 text-sm text-bone-faint">{t('request.budgetHint')}</p>
+                  <legend className="label mb-2 text-ink-soft">{t('request.budgetLabel')}</legend>
+                  <p className="mb-4 text-sm text-ink-mute">{t('request.budgetHint')}</p>
                   <RadioRow
                     name="budget"
                     value={draft.budget}
@@ -458,7 +458,7 @@ export default function RequestPage() {
                 </fieldset>
 
                 <fieldset>
-                  <legend className="spec mb-4 text-bone-mute">{t('request.timelineLabel')}</legend>
+                  <legend className="label mb-4 text-ink-soft">{t('request.timelineLabel')}</legend>
                   <RadioRow
                     name="timeline"
                     value={draft.timeline}
@@ -517,7 +517,7 @@ export default function RequestPage() {
                 </Field>
 
                 <fieldset>
-                  <legend className="spec mb-3 text-bone-mute">{t('request.contactPreferred')}</legend>
+                  <legend className="label mb-3 text-ink-soft">{t('request.contactPreferred')}</legend>
                   <RadioRow
                     name="preferred"
                     value={draft.contactPreferred}
@@ -534,9 +534,9 @@ export default function RequestPage() {
 
             {step === 'review' && (
               <div>
-                <p className="text-bone-mute">{t('request.reviewLead')}</p>
+                <p className="text-ink-soft">{t('request.reviewLead')}</p>
 
-                <dl className="mt-8 border-t border-rule-soft">
+                <dl className="mt-8 border-t border-line">
                   {[
                     { label: t('request.businessName'), value: draft.businessName },
                     { label: t('request.businessType'), value: draft.businessType },
@@ -567,16 +567,16 @@ export default function RequestPage() {
                     .map((row) => (
                       <div
                         key={row.label}
-                        className="grid gap-1 border-b border-rule-soft py-4 sm:grid-cols-[14rem_1fr] sm:gap-6"
+                        className="grid gap-1 py-4 sm:grid-cols-[14rem_1fr] sm:gap-6"
                       >
-                        <dt className="spec pt-1 text-bone-faint">{row.label}</dt>
-                        <dd className="text-bone">{row.value}</dd>
+                        <dt className="label pt-1 text-ink-mute">{row.label}</dt>
+                        <dd className="text-ink">{row.value}</dd>
                       </div>
                     ))}
                 </dl>
 
                 {!user && (
-                  <p className="mt-8 border-l-2 border-brass/50 py-3 pl-4 text-sm text-bone-mute">
+                  <p className="mt-8 rounded-2xl bg-amber/10 px-4 py-3.5 text-sm text-ink-soft">
                     {t('common.signInToContinue')}
                   </p>
                 )}

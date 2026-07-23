@@ -5,37 +5,47 @@ import { LOCALE_LABELS, SUPPORTED_LOCALES, type Locale } from '@/config/site';
 import { setLocale } from '@/i18n';
 
 /**
- * Three segments rather than a dropdown. With only three languages a select
- * hides two of them behind a click for no benefit, and the current language is
- * always visible this way.
+ * Three inline codes with a cobalt pill sliding under the active one. With
+ * only three languages, hiding two behind a dropdown costs a click and buys
+ * nothing.
  */
-export function LanguageSwitcher({ className }: { className?: string }) {
+export function LanguageSwitcher({
+  className,
+  tone = 'ink',
+}: {
+  className?: string;
+  tone?: 'ink' | 'paper';
+}) {
   const { i18n, t } = useTranslation();
   const current = i18n.language as Locale;
 
-  function choose(locale: Locale) {
-    void setLocale(locale);
-  }
-
   return (
     <div
-      className={clsx('inline-flex items-center border border-rule-soft', className)}
+      className={clsx(
+        'inline-flex items-center rounded-full p-1',
+        tone === 'ink' ? 'bg-ink/6' : 'bg-paper/12',
+        className,
+      )}
       role="group"
       aria-label={t('lang.label')}
     >
-      {SUPPORTED_LOCALES.map((locale, index) => {
+      {SUPPORTED_LOCALES.map((locale) => {
         const active = current === locale;
         return (
           <button
             key={locale}
             type="button"
-            onClick={() => choose(locale)}
+            data-cursor="link"
+            onClick={() => void setLocale(locale)}
             aria-current={active ? 'true' : undefined}
             aria-label={t('lang.switchTo', { language: LOCALE_LABELS[locale].full })}
             className={clsx(
-              'spec px-2.5 py-1.5 transition-colors',
-              index > 0 && 'border-l border-rule-soft',
-              active ? 'bg-cyan/10 text-cyan-bright' : 'text-bone-faint hover:text-bone',
+              'label rounded-full px-2.5 py-1.5 transition-colors duration-300',
+              active
+                ? 'bg-blue text-paper'
+                : tone === 'ink'
+                  ? 'text-ink-mute hover:text-ink'
+                  : 'text-paper/50 hover:text-paper',
             )}
           >
             {LOCALE_LABELS[locale].short}

@@ -1,120 +1,126 @@
 @import 'tailwindcss';
 
 /* ==========================================================================
-   WebSale.az — "Drafting Table" token system
+   WebSale.az — "Atelier"
    --------------------------------------------------------------------------
-   The site is built as a technical drawing of itself: an ink-slate sheet,
-   hairline rules, dimension lines with real measurements, and one drafting
-   cyan used to mark what is live or actionable. Brass appears only on order
-   status. Bone is the paper the one inverted section is printed on.
+   A gallery, not a blueprint. Warm paper, near-black ink, and one electric
+   cobalt that carries every action on the site. Type is the structure: very
+   large, very tight, with the space around it doing the framing that borders
+   would otherwise do. Almost nothing has an outline.
+
+   Three surfaces, used as movements rather than decoration:
+     paper  — the default, ~80% of the page
+     night  — one inverted band, for the marketplace
+     cobalt — one saturated band, for the closing call to action
    ========================================================================== */
 
 @theme {
-  /* --- Surfaces: darkest to lightest ---------------------------------- */
-  --color-ink: #12161c; /* page base */
-  --color-ink-deep: #0b0e13; /* footer, wells, inset fields */
-  --color-surface: #171c24; /* raised panels, cards */
-  --color-surface-2: #1d232c; /* hover, nested panel */
+  /* --- Paper: the canvas ---------------------------------------------- */
+  --color-paper: #efede7;
+  --color-paper-2: #e6e3da; /* inset wells, hovered rows */
+  --color-paper-3: #dcd8cc; /* pressed, active track */
 
-  /* --- Hairlines ------------------------------------------------------- */
-  --color-rule: #2a323d; /* visible hairline */
-  --color-rule-soft: #1e242d; /* quiet divider */
+  /* --- Ink: text on paper, darkest to lightest ------------------------ */
+  --color-ink: #121210;
+  --color-ink-soft: #4f4d45; /* secondary body copy */
+  --color-ink-mute: #676455; /* captions, labels */
+  --color-ink-faint: #878475; /* large decorative text only */
+  --color-line: #d5d1c6; /* the rare divider */
 
-  /* --- Drafting cyan: the accent. Marks live/actionable, never decor. --- */
-  --color-cyan: #4fb6c4;
-  --color-cyan-bright: #86d8e2;
-  --color-cyan-dim: #2c6d77;
+  /* --- Cobalt: every action, every link, every live thing -------------- */
+  --color-blue: #1b33e0;
+  --color-blue-deep: #1226b0;
+  --color-blue-lift: #4a5ef0;
+  --color-blue-wash: #e2e2fb;
 
-  /* --- Bone: paper. Primary text on ink, background of the CTA sheet. --- */
-  --color-bone: #e8e3d7;
-  --color-bone-mute: #9aa3ad;
-  --color-bone-faint: #6b7580;
+  /* --- Night: the one inverted band ----------------------------------- */
+  --color-night: #0d0d0c;
+  --color-night-2: #1a1a17;
+  --color-night-line: #2e2e28;
 
-  /* --- Signal colours: status only, never layout ----------------------- */
-  --color-brass: #e0a33e; /* awaiting / in review */
-  --color-sage: #7fb891; /* confirmed / paid */
-  --color-rust: #c4574a; /* rejected / error */
+  /* --- Signals: status only, never layout.
+         Each is darkened to clear 4.5:1 on both paper and paper-2, since
+         status text is small and often sits inside a tinted well. --------- */
+  --color-amber: #925400; /* awaiting, in review */
+  --color-green: #1f7a4d; /* confirmed, paid */
+  --color-red: #c02626; /* rejected, error */
 
-  /* --- Type ------------------------------------------------------------ */
-  --font-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  /* --- Type ----------------------------------------------------------- */
+  --font-display: 'Unbounded', 'Manrope', -apple-system, sans-serif;
+  --font-body: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  /* Data only — order references, prices in tables. Not a design motif. */
+  --font-num: ui-monospace, 'SF Mono', Menlo, monospace;
 
-  /* Utility (mono) tier — labels, dimensions, order refs */
-  --text-spec: 0.6875rem;
-  --text-spec--line-height: 1.2;
-  --text-spec--letter-spacing: 0.14em;
+  /* Display tier — Unbounded, tracked in hard */
+  --text-mega: clamp(2.75rem, 9.5vw, 10rem);
+  --text-mega--line-height: 0.92;
+  --text-mega--letter-spacing: -0.045em;
 
-  /* Body tier */
+  --text-d1: clamp(2.25rem, 6vw, 5rem);
+  --text-d1--line-height: 0.98;
+  --text-d1--letter-spacing: -0.04em;
+
+  --text-d2: clamp(1.75rem, 4vw, 3.25rem);
+  --text-d2--line-height: 1.04;
+  --text-d2--letter-spacing: -0.035em;
+
+  --text-d3: clamp(1.375rem, 2.4vw, 2rem);
+  --text-d3--line-height: 1.14;
+  --text-d3--letter-spacing: -0.025em;
+
+  --text-d4: 1.25rem;
+  --text-d4--line-height: 1.3;
+  --text-d4--letter-spacing: -0.015em;
+
+  /* Body tier — Manrope */
   --text-xs: 0.75rem;
   --text-xs--line-height: 1.5;
-  --text-sm: 0.8125rem;
+  --text-sm: 0.875rem;
   --text-sm--line-height: 1.6;
-  --text-base: 0.9375rem;
-  --text-base--line-height: 1.7;
-  --text-lg: 1.0625rem;
-  --text-lg--line-height: 1.65;
+  --text-base: 1rem;
+  --text-base--line-height: 1.65;
+  --text-lg: 1.1875rem;
+  --text-lg--line-height: 1.6;
+  --text-xl: clamp(1.25rem, 1.8vw, 1.5rem);
+  --text-xl--line-height: 1.5;
 
-  /* Heading tier — Fraunces, tightened */
-  --text-display: clamp(2.5rem, 6.4vw, 4.75rem);
-  --text-display--line-height: 0.98;
-  --text-display--letter-spacing: -0.035em;
-  --text-h5: 1.0625rem;
-  --text-h5--line-height: 1.35;
-  --text-h4: 1.3125rem;
-  --text-h4--line-height: 1.3;
-  --text-h3: 1.625rem;
-  --text-h3--line-height: 1.22;
-  --text-h3--letter-spacing: -0.012em;
-  --text-h2: 2.125rem;
-  --text-h2--line-height: 1.14;
-  --text-h2--letter-spacing: -0.02em;
-  --text-h1: 2.875rem;
-  --text-h1--line-height: 1.06;
-  --text-h1--letter-spacing: -0.028em;
+  /* Label tier — tracked caps in Manrope, deliberately not monospace */
+  --text-label: 0.6875rem;
+  --text-label--line-height: 1.2;
+  --text-label--letter-spacing: 0.16em;
 
-  /* --- Motion ---------------------------------------------------------- */
-  --ease-draft: cubic-bezier(0.22, 0.61, 0.36, 1);
+  /* --- Motion --------------------------------------------------------- */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quint: cubic-bezier(0.83, 0, 0.17, 1);
 
-  --animate-tick-in: tick-in 0.5s var(--ease-draft) both;
-  --animate-draw-x: draw-x 0.9s var(--ease-draft) both;
-  --animate-rise: rise 0.7s var(--ease-draft) both;
-  --animate-fade: fade 0.6s var(--ease-draft) both;
+  --animate-marquee: marquee 42s linear infinite;
 
-  @keyframes tick-in {
+  @keyframes marquee {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(-50%, 0, 0);
+    }
+  }
+
+  @keyframes line-rise {
+    from {
+      transform: translate3d(0, 110%, 0);
+    }
+    to {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  @keyframes soft-in {
     from {
       opacity: 0;
-      transform: scaleY(0.2);
+      transform: translate3d(0, 12px, 0);
     }
     to {
       opacity: 1;
-      transform: scaleY(1);
-    }
-  }
-  @keyframes draw-x {
-    from {
-      transform: scaleX(0);
-    }
-    to {
-      transform: scaleX(1);
-    }
-  }
-  @keyframes rise {
-    from {
-      opacity: 0;
-      transform: translateY(14px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  @keyframes fade {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
+      transform: none;
     }
   }
 }
@@ -127,29 +133,31 @@
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    color-scheme: light;
   }
 
   body {
-    background-color: var(--color-ink);
-    color: var(--color-bone);
+    background-color: var(--color-paper);
+    color: var(--color-ink);
     font-family: var(--font-body);
     font-size: var(--text-base);
-    line-height: 1.7;
+    font-weight: 400;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
 
-    /* Graph-paper texture: 8px minor grid, 64px major. Sits under everything
-       at a low enough alpha that it reads as paper tooth, not as a pattern. */
-    background-image:
-      linear-gradient(to right, rgb(255 255 255 / 0.016) 1px, transparent 1px),
-      linear-gradient(to bottom, rgb(255 255 255 / 0.016) 1px, transparent 1px),
-      linear-gradient(to right, rgb(255 255 255 / 0.022) 1px, transparent 1px),
-      linear-gradient(to bottom, rgb(255 255 255 / 0.022) 1px, transparent 1px);
-    background-size:
-      8px 8px,
-      8px 8px,
-      64px 64px,
-      64px 64px;
+  /* Fine paper grain. Sits above the background, below content, and is the
+     single reason the flat colour reads as a surface rather than a fill. */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.4;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.32'/%3E%3C/svg%3E");
   }
 
   h1,
@@ -158,8 +166,7 @@
   h4,
   h5 {
     font-family: var(--font-display);
-    font-weight: 500;
-    font-optical-sizing: auto;
+    font-weight: 700;
     text-wrap: balance;
   }
 
@@ -167,20 +174,18 @@
     text-wrap: pretty;
   }
 
-  /* One focus treatment, everywhere. Cyan is the "live" colour, so it is
-     also the focus colour — keyboard focus is the element going live. */
+  /* One focus treatment everywhere: a solid cobalt ring, never removed. */
   :focus-visible {
-    outline: 2px solid var(--color-cyan);
-    outline-offset: 2px;
-    border-radius: 1px;
+    outline: 2.5px solid var(--color-blue);
+    outline-offset: 3px;
+    border-radius: 4px;
   }
 
   ::selection {
-    background-color: var(--color-cyan-dim);
-    color: var(--color-bone);
+    background-color: var(--color-blue);
+    color: var(--color-paper);
   }
 
-  /* Inputs inherit type; browsers otherwise drop to 13px system sans. */
   input,
   textarea,
   select,
@@ -189,108 +194,126 @@
     color: inherit;
   }
 
-  /* Dark-scheme scrollbars/date pickers instead of light system chrome. */
-  :root {
-    color-scheme: dark;
+  img {
+    max-width: 100%;
   }
 }
 
 /* ==========================================================================
-   Components — each class owns exactly one concern, so no modifier ever has
-   to fight a base class for the same property.
+   Components
    ========================================================================== */
 
 @layer components {
-  /* Mono micro-label used for section markers, field labels, dimensions. */
-  .spec {
-    font-family: var(--font-mono);
-    font-size: var(--text-spec);
+  /* Tracked micro-label. Replaces the old mono "spec" tag entirely. */
+  .label {
+    font-family: var(--font-body);
+    font-size: var(--text-label);
+    font-weight: 700;
+    letter-spacing: 0.16em;
     line-height: 1.2;
-    letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--color-bone-faint);
   }
 
-  /* Horizontal dimension line: ticks at both ends, rule between. Used to
-     measure sections the way a drawing measures a part. */
-  .dimline {
+  /* Numerals in tables and order references, where alignment matters. */
+  .num {
+    font-family: var(--font-num);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+
+  /* The full-bleed image container: rounded, clipped, with the image
+     scaling inside on hover. Radius is generous and consistent — it is what
+     replaces the old square-cornered plates. */
+  .plate {
     position: relative;
-    height: 1px;
-    background-color: var(--color-rule);
+    overflow: hidden;
+    border-radius: 1.25rem;
+    background-color: var(--color-paper-2);
   }
-  .dimline::before,
-  .dimline::after {
-    content: '';
-    position: absolute;
-    top: -3px;
-    width: 1px;
-    height: 7px;
-    background-color: var(--color-rule);
+  .plate > img,
+  .plate > .plate-fill {
+    transition: transform 0.9s var(--ease-out-expo);
   }
-  .dimline::before {
-    left: 0;
-  }
-  .dimline::after {
-    right: 0;
+  .group:hover .plate > img,
+  .group:hover .plate > .plate-fill {
+    transform: scale(1.045);
   }
 
-  /* Corner crop marks for the hero frame and portfolio plates. */
-  .cropmarks {
-    position: relative;
+  /* Link that draws its own underline on hover, left to right. */
+  .ul-swipe {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-position: 0 100%;
+    background-repeat: no-repeat;
+    background-size: 0% 1.5px;
+    transition: background-size 0.4s var(--ease-out-expo);
+    padding-bottom: 2px;
   }
-  .cropmarks::before,
-  .cropmarks::after {
-    content: '';
-    position: absolute;
-    width: 9px;
-    height: 9px;
-    border-color: var(--color-cyan-dim);
-    pointer-events: none;
-  }
-  .cropmarks::before {
-    top: -1px;
-    left: -1px;
-    border-top: 1px solid;
-    border-left: 1px solid;
-  }
-  .cropmarks::after {
-    bottom: -1px;
-    right: -1px;
-    border-bottom: 1px solid;
-    border-right: 1px solid;
+  .ul-swipe:hover,
+  .ul-swipe:focus-visible {
+    background-size: 100% 1.5px;
   }
 
-  /* Skip link — visible the moment it takes focus. */
   .skip-link {
     position: fixed;
-    top: 0.5rem;
-    left: 0.5rem;
-    z-index: 100;
-    transform: translateY(-200%);
-    background-color: var(--color-cyan);
-    color: var(--color-ink);
-    padding: 0.5rem 1rem;
-    font-family: var(--font-mono);
-    font-size: var(--text-xs);
-    transition: transform 0.15s var(--ease-draft);
+    top: 1rem;
+    left: 1rem;
+    z-index: 200;
+    transform: translateY(-250%);
+    background-color: var(--color-blue);
+    color: var(--color-paper);
+    padding: 0.75rem 1.25rem;
+    border-radius: 999px;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    transition: transform 0.25s var(--ease-out-expo);
   }
   .skip-link:focus {
-    transform: translateY(0);
+    transform: none;
+  }
+
+  /* Marquee track. Content is duplicated in the markup; translating -50%
+     lands exactly on the copy, so the loop has no seam. */
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: var(--animate-marquee);
+    will-change: transform;
+  }
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
   }
 }
 
 /* ==========================================================================
-   Scroll-reveal — the one orchestrated motion moment. Elements carrying
-   [data-reveal] start displaced; an IntersectionObserver adds [data-shown].
+   Motion utilities
    ========================================================================== */
 
 @layer utilities {
+  /* Headline lines that rise out of a mask on load. */
+  .line-mask {
+    display: block;
+    overflow: hidden;
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+  }
+  .line-mask > span {
+    display: block;
+    animation: line-rise 1.05s var(--ease-out-expo) both;
+    animation-delay: var(--d, 0ms);
+  }
+
+  .fade-up {
+    animation: soft-in 0.85s var(--ease-out-expo) both;
+    animation-delay: var(--d, 0ms);
+  }
+
+  /* Scroll reveal, driven by IntersectionObserver in Reveal.tsx. */
   [data-reveal] {
     opacity: 0;
-    transform: translateY(18px);
+    transform: translate3d(0, 26px, 0);
     transition:
-      opacity 0.7s var(--ease-draft),
-      transform 0.7s var(--ease-draft);
+      opacity 0.9s var(--ease-out-expo),
+      transform 0.9s var(--ease-out-expo);
     transition-delay: var(--reveal-delay, 0ms);
   }
   [data-reveal][data-shown] {
@@ -299,8 +322,35 @@
   }
 }
 
-/* Anyone who has asked for less motion gets none of it, and gets the final
-   state immediately rather than a stuck initial state. */
+/* ==========================================================================
+   Custom cursor
+   --------------------------------------------------------------------------
+   Only ever mounted for fine pointers with motion allowed (see Cursor.tsx).
+   `cursor: none` is scoped to the html element that component marks, so a
+   visitor who never gets the custom cursor keeps their real one.
+   ========================================================================== */
+
+html[data-cursor-active] {
+  cursor: none;
+}
+html[data-cursor-active] a,
+html[data-cursor-active] button,
+html[data-cursor-active] [role='button'],
+html[data-cursor-active] summary,
+html[data-cursor-active] label {
+  cursor: none;
+}
+/* Text entry keeps a real caret — replacing it helps nobody. */
+html[data-cursor-active] input,
+html[data-cursor-active] textarea,
+html[data-cursor-active] select {
+  cursor: auto;
+}
+
+/* ==========================================================================
+   Reduced motion — everything above degrades to its finished state
+   ========================================================================== */
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -310,16 +360,16 @@
   *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-    /* The staggered hero entrance sets animation-delay inline. Without this,
-       reduced-motion visitors would still stare at an empty hero for the
-       length of the stagger — the wait, not the movement, would be all that
-       survived. */
     animation-delay: 0ms !important;
+    transition-duration: 0.001ms !important;
     transition-delay: 0ms !important;
   }
   [data-reveal] {
     opacity: 1;
+    transform: none;
+  }
+  .marquee-track {
+    animation: none;
     transform: none;
   }
 }

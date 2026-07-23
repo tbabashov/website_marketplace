@@ -70,45 +70,45 @@ function PaymentCard({ row, onDone }: { row: PaymentReviewRow; onDone: () => voi
   }
 
   return (
-    <article className="border border-rule bg-surface p-6">
+    <article className="rounded-3xl bg-paper-2 p-6">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <Link to={`/orders/${row.order_id}`} className="spec text-cyan hover:text-cyan-bright">
+        <Link to={`/orders/${row.order_id}`} className="label text-blue hover:text-blue">
           {row.order?.ref ?? row.order_id.slice(0, 8)}
         </Link>
-        <span className="spec text-bone-faint">{formatDateTime(row.created_at, locale)}</span>
+        <span className="label text-ink-mute">{formatDateTime(row.created_at, locale)}</span>
       </div>
 
       {row.order && (
-        <p className="mt-3 font-display text-h4 text-bone">
+        <p className="mt-3 font-display text-d4 text-ink">
           {pickText(row.order.title, locale) || t('order.customBuild')}
         </p>
       )}
 
-      <dl className="mt-5 border-t border-rule-soft pt-4">
-        <div className="flex items-baseline justify-between gap-4 border-b border-rule-soft py-2.5">
-          <dt className="spec text-bone-faint">{t('admin.claimedAmount')}</dt>
-          <dd className={clsx('font-mono text-sm tabular-nums', mismatch ? 'text-rust' : 'text-bone')}>
+      <dl className="mt-5 border-t border-line pt-4">
+        <div className="flex items-baseline justify-between gap-4 py-2.5">
+          <dt className="label text-ink-mute">{t('admin.claimedAmount')}</dt>
+          <dd className={clsx('num text-sm tabular-nums', mismatch ? 'text-red' : 'text-ink')}>
             {formatAzn(row.claimed_amount_azn, locale)}
           </dd>
         </div>
-        <div className="flex items-baseline justify-between gap-4 border-b border-rule-soft py-2.5">
-          <dt className="spec text-bone-faint">{t('admin.expectedAmount')}</dt>
-          <dd className="font-mono text-sm text-bone-mute tabular-nums">{formatAzn(expected, locale)}</dd>
+        <div className="flex items-baseline justify-between gap-4 py-2.5">
+          <dt className="label text-ink-mute">{t('admin.expectedAmount')}</dt>
+          <dd className="num text-sm text-ink-soft tabular-nums">{formatAzn(expected, locale)}</dd>
         </div>
         {row.paid_at && (
           <div className="flex items-baseline justify-between gap-4 py-2.5">
-            <dt className="spec text-bone-faint">{t('checkout.paidAt')}</dt>
-            <dd className="text-sm text-bone">{formatDate(row.paid_at, locale)}</dd>
+            <dt className="label text-ink-mute">{t('checkout.paidAt')}</dt>
+            <dd className="text-sm text-ink">{formatDate(row.paid_at, locale)}</dd>
           </div>
         )}
       </dl>
 
-      {mismatch && <p className="spec mt-3 text-rust">{t('admin.amountMismatch')}</p>}
+      {mismatch && <p className="label mt-3 text-red">{t('admin.amountMismatch')}</p>}
 
       {row.buyer_note && (
         <div className="mt-5">
-          <p className="spec mb-2 text-bone-faint">{t('admin.buyerNote')}</p>
-          <p className="text-sm text-bone-mute">{row.buyer_note}</p>
+          <p className="label mb-2 text-ink-mute">{t('admin.buyerNote')}</p>
+          <p className="text-sm text-ink-soft">{row.buyer_note}</p>
         </div>
       )}
 
@@ -117,14 +117,14 @@ function PaymentCard({ row, onDone }: { row: PaymentReviewRow; onDone: () => voi
           href={receipt}
           target="_blank"
           rel="noreferrer noopener"
-          className="spec mt-5 inline-flex text-cyan hover:text-cyan-bright"
+          className="label mt-5 inline-flex text-blue hover:text-blue"
         >
           {t('order.viewReceipt')}
         </a>
       )}
 
       {/* The one thing that must not be skimmed: the receipt is not evidence. */}
-      <p className="mt-6 border-l-2 border-brass/60 py-3 pl-4 text-xs leading-relaxed text-bone-mute">
+      <p className="mt-6 rounded-2xl bg-amber/10 px-4 py-3.5 text-xs leading-relaxed text-ink-soft">
         {t('admin.receiptWarning')}
       </p>
 
@@ -144,9 +144,9 @@ function PaymentCard({ row, onDone }: { row: PaymentReviewRow; onDone: () => voi
           </Button>
         </div>
       ) : (
-        <div className="mt-6 flex flex-col gap-5 border-t border-rule-soft pt-6">
+        <div className="mt-6 flex flex-col gap-5 border-t border-line pt-6">
           <fieldset>
-            <legend className="spec mb-3 text-bone-mute">{t('admin.rejectReasonLabel')}</legend>
+            <legend className="label mb-3 text-ink-soft">{t('admin.rejectReasonLabel')}</legend>
             <RadioRow
               name={`reason-${row.id}`}
               value={reason}
@@ -249,51 +249,51 @@ function RequestCard({ request, onDone }: { request: SiteRequest; onDone: () => 
   }
 
   return (
-    <article className="border border-rule bg-surface p-6">
+    <article className="rounded-3xl bg-paper-2 p-6">
       <div className="flex flex-wrap items-baseline justify-between gap-3">
-        <span className="spec text-cyan">{request.status}</span>
-        <span className="spec text-bone-faint">{formatDate(request.created_at, locale)}</span>
+        <span className="label text-blue">{request.status}</span>
+        <span className="label text-ink-mute">{formatDate(request.created_at, locale)}</span>
       </div>
 
-      <h3 className="mt-3 font-display text-h3 text-bone">{request.business_name}</h3>
-      <p className="mt-1 text-sm text-bone-mute">{request.business_type}</p>
+      <h3 className="mt-3 font-display text-d3 text-ink">{request.business_name}</h3>
+      <p className="mt-1 text-sm text-ink-soft">{request.business_type}</p>
 
-      {request.business_desc && <p className="mt-4 text-sm text-bone-mute">{request.business_desc}</p>}
+      {request.business_desc && <p className="mt-4 text-sm text-ink-soft">{request.business_desc}</p>}
 
-      <dl className="mt-5 grid gap-x-8 gap-y-3 border-t border-rule-soft pt-4 sm:grid-cols-2">
+      <dl className="mt-5 grid gap-x-8 gap-y-3 border-t border-line pt-4 sm:grid-cols-2">
         <div>
-          <dt className="spec text-bone-faint">{t('request.pagesLabel')}</dt>
-          <dd className="mt-1 text-sm text-bone">
+          <dt className="label text-ink-mute">{t('request.pagesLabel')}</dt>
+          <dd className="mt-1 text-sm text-ink">
             {request.pages.map((p) => t(`request.pageOptions.${p}`, p)).join(', ') || '—'}
           </dd>
         </div>
         <div>
-          <dt className="spec text-bone-faint">{t('request.featuresLabel')}</dt>
-          <dd className="mt-1 text-sm text-bone">
+          <dt className="label text-ink-mute">{t('request.featuresLabel')}</dt>
+          <dd className="mt-1 text-sm text-ink">
             {request.features.map((f) => t(`request.featureOptions.${f}`, f)).join(', ') || '—'}
           </dd>
         </div>
         <div>
-          <dt className="spec text-bone-faint">{t('request.budgetLabel')}</dt>
-          <dd className="mt-1 text-sm text-bone">
+          <dt className="label text-ink-mute">{t('request.budgetLabel')}</dt>
+          <dd className="mt-1 text-sm text-ink">
             {request.budget_range ? t(`request.budgetOptions.${request.budget_range}`, request.budget_range) : '—'}
           </dd>
         </div>
         <div>
-          <dt className="spec text-bone-faint">{t('request.timelineLabel')}</dt>
-          <dd className="mt-1 text-sm text-bone">
+          <dt className="label text-ink-mute">{t('request.timelineLabel')}</dt>
+          <dd className="mt-1 text-sm text-ink">
             {request.timeline ? t(`request.timelineOptions.${request.timeline}`, request.timeline) : '—'}
           </dd>
         </div>
         {request.style_refs && (
           <div className="sm:col-span-2">
-            <dt className="spec text-bone-faint">{t('request.styleRefs')}</dt>
-            <dd className="mt-1 break-words text-sm text-bone">{request.style_refs}</dd>
+            <dt className="label text-ink-mute">{t('request.styleRefs')}</dt>
+            <dd className="mt-1 break-words text-sm text-ink">{request.style_refs}</dd>
           </div>
         )}
         <div className="sm:col-span-2">
-          <dt className="spec text-bone-faint">{t('request.contactPreferred')}</dt>
-          <dd className="mt-1 text-sm text-bone">
+          <dt className="label text-ink-mute">{t('request.contactPreferred')}</dt>
+          <dd className="mt-1 text-sm text-ink">
             {request.contact_name} · {request.contact_email}
             {request.contact_phone ? ` · ${request.contact_phone}` : ''}
           </dd>
@@ -308,7 +308,7 @@ function RequestCard({ request, onDone }: { request: SiteRequest; onDone: () => 
       )}
 
       {open && (
-        <div className="mt-6 flex flex-col gap-5 border-t border-rule-soft pt-6">
+        <div className="mt-6 flex flex-col gap-5 border-t border-line pt-6">
           <div className="grid gap-5 sm:grid-cols-2">
             <Field label={t('admin.quoteAmount')}>
               {({ id }) => (
@@ -410,18 +410,18 @@ function OrderAdminRow({ order, onDone }: { order: Order; onDone: () => void }) 
   }
 
   return (
-    <li className="border-b border-rule-soft py-5 first:border-t">
+    <li className="border-b border-line py-5 first:border-t">
       <div className="flex flex-wrap items-center gap-3">
-        <Link to={`/orders/${order.id}`} className="spec text-cyan hover:text-cyan-bright">
+        <Link to={`/orders/${order.id}`} className="label text-blue hover:text-blue">
           {order.ref}
         </Link>
         <StatusPill status={order.status} />
-        <span className="ml-auto font-mono text-sm text-bone tabular-nums">
+        <span className="ml-auto num text-sm text-ink tabular-nums">
           {formatAzn(order.total_azn, locale)}
         </span>
       </div>
 
-      <p className="mt-2 text-sm text-bone-mute">
+      <p className="mt-2 text-sm text-ink-soft">
         {pickText(order.title, locale) || t('order.customBuild')}
       </p>
 
@@ -429,7 +429,7 @@ function OrderAdminRow({ order, onDone }: { order: Order; onDone: () => void }) 
         {(order.status === 'paid' || order.status === 'awaiting_payment') && (
           <Button
             size="sm"
-            variant="secondary"
+            variant="outline"
             disabled={busy}
             onClick={() => void run('start_work', { p_order_id: order.id })}
           >
@@ -442,14 +442,14 @@ function OrderAdminRow({ order, onDone }: { order: Order; onDone: () => void }) 
         {(order.status === 'in_progress' ||
           order.status === 'paid' ||
           order.status === 'delivered') && (
-          <Button size="sm" variant="secondary" onClick={() => setOpen(!open)}>
+          <Button size="sm" variant="outline" onClick={() => setOpen(!open)}>
             {t('admin.markDelivered')}
           </Button>
         )}
       </div>
 
       {open && (
-        <div className="mt-5 flex max-w-xl flex-col gap-4 border-t border-rule-soft pt-5">
+        <div className="mt-5 flex max-w-xl flex-col gap-4 border-t border-line pt-5">
           <Field label={t('admin.deliveryLink')}>
             {({ id }) => (
               <TextInput id={id} type="url" placeholder="https://" value={url} onChange={(e) => setUrl(e.target.value)} />
@@ -531,15 +531,15 @@ function CatalogueRow({
       : { published: !isPublished };
 
   return (
-    <li className="flex flex-wrap items-center gap-4 border-b border-rule-soft py-4 first:border-t">
+    <li className="flex flex-wrap items-center gap-4 py-4 first:border-t">
       <div className="min-w-0 flex-1">
-        <p className="text-bone">{title}</p>
-        <p className="spec mt-1 text-bone-faint">{meta}</p>
+        <p className="text-ink">{title}</p>
+        <p className="label mt-1 text-ink-mute">{meta}</p>
       </div>
-      <span className={clsx('spec', isPublished ? 'text-sage' : 'text-bone-faint')}>
+      <span className={clsx('label', isPublished ? 'text-green' : 'text-ink-mute')}>
         {isPublished ? t('admin.statusPublished') : t('admin.statusDraft')}
       </span>
-      <Button size="sm" variant="secondary" disabled={busy} onClick={() => void update(togglePatch)}>
+      <Button size="sm" variant="outline" disabled={busy} onClick={() => void update(togglePatch)}>
         {isPublished ? t('admin.unpublish') : t('admin.publish')}
       </Button>
       <Button size="sm" variant="danger" disabled={busy} onClick={() => void remove()}>
@@ -586,12 +586,12 @@ export default function AdminPage() {
     <>
       <PageHead label={t('nav.admin')} title={t('admin.pageTitle')} lead={t('admin.lead')} />
 
-      <div className="px-5 py-10 pb-24 sm:px-8">
-        <div className="mx-auto max-w-[1400px]">
+      <div className="px-5 py-10 pb-24 md:px-10">
+        <div className="mx-auto max-w-[1440px]">
           {/* Plain toggle buttons rather than role="tablist": a real tablist
               owes the user arrow-key navigation and matching tabpanels, and a
               half-implemented one is worse for screen readers than none. */}
-          <div className="flex flex-wrap gap-x-6 gap-y-3 border-b border-rule-soft pb-4">
+          <div className="flex flex-wrap gap-x-6 gap-y-3 border-b border-line pb-4">
             {TABS.map((name) => {
               const count =
                 name === 'payments'
@@ -611,8 +611,8 @@ export default function AdminPage() {
                   aria-pressed={tab === name}
                   onClick={() => setTab(name)}
                   className={clsx(
-                    'spec flex items-center gap-2 py-1 transition-colors',
-                    tab === name ? 'text-cyan-bright' : 'text-bone-faint hover:text-bone',
+                    'label flex items-center gap-2 py-1 transition-colors',
+                    tab === name ? 'text-blue' : 'text-ink-mute hover:text-ink',
                   )}
                 >
                   {t(`admin.tabs.${name}`)}

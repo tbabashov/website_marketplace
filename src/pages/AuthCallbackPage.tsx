@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import { LoadingBlock } from '@/components/ui/Bits';
+import { LoadingBlock, Shell } from '@/components/ui/Bits';
 import { ButtonLink } from '@/components/ui/Button';
 import { useAuth } from '@/store/auth';
 
@@ -20,13 +20,11 @@ export default function AuthCallbackPage() {
   const [timedOut, setTimedOut] = useState(false);
 
   useEffect(() => {
-    if (ready && user) {
-      navigate('/dashboard', { replace: true });
-    }
+    if (ready && user) navigate('/dashboard', { replace: true });
   }, [ready, user, navigate]);
 
-  // If nothing has resolved after a few seconds the link was almost certainly
-  // expired or already used. Say so instead of spinning indefinitely.
+  // If nothing resolves after a few seconds the link was almost certainly
+  // expired or already used. Say so rather than spinning indefinitely.
   useEffect(() => {
     const timer = setTimeout(() => setTimedOut(true), 6000);
     return () => clearTimeout(timer);
@@ -34,17 +32,19 @@ export default function AuthCallbackPage() {
 
   if (ready && !user && timedOut) {
     return (
-      <div className="mx-auto max-w-md px-5 py-32 text-center">
-        <h1 className="font-display text-h2 text-bone">{t('auth.errorGeneric')}</h1>
-        <ButtonLink to="/auth" variant="secondary" className="mt-8">
-          {t('auth.signInAction')}
-        </ButtonLink>
+      <div className="py-40">
+        <Shell className="max-w-md text-center">
+          <h1 className="text-d2 font-display">{t('auth.errorGeneric')}</h1>
+          <ButtonLink to="/auth" variant="outline" className="mt-8">
+            {t('auth.signInAction')}
+          </ButtonLink>
+        </Shell>
       </div>
     );
   }
 
   return (
-    <div className="py-24">
+    <div className="py-32">
       <LoadingBlock />
     </div>
   );

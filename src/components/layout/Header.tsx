@@ -4,16 +4,21 @@ import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
 import { LanguageSwitcher } from './LanguageSwitcher';
-import { Button, ButtonLink } from '@/components/ui/Button';
+import { ButtonLink } from '@/components/ui/Button';
 import { useAuth } from '@/store/auth';
 import { useUI } from '@/store/ui';
 import { initialsOf } from '@/lib/format';
 
-export function Wordmark({ className }: { className?: string }) {
+export function Wordmark({ className, tone = 'ink' }: { className?: string; tone?: 'ink' | 'paper' }) {
   return (
-    <span className={clsx('inline-flex items-baseline', className)}>
-      <span className="font-display text-h5 font-semibold tracking-tight text-bone">WebSale</span>
-      <span className="font-mono text-sm text-cyan">.az</span>
+    <span
+      className={clsx(
+        'font-display text-[1.0625rem] font-extrabold tracking-[-0.045em]',
+        tone === 'ink' ? 'text-ink' : 'text-paper',
+        className,
+      )}
+    >
+      websale<span className="text-blue">.</span>az
     </span>
   );
 }
@@ -35,22 +40,21 @@ export function Header() {
   const profile = useAuth((s) => s.profile);
   const isOwner = useAuth((s) => s.isOwner);
 
-  const [scrolled, setScrolled] = useState(false);
+  const [lifted, setLifted] = useState(false);
 
+  // Past the first screen the bar condenses onto a floating paper pill, so it
+  // stops competing with the hero and starts behaving like a toolbar.
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const onScroll = () => setLifted(window.scrollY > 24);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Any navigation closes the mobile panel — including a jump to an anchor on
-  // the page we are already on, which is why `hash` is a dependency too.
   useEffect(() => {
     setOpen(false);
   }, [pathname, hash, setOpen]);
 
-  // A full-screen panel over a scrollable page scrolls the page behind it.
   useEffect(() => {
     document.body.style.overflow = open ? 'hidden' : '';
     return () => {
@@ -67,133 +71,129 @@ export function Header() {
     return () => window.removeEventListener('keydown', onKey);
   }, [open, setOpen]);
 
-  const linkClass = ({ isActive }: { isActive: boolean }) =>
+  const link = ({ isActive }: { isActive: boolean }) =>
     clsx(
-      'spec px-1 py-2 transition-colors',
-      isActive ? 'text-cyan-bright' : 'text-bone-mute hover:text-bone',
+      'text-sm font-medium transition-colors duration-200',
+      isActive ? 'text-blue' : 'text-ink-soft hover:text-ink',
     );
 
   return (
-    <header
-      className={clsx(
-        'sticky top-0 z-40 border-b transition-colors duration-200',
-        scrolled ? 'border-rule bg-ink/92 backdrop-blur-md' : 'border-transparent bg-ink',
-      )}
-    >
-      <div className="mx-auto flex h-16 max-w-[1400px] items-center gap-6 px-5 sm:px-8">
-        <Link to="/" className="shrink-0" aria-label="WebSale.az">
-          <Wordmark />
-        </Link>
-
-        <nav aria-label={t('nav.primaryLabel')} className="hidden flex-1 items-center gap-7 lg:flex">
-          {navLinks.map((link) =>
-            // Anchors into the home page go through the router rather than a
-            // plain href, so jumping to #how from /portfolio is a client-side
-            // navigation instead of a full reload. ScrollManager handles the
-            // scroll once the section exists.
-            link.to.startsWith('/#') ? (
-              <Link key={link.to} to={link.to} className="spec py-2 text-bone-mute hover:text-bone">
-                {t(link.key)}
-              </Link>
-            ) : (
-              <NavLink key={link.to} to={link.to} className={linkClass}>
-                {t(link.key)}
-              </NavLink>
-            ),
+    <header className="pointer-events-none fixed inset-x-0 top-0 z-[120] pt-4 md:pt-5">
+      <div className="mx-auto w-full max-w-[1440px] px-4 md:px-8">
+        <div
+          className={clsx(
+            'pointer-events-auto flex h-16 items-center gap-6 rounded-full pl-6 pr-3 transition-all duration-500',
+            lifted
+              ? 'bg-paper/80 shadow-[0_8px_40px_-12px_rgba(18,18,16,0.22)] backdrop-blur-xl'
+              : 'bg-transparent',
           )}
-        </nav>
+        >
+          <Link to="/" data-cursor="link" className="shrink-0" aria-label="WebSale.az">
+            <Wordmark />
+          </Link>
 
-        <div className="ml-auto flex items-center gap-3">
-          <LanguageSwitcher className="hidden sm:inline-flex" />
-
-          {user ? (
-            <div className="hidden items-center gap-2 lg:flex">
-              {isOwner && (
-                <NavLink to="/admin" className={linkClass}>
-                  {t('nav.admin')}
-                </NavLink>
-              )}
-              <NavLink to="/dashboard" className={linkClass}>
-                {t('nav.dashboard')}
+          <nav aria-label={t('nav.primaryLabel')} className="ml-4 hidden items-center gap-8 lg:flex">
+            {navLinks.map((l) => (
+              <NavLink key={l.to} to={l.to} data-cursor="link" className={link}>
+                {t(l.key)}
               </NavLink>
-              <Link
-                to="/profile"
-                className="flex h-9 w-9 items-center justify-center rounded-full border border-rule bg-surface font-mono text-xs text-bone-mute transition-colors hover:border-cyan hover:text-cyan"
-                aria-label={t('nav.profile')}
-              >
-                {profile?.avatar_url ? (
-                  <img
-                    src={profile.avatar_url}
-                    alt=""
-                    className="h-full w-full rounded-full object-cover"
-                  />
-                ) : (
-                  initialsOf(profile?.display_name)
+            ))}
+          </nav>
+
+          <div className="ml-auto flex items-center gap-2.5">
+            <LanguageSwitcher className="hidden sm:inline-flex" />
+
+            {user ? (
+              <div className="hidden items-center gap-4 lg:flex">
+                {isOwner && (
+                  <NavLink to="/admin" data-cursor="link" className={link}>
+                    {t('nav.admin')}
+                  </NavLink>
                 )}
-              </Link>
-            </div>
-          ) : (
-            <ButtonLink to="/auth" variant="secondary" size="sm" className="hidden lg:inline-flex">
-              {t('nav.signIn')}
+                <NavLink to="/dashboard" data-cursor="link" className={link}>
+                  {t('nav.dashboard')}
+                </NavLink>
+                <Link
+                  to="/profile"
+                  data-cursor="link"
+                  className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-ink text-xs font-bold text-paper transition-colors hover:bg-blue"
+                  aria-label={t('nav.profile')}
+                >
+                  {profile?.avatar_url ? (
+                    <img src={profile.avatar_url} alt="" className="h-full w-full object-cover" />
+                  ) : (
+                    initialsOf(profile?.display_name)
+                  )}
+                </Link>
+              </div>
+            ) : (
+              <NavLink to="/auth" data-cursor="link" className={clsx(link({ isActive: false }), 'hidden lg:block')}>
+                {t('nav.signIn')}
+              </NavLink>
+            )}
+
+            <ButtonLink to="/request" size="sm" className="hidden md:inline-flex">
+              {t('nav.request')}
             </ButtonLink>
-          )}
 
-          <ButtonLink to="/request" size="sm" className="hidden md:inline-flex">
-            {t('nav.request')}
-          </ButtonLink>
-
-          <Button
-            variant="ghost"
-            size="sm"
-            className="lg:hidden"
-            aria-expanded={open}
-            aria-controls="mobile-nav"
-            onClick={() => setOpen(!open)}
-          >
-            <span className="spec">{open ? t('nav.closeMenu') : t('nav.openMenu')}</span>
-          </Button>
+            {/* Mobile toggle: two bars that cross into an X. */}
+            <button
+              type="button"
+              onClick={() => setOpen(!open)}
+              aria-expanded={open}
+              aria-controls="mobile-nav"
+              aria-label={open ? t('nav.closeMenu') : t('nav.openMenu')}
+              data-cursor="link"
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-ink text-paper lg:hidden"
+            >
+              <span className="relative block h-3 w-4">
+                <span
+                  className={clsx(
+                    'absolute left-0 block h-[1.5px] w-4 bg-current transition-all duration-300',
+                    open ? 'top-1.5 rotate-45' : 'top-0',
+                  )}
+                />
+                <span
+                  className={clsx(
+                    'absolute left-0 block h-[1.5px] w-4 bg-current transition-all duration-300',
+                    open ? 'top-1.5 -rotate-45' : 'top-3',
+                  )}
+                />
+              </span>
+            </button>
+          </div>
         </div>
       </div>
 
       {open && (
         <div
           id="mobile-nav"
-          className="fixed inset-x-0 bottom-0 top-16 z-40 overflow-y-auto border-t border-rule bg-ink px-5 py-8 lg:hidden"
+          className="pointer-events-auto fixed inset-0 top-0 z-[-1] overflow-y-auto bg-paper px-6 pb-10 pt-28 lg:hidden"
         >
           <nav aria-label={t('nav.primaryLabel')} className="flex flex-col">
-            {navLinks.map((link) => (
+            {[
+              ...navLinks,
+              ...(user
+                ? ([
+                    { to: '/dashboard', key: 'nav.dashboard' },
+                    ...(isOwner ? [{ to: '/admin', key: 'nav.admin' }] : []),
+                    { to: '/profile', key: 'nav.profile' },
+                  ] as const)
+                : ([{ to: '/auth', key: 'nav.signIn' }] as const)),
+            ].map((l, i) => (
               <Link
-                key={link.to}
-                to={link.to}
-                className="border-b border-rule-soft py-4 font-display text-h4 text-bone"
+                key={l.to}
+                to={l.to}
+                className="fade-up border-b border-line py-5 font-display text-d3"
+                style={{ '--d': `${i * 45}ms` } as React.CSSProperties}
               >
-                {t(link.key)}
+                {t(l.key)}
               </Link>
             ))}
-
-            {user ? (
-              <>
-                <Link to="/dashboard" className="border-b border-rule-soft py-4 font-display text-h4 text-bone">
-                  {t('nav.dashboard')}
-                </Link>
-                {isOwner && (
-                  <Link to="/admin" className="border-b border-rule-soft py-4 font-display text-h4 text-bone">
-                    {t('nav.admin')}
-                  </Link>
-                )}
-                <Link to="/profile" className="border-b border-rule-soft py-4 font-display text-h4 text-bone">
-                  {t('nav.profile')}
-                </Link>
-              </>
-            ) : (
-              <Link to="/auth" className="border-b border-rule-soft py-4 font-display text-h4 text-bone">
-                {t('nav.signIn')}
-              </Link>
-            )}
           </nav>
 
-          <div className="mt-8 flex flex-col gap-5">
-            <ButtonLink to="/request" size="lg">
+          <div className="mt-10 flex flex-col gap-6">
+            <ButtonLink to="/request" size="lg" className="w-full">
               {t('nav.request')}
             </ButtonLink>
             <LanguageSwitcher className="self-start" />

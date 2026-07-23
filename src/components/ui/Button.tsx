@@ -2,40 +2,43 @@ import type { ButtonHTMLAttributes, ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 
-type Variant = 'primary' | 'secondary' | 'ghost' | 'danger' | 'inverse' | 'inverseGhost';
+import { useMagnetic } from '@/lib/useMagnetic';
+
+type Variant = 'primary' | 'outline' | 'ghost' | 'onNight' | 'onBlue' | 'danger';
 type Size = 'sm' | 'md' | 'lg';
 
 /**
- * Interactive elements carry a 2px radius; structural plates and rules stay
- * square. That single difference is what stops the drafting language from
- * flattening into an undifferentiated hairline grid.
+ * Every action on the site is a pill. That single shape decision is what lets
+ * the rest of the page carry no borders at all — a rounded, filled shape reads
+ * as pressable without needing an outline to say so.
  */
 const base =
-  'inline-flex items-center justify-center gap-2 rounded-[2px] font-medium transition-colors duration-150 ' +
-  'disabled:cursor-not-allowed disabled:opacity-40';
+  'group/btn relative inline-flex items-center justify-center gap-2.5 rounded-full font-semibold ' +
+  'transition-[background-color,color,border-color] duration-300 ' +
+  'disabled:pointer-events-none disabled:opacity-40';
 
 const variants: Record<Variant, string> = {
-  primary: 'bg-cyan text-ink hover:bg-cyan-bright active:bg-cyan',
-  secondary: 'border border-rule text-bone hover:border-cyan hover:text-cyan-bright',
-  ghost: 'text-bone-mute hover:text-bone hover:bg-surface-2',
-  danger: 'border border-rust/60 text-rust hover:bg-rust hover:text-ink',
-  // For the one bone-coloured section, where every other variant would sit at
-  // the wrong end of the contrast range.
-  inverse: 'bg-ink text-bone hover:bg-ink-deep',
-  inverseGhost: 'border border-ink/25 text-ink hover:border-ink hover:bg-ink hover:text-bone',
+  primary: 'bg-blue text-paper hover:bg-blue-deep',
+  outline: 'border border-ink/20 text-ink hover:border-ink hover:bg-ink hover:text-paper',
+  ghost: 'text-ink-mute hover:text-ink hover:bg-paper-2',
+  onNight: 'bg-paper text-ink hover:bg-blue hover:text-paper',
+  onBlue: 'bg-paper text-blue hover:bg-ink hover:text-paper',
+  danger: 'border border-red/40 text-red hover:bg-red hover:text-paper',
 };
 
 const sizes: Record<Size, string> = {
-  sm: 'h-8 px-3 text-sm',
-  md: 'h-10 px-5 text-sm',
-  lg: 'h-12 px-7 text-base',
+  sm: 'h-9 px-4 text-sm',
+  md: 'h-12 px-6 text-sm',
+  lg: 'h-14 px-8 text-base',
 };
 
-interface CommonProps {
+interface Common {
   variant?: Variant;
   size?: Size;
   className?: string;
   children: ReactNode;
+  /** Adds the pointer-following pull. Reserve it for primary actions. */
+  magnetic?: boolean;
 }
 
 export function Button({
@@ -43,10 +46,18 @@ export function Button({
   size = 'md',
   className,
   children,
+  magnetic = false,
   ...rest
-}: CommonProps & ButtonHTMLAttributes<HTMLButtonElement>) {
+}: Common & ButtonHTMLAttributes<HTMLButtonElement>) {
+  const ref = useMagnetic<HTMLButtonElement>(magnetic ? 0.22 : 0);
+
   return (
-    <button className={clsx(base, variants[variant], sizes[size], className)} {...rest}>
+    <button
+      ref={magnetic ? ref : undefined}
+      data-cursor="link"
+      className={clsx(base, variants[variant], sizes[size], className)}
+      {...rest}
+    >
       {children}
     </button>
   );
@@ -59,37 +70,52 @@ export function ButtonLink({
   className,
   children,
   external = false,
-}: CommonProps & { to: string; external?: boolean }) {
+  magnetic = false,
+}: Common & { to: string; external?: boolean }) {
+  const ref = useMagnetic<HTMLAnchorElement>(magnetic ? 0.22 : 0);
   const cls = clsx(base, variants[variant], sizes[size], className);
 
   if (external) {
     return (
-      <a href={to} target="_blank" rel="noreferrer noopener" className={cls}>
+      <a
+        ref={magnetic ? ref : undefined}
+        href={to}
+        target="_blank"
+        rel="noreferrer noopener"
+        data-cursor="link"
+        className={cls}
+      >
         {children}
       </a>
     );
   }
+
   return (
-    <Link to={to} className={cls}>
+    <Link ref={magnetic ? ref : undefined} to={to} data-cursor="link" className={cls}>
       {children}
     </Link>
   );
 }
 
-/** The small chevron used on forward actions. Decorative — never announced. */
+/** Forward arrow. Nudges right inside any hovered `.group/btn`. */
 export function Arrow({ className }: { className?: string }) {
   return (
     <svg
-      viewBox="0 0 16 16"
-      width="14"
-      height="14"
+      viewBox="0 0 20 20"
+      width="16"
+      height="16"
       aria-hidden="true"
-      className={clsx('shrink-0', className)}
       fill="none"
       stroke="currentColor"
-      strokeWidth="1.5"
+      strokeWidth="1.75"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={clsx(
+        'shrink-0 transition-transform duration-300 group-hover/btn:translate-x-1',
+        className,
+      )}
     >
-      <path d="M2 8h11M9 4l4 4-4 4" strokeLinecap="square" />
+      <path d="M3 10h13M11 5l5 5-5 5" />
     </svg>
   );
 }

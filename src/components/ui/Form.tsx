@@ -2,18 +2,21 @@ import { useId, type InputHTMLAttributes, type ReactNode, type TextareaHTMLAttri
 import clsx from 'clsx';
 
 /**
- * Form controls. Labels are always real <label> elements bound by id, errors
- * are wired through aria-describedby, and the error text sits under the field
- * rather than replacing the hint — so nobody loses the instruction the moment
- * they get something wrong.
+ * Form controls. Fields are filled wells rather than outlined boxes — on paper
+ * a recessed surface reads as "type here" more immediately than a border does,
+ * and it keeps the page free of the rectangles the design otherwise avoids.
+ *
+ * Labels are real <label> elements bound by id; errors are wired through
+ * aria-describedby and sit under the hint rather than replacing it, so nobody
+ * loses the instruction the moment they get something wrong.
  */
 
 const fieldBase =
-  'w-full rounded-[2px] border bg-ink-deep px-3 py-2.5 text-base text-bone ' +
-  'placeholder:text-bone-faint/60 transition-colors ' +
-  'hover:border-rule focus:border-cyan focus:outline-none';
+  'w-full rounded-2xl bg-paper-2 px-5 py-4 text-base text-ink placeholder:text-ink-faint ' +
+  'border border-transparent transition-colors duration-200 ' +
+  'hover:bg-paper-3 focus:border-blue focus:bg-paper-2 focus:outline-none';
 
-interface FieldShellProps {
+interface FieldProps {
   label: string;
   hint?: string;
   error?: string;
@@ -29,28 +32,28 @@ export function Field({
   optional,
   optionalLabel = 'optional',
   children,
-}: FieldShellProps) {
+}: FieldProps) {
   const id = useId();
   const hintId = hint ? `${id}-hint` : undefined;
   const errorId = error ? `${id}-error` : undefined;
   const describedBy = [hintId, errorId].filter(Boolean).join(' ') || undefined;
 
   return (
-    <div className="flex flex-col gap-2">
-      <label htmlFor={id} className="spec flex items-baseline gap-2 text-bone-mute">
+    <div className="flex flex-col gap-2.5">
+      <label htmlFor={id} className="flex items-baseline gap-2 text-sm font-semibold text-ink">
         {label}
-        {optional && <span className="text-bone-faint/60 normal-case tracking-normal">({optionalLabel})</span>}
+        {optional && <span className="text-xs font-normal text-ink-mute">({optionalLabel})</span>}
       </label>
 
       {children({ id, describedBy, invalid: Boolean(error) })}
 
       {hint && (
-        <p id={hintId} className="text-sm text-bone-faint">
+        <p id={hintId} className="text-sm text-ink-mute">
           {hint}
         </p>
       )}
       {error && (
-        <p id={errorId} className="text-sm text-rust">
+        <p id={errorId} className="text-sm font-medium text-red">
           {error}
         </p>
       )}
@@ -65,7 +68,7 @@ export function TextInput({
 }: InputHTMLAttributes<HTMLInputElement> & { invalid?: boolean }) {
   return (
     <input
-      className={clsx(fieldBase, invalid ? 'border-rust' : 'border-rule-soft', className)}
+      className={clsx(fieldBase, invalid && 'border-red', className)}
       aria-invalid={invalid || undefined}
       {...rest}
     />
@@ -81,17 +84,26 @@ export function TextArea({
   return (
     <textarea
       rows={rows}
-      className={clsx(fieldBase, 'resize-y', invalid ? 'border-rust' : 'border-rule-soft', className)}
+      className={clsx(fieldBase, 'resize-y', invalid && 'border-red', className)}
       aria-invalid={invalid || undefined}
       {...rest}
     />
   );
 }
 
-/**
- * Multi-select as a set of toggle chips. Uses real checkboxes underneath so
- * keyboard and screen-reader behaviour is the browser's, not ours.
- */
+export function Select({
+  className,
+  children,
+  ...rest
+}: React.SelectHTMLAttributes<HTMLSelectElement>) {
+  return (
+    <select className={clsx(fieldBase, 'cursor-pointer py-3.5 pr-10', className)} {...rest}>
+      {children}
+    </select>
+  );
+}
+
+/** Multi-select as toggle pills, with a real checkbox underneath. */
 export function CheckChip({
   checked,
   onChange,
@@ -105,12 +117,11 @@ export function CheckChip({
 }) {
   return (
     <label
+      data-cursor="link"
       className={clsx(
-        'cursor-pointer select-none rounded-[2px] border px-3 py-2 text-sm transition-colors',
-        'has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-cyan',
-        checked
-          ? 'border-cyan bg-cyan/10 text-cyan-bright'
-          : 'border-rule-soft text-bone-mute hover:border-rule hover:text-bone',
+        'cursor-pointer select-none rounded-full px-4 py-2.5 text-sm font-medium transition-colors duration-200',
+        'has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-3 has-[:focus-visible]:outline-blue',
+        checked ? 'bg-blue text-paper' : 'bg-paper-2 text-ink-soft hover:bg-paper-3 hover:text-ink',
       )}
     >
       <input
@@ -125,7 +136,7 @@ export function CheckChip({
   );
 }
 
-/** Single-choice as radio cards — same idea, one answer. */
+/** Single choice as stacked cards. */
 export function RadioRow<T extends string>({
   name,
   value,
@@ -138,18 +149,17 @@ export function RadioRow<T extends string>({
   onChange: (next: T) => void;
 }) {
   return (
-    <div role="radiogroup" className="flex flex-col gap-2">
+    <div role="radiogroup" className="flex flex-col gap-2.5">
       {options.map((option) => {
         const selected = value === option.value;
         return (
           <label
             key={option.value}
+            data-cursor="link"
             className={clsx(
-              'flex cursor-pointer items-start gap-3 rounded-[2px] border p-3 transition-colors',
-              'has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-cyan',
-              selected
-                ? 'border-cyan bg-cyan/[0.07]'
-                : 'border-rule-soft hover:border-rule',
+              'flex cursor-pointer items-start gap-3.5 rounded-2xl p-4 transition-colors duration-200',
+              'has-[:focus-visible]:outline has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-3 has-[:focus-visible]:outline-blue',
+              selected ? 'bg-blue text-paper' : 'bg-paper-2 hover:bg-paper-3',
             )}
           >
             <input
@@ -163,15 +173,21 @@ export function RadioRow<T extends string>({
             <span
               aria-hidden="true"
               className={clsx(
-                'mt-1 h-3 w-3 shrink-0 rounded-full border',
-                selected ? 'border-cyan bg-cyan' : 'border-rule',
+                'mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full border-2 transition-colors',
+                selected ? 'border-paper' : 'border-ink/30',
               )}
-            />
+            >
+              {selected && <span className="h-1.5 w-1.5 rounded-full bg-paper" />}
+            </span>
             <span className="flex flex-col gap-0.5">
-              <span className={clsx('text-sm', selected ? 'text-bone' : 'text-bone-mute')}>
+              <span className={clsx('text-sm font-medium', selected ? 'text-paper' : 'text-ink')}>
                 {option.label}
               </span>
-              {option.hint && <span className="text-xs text-bone-faint">{option.hint}</span>}
+              {option.hint && (
+                <span className={clsx('text-xs', selected ? 'text-paper/70' : 'text-ink-mute')}>
+                  {option.hint}
+                </span>
+              )}
             </span>
           </label>
         );

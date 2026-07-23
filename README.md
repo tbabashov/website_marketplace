@@ -267,6 +267,26 @@ Adding a language means adding a loader entry, a JSON file, and an entry in
 v4 reads the `@theme` block directly. Colours, the type scale and the motion
 keyframes are all defined there once.
 
+**The design is called "Atelier".** Warm paper (`#EFEDE7`), near-black ink, and
+one electric cobalt (`#1B33E0`) that carries every action on the site. Type is
+the structure — Unbounded for display at very large sizes and tight tracking,
+Manrope for everything else — so almost nothing on the page needs a border.
+There are exactly three grounds, used as movements rather than decoration:
+paper for most of the page, one **night** band for the marketplace, and one
+**cobalt** band for the closing call to action. Spending each inversion only
+once is what makes them land.
+
+Every text colour clears WCAG AA against every ground it is used on; the muted
+and signal colours were darkened specifically to pass against `paper-2` wells,
+not just against `paper`.
+
+**The custom cursor is opt-in per element.** `src/components/ui/Cursor.tsx`
+mounts only for fine pointers with motion allowed, and reacts to elements
+declaring `data-cursor="link"` or `data-cursor="view"` (with an optional
+`data-cursor-label`). Every one of those elements is a real link or button
+underneath, so touch, keyboard and reduced-motion visitors lose nothing. Same
+rule for `useMagnetic` — decoration on top of something that already works.
+
 ---
 
 ## Before you go live

@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
+import { Cursor } from '@/components/ui/Cursor';
 import { LoadingBlock, Toaster } from '@/components/ui/Bits';
 import { useAuth } from '@/store/auth';
 import { useSaved } from '@/store/ui';
@@ -75,8 +76,8 @@ function RequireOwner({ children }: { children: React.ReactNode }) {
   if (!profile) return <LoadingBlock />;
   if (!isOwner) {
     return (
-      <div className="mx-auto max-w-2xl px-5 py-32 text-center">
-        <p className="font-display text-h3 text-bone">{t('admin.notOwner')}</p>
+      <div className="mx-auto max-w-2xl px-6 pb-32 pt-44 text-center">
+        <p className="font-display text-d3">{t('admin.notOwner')}</p>
       </div>
     );
   }
@@ -103,9 +104,11 @@ export default function App() {
       </a>
 
       <ScrollManager />
+      <Cursor />
       <Header />
 
-      <main id="main" tabIndex={-1}>
+      {/* z-2 lifts content above the fixed grain overlay in index.css. */}
+      <main id="main" tabIndex={-1} className="relative z-[2]">
         <Suspense fallback={<LoadingBlock />}>
           <Routes>
             <Route path="/" element={<HomePage />} />

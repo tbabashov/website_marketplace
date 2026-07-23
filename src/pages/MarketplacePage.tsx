@@ -4,7 +4,8 @@ import clsx from 'clsx';
 
 import { PageHead } from '@/components/layout/PageHead';
 import { ListingRow } from '@/components/marketplace/ListingRow';
-import { DemoNotice, EmptyState, LoadingBlock } from '@/components/ui/Bits';
+import { Select } from '@/components/ui/Form';
+import { DemoNotice, EmptyState, LoadingBlock, Reveal, Shell } from '@/components/ui/Bits';
 import { fetchListings } from '@/lib/api';
 import { useSeo } from '@/lib/seo';
 import type { Listing } from '@/types/db';
@@ -47,83 +48,80 @@ export default function MarketplacePage() {
     return sorted.sort((a, b) => Number(a.status === 'sold') - Number(b.status === 'sold'));
   }, [listings, category, sort]);
 
+  const pill = (selected: boolean) =>
+    clsx(
+      'label rounded-full px-3.5 py-2 transition-colors duration-200',
+      selected ? 'bg-blue text-paper' : 'bg-paper-2 text-ink-mute hover:bg-paper-3 hover:text-ink',
+    );
+
   return (
     <>
       <PageHead
-        label={`${t('nav.marketplace')} / ${shown.length}`}
+        label={`${t('nav.marketplace')} — ${shown.length}`}
         title={t('market.pageTitle')}
         lead={t('market.lead')}
       />
 
-      <div className="px-5 py-10 sm:px-8">
-        <div className="mx-auto max-w-[1400px]">
-          <div className="flex flex-col gap-5 border-b border-rule-soft pb-6 lg:flex-row lg:items-center lg:justify-between">
-            {categories.length > 0 && (
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-2">
-                <span className="spec text-bone-faint">{t('market.filterCategory')}</span>
-                <button
-                  type="button"
-                  onClick={() => setCategory(null)}
-                  aria-pressed={category === null}
-                  className={clsx(
-                    'spec rounded-[2px] border px-2.5 py-1.5 transition-colors',
-                    category === null
-                      ? 'border-cyan text-cyan-bright'
-                      : 'border-rule-soft text-bone-faint hover:border-rule hover:text-bone',
-                  )}
-                >
-                  {t('portfolio.filterAll')}
-                </button>
-                {categories.map((c) => (
-                  <button
-                    key={c}
-                    type="button"
-                    onClick={() => setCategory(category === c ? null : c)}
-                    aria-pressed={category === c}
-                    className={clsx(
-                      'spec rounded-[2px] border px-2.5 py-1.5 transition-colors',
-                      category === c
-                        ? 'border-cyan text-cyan-bright'
-                        : 'border-rule-soft text-bone-faint hover:border-rule hover:text-bone',
-                    )}
-                  >
-                    {c}
-                  </button>
-                ))}
-              </div>
-            )}
-
-            <label className="flex items-center gap-3">
-              <span className="spec text-bone-faint">{t('market.sortLabel')}</span>
-              <select
-                value={sort}
-                onChange={(e) => setSort(e.target.value as Sort)}
-                className="rounded-[2px] border border-rule-soft bg-ink-deep px-3 py-2 text-sm text-bone hover:border-rule focus:border-cyan focus:outline-none"
+      <Shell className="pb-28 pt-14">
+        <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+          {categories.length > 0 && (
+            <div className="flex flex-wrap items-center gap-2">
+              <button
+                type="button"
+                data-cursor="link"
+                onClick={() => setCategory(null)}
+                aria-pressed={category === null}
+                className={pill(category === null)}
               >
-                <option value="newest">{t('market.sortNewest')}</option>
-                <option value="priceAsc">{t('market.sortPriceAsc')}</option>
-                <option value="priceDesc">{t('market.sortPriceDesc')}</option>
-              </select>
-            </label>
-          </div>
-
-          {isDemo && <DemoNotice className="mt-6" />}
-
-          {listings === null ? (
-            <LoadingBlock />
-          ) : shown.length === 0 ? (
-            <div className="mt-12 pb-24">
-              <EmptyState title={t('market.empty')} />
-            </div>
-          ) : (
-            <div className="pb-24">
-              {shown.map((listing) => (
-                <ListingRow key={listing.id} listing={listing} />
+                {t('portfolio.filterAll')}
+              </button>
+              {categories.map((c) => (
+                <button
+                  key={c}
+                  type="button"
+                  data-cursor="link"
+                  onClick={() => setCategory(category === c ? null : c)}
+                  aria-pressed={category === c}
+                  className={pill(category === c)}
+                >
+                  {c}
+                </button>
               ))}
             </div>
           )}
+
+          <label className="flex shrink-0 items-center gap-3">
+            <span className="label text-ink-faint">{t('market.sortLabel')}</span>
+            <Select
+              value={sort}
+              onChange={(e) => setSort(e.target.value as Sort)}
+              className="w-auto rounded-full py-2.5 text-sm"
+            >
+              <option value="newest">{t('market.sortNewest')}</option>
+              <option value="priceAsc">{t('market.sortPriceAsc')}</option>
+              <option value="priceDesc">{t('market.sortPriceDesc')}</option>
+            </Select>
+          </label>
         </div>
-      </div>
+
+        {isDemo && <DemoNotice className="mt-8" />}
+
+        {listings === null ? (
+          <LoadingBlock />
+        ) : shown.length === 0 ? (
+          <div className="mt-16">
+            <EmptyState title={t('market.empty')} />
+          </div>
+        ) : (
+          <div className="mt-14 grid gap-x-8 gap-y-16 md:grid-cols-2 lg:grid-cols-3">
+            {shown.map((listing, i) => (
+              <Reveal key={listing.id} delay={(i % 3) * 90}>
+                <ListingRow listing={listing} />
+              </Reveal>
+            ))}
+          </div>
+        )}
+      </Shell>
     </>
   );
 }

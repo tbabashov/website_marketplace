@@ -49,6 +49,7 @@
     "sub": "Biznesinizə həqiqətən nə lazımdırsa yazın — dürüst qiymət verim, saytı qurum və bütün girişləri sizə təhvil verim. Yaxud artıq hazır olan saytlardan birini götürün və elə bu həftə işə salın.",
     "ctaPrimary": "Sayt sifariş et",
     "ctaSecondary": "Hazır saytlara bax",
+    "scroll": "Aşağı",
     "spec": {
       "title": "Vərəq",
       "drawnBy": "Layihələndirdi",
@@ -310,6 +311,7 @@
   },
   "portfolio": {
     "pageTitle": "İşlər",
+    "viewCase": "Bax",
     "lead": "Aşağıdakı hər layihə real sahibi olan real saytdır. Hər birində başlanğıc problem, nəyin qurulduğu və sonra nəyin dəyişdiyi göstərilib.",
     "filterAll": "Hamısı",
     "filterIndustry": "Sahə",
@@ -329,6 +331,7 @@
   },
   "market": {
     "pageTitle": "Hazır saytlar",
+    "viewListing": "Bax",
     "lead": "Öz domeninizə qoya biləcəyiniz hazır, yoxlanılmış saytlar. Nümunədə gördüyünüz elə aldığınızdır — mətninizi, şəkillərinizi və loqonuzu yerinə qoyub təhvil verirəm.",
     "sortLabel": "Sıralama",
     "sortNewest": "Əvvəlcə yenilər",
@@ -699,5 +702,15 @@
     "currentStep": "hazırkı addım",
     "completedStep": "tamamlanıb",
     "imagePlaceholder": "Şəkil hələ əlavə edilməyib"
+  },
+  "marquee": {
+    "items": [
+      "Fərdi saytlar",
+      "Hazır saytlar",
+      "Üç dil",
+      "Sabit qiymət",
+      "Bakıda qurulur",
+      "Təhvildə ödəniş"
+    ]
   }
 }
