@@ -51,14 +51,17 @@
   /* Data only — order references, prices in tables. Not a design motif. */
   --font-num: ui-monospace, 'SF Mono', Menlo, monospace;
 
-  /* Display tier — Unbounded, tracked in hard */
-  --text-mega: clamp(2.75rem, 9.5vw, 10rem);
-  --text-mega--line-height: 0.92;
-  --text-mega--letter-spacing: -0.045em;
+  /* Display tier — Unbounded, tracked in hard.
+     The upper bounds are deliberately conservative: Unbounded is a wide face,
+     so a size that looks right in a Latin mock-up runs long once the same
+     string is set in Azerbaijani or Russian. */
+  --text-mega: clamp(2.25rem, 6.2vw, 5.5rem);
+  --text-mega--line-height: 1;
+  --text-mega--letter-spacing: -0.04em;
 
-  --text-d1: clamp(2.25rem, 6vw, 5rem);
-  --text-d1--line-height: 0.98;
-  --text-d1--letter-spacing: -0.04em;
+  --text-d1: clamp(2rem, 4.2vw, 3.5rem);
+  --text-d1--line-height: 1.04;
+  --text-d1--letter-spacing: -0.035em;
 
   --text-d2: clamp(1.75rem, 4vw, 3.25rem);
   --text-d2--line-height: 1.04;
@@ -168,6 +171,12 @@
     font-family: var(--font-display);
     font-weight: 700;
     text-wrap: balance;
+    /* Azerbaijani and Russian produce longer single words than the English
+       these sizes were first judged against ("soruşmamış", "Индивидуальные").
+       Without this, one of them silently overflows a narrow column instead of
+       wrapping — which is exactly how the FAQ heading ended up on top of the
+       questions. */
+    overflow-wrap: break-word;
   }
 
   p {

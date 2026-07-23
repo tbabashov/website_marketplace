@@ -4,19 +4,6 @@
   "asset_root": "/assets/images",
   "slots": [
     {
-      "id": "hero-workspace",
-      "expected_path": "/assets/images/hero/hero-workspace.jpg",
-      "search_terms": "overhead desk at night, laptop with code editor, paper notebook with wireframe sketches, warm desk lamp, dark wood, no people, wide crop",
-      "aspect_ratio": "16:9",
-      "min_width_px": 2400,
-      "alt_text": {
-        "az": "Gecə işıqlandırılmış iş masası: noutbukda kod redaktoru və yanında sayt eskizləri çəkilmiş dəftər",
-        "en": "A desk at night with a code editor open on a laptop and a notebook of website sketches beside it",
-        "ru": "Рабочий стол ночью: на ноутбуке открыт редактор кода, рядом блокнот с набросками сайта"
-      },
-      "placement_note": "Set INLINE inside the hero headline, on the baseline between two words, at roughly 0.7em tall. It is read at small size, so pick something with one clear subject and strong contrast — a busy frame turns to mush at this scale. Hidden below 640px."
-    },
-    {
       "id": "owner-portrait",
       "expected_path": "/assets/images/owner/owner-portrait.jpg",
       "search_terms": "replace with a real photo of the Owner — natural light, plain dark background, waist up, looking at camera, no stock photography here",

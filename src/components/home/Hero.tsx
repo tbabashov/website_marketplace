@@ -1,24 +1,23 @@
 import { useTranslation } from 'react-i18next';
 
 import { Arrow, ButtonLink } from '@/components/ui/Button';
-import { ManagedImage } from '@/components/media/ManagedImage';
 import { Marquee, Shell } from '@/components/ui/Bits';
+import { site } from '@/config/site';
 
 /**
- * The opening statement, and the site's signature composition.
+ * The opening statement. Three headline lines rise out of masks in sequence,
+ * with the middle line carrying the cobalt.
  *
- * Three headline lines rise out of masks in sequence — and the second line
- * carries an image plate set *inline with the type*, sitting on the baseline
- * between two words. That single decision is what makes the hero read as
- * something composed rather than assembled: the picture is not beside the
- * headline, it is inside the sentence.
- *
- * The plate is hidden below `sm`, where inline media at that scale would break
- * the line rhythm rather than enrich it.
+ * The ticker below is the only element that touches both edges of the screen,
+ * which is what makes the page feel wider than its measure.
  */
 export function Hero() {
   const { t } = useTranslation();
-  const marqueeItems = t('marquee.items', { returnObjects: true }) as string[];
+
+  const items = t('marquee.items', { returnObjects: true }) as string[];
+  // The phone number comes from config rather than the locale files, so it
+  // never has to be kept in sync in three places.
+  const marqueeItems = site.phone ? [...items, site.phone] : items;
 
   return (
     <section className="relative pt-36 md:pt-44">
@@ -27,28 +26,15 @@ export function Hero() {
           {t('hero.eyebrow')}
         </p>
 
-        <h1 className="mt-8 text-mega font-display font-extrabold">
+        <h1 className="mt-8 max-w-[18ch] text-mega font-display font-extrabold">
           <span className="line-mask">
             <span style={{ '--d': '160ms' } as React.CSSProperties}>{t('hero.titleLine1')}</span>
           </span>
-
           <span className="line-mask">
-            <span
-              className="flex flex-wrap items-center gap-x-[0.28em]"
-              style={{ '--d': '280ms' } as React.CSSProperties}
-            >
-              <em className="not-italic text-blue">{t('hero.titleEmphasis')}</em>
-              {/* Inline plate — sized in em so it scales with the headline. */}
-              <ManagedImage
-                slotId="hero-workspace"
-                aspect="16:10"
-                priority
-                label=""
-                className="hidden h-[0.72em] w-[1.15em] shrink-0 rounded-[0.14em] sm:block"
-              />
+            <span className="text-blue" style={{ '--d': '280ms' } as React.CSSProperties}>
+              {t('hero.titleEmphasis')}
             </span>
           </span>
-
           <span className="line-mask">
             <span style={{ '--d': '400ms' } as React.CSSProperties}>{t('hero.titleLine2')}</span>
           </span>
@@ -77,8 +63,6 @@ export function Hero() {
         </div>
       </Shell>
 
-      {/* Ticker. Full-bleed on purpose — the only element that touches both
-          edges, which is what makes the page feel wider than it is. */}
       <div
         className="fade-up mt-20 border-y border-line py-6 md:mt-28"
         style={{ '--d': '800ms' } as React.CSSProperties}
