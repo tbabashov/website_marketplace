@@ -130,6 +130,42 @@
       transform: none;
     }
   }
+
+  /* Hero build-preview loop. Two layers per region — a skeleton and the
+     finished content — crossfade on a shared timeline so the mock page builds,
+     holds, then dissolves back. Phases: skeleton hold, build, finished hold
+     (longest — it is the payoff), teardown. */
+  @keyframes bp-final {
+    0%,
+    9% {
+      opacity: 0;
+      transform: translate3d(0, 6px, 0);
+    }
+    30%,
+    66% {
+      opacity: 1;
+      transform: none;
+    }
+    86%,
+    100% {
+      opacity: 0;
+      transform: translate3d(0, 6px, 0);
+    }
+  }
+  @keyframes bp-skel {
+    0%,
+    9% {
+      opacity: 1;
+    }
+    30%,
+    66% {
+      opacity: 0;
+    }
+    86%,
+    100% {
+      opacity: 1;
+    }
+  }
 }
 
 /* ==========================================================================
@@ -295,6 +331,25 @@
   .marquee:hover .marquee-track {
     animation-play-state: paused;
   }
+
+  /* --- Hero build preview ---------------------------------------------
+     Each region carries a `.bp-final` (in flow, defines the box) and a
+     `.bp-skel` (absolutely covering it). Both read --bp-delay from the region
+     wrapper, so a region's two layers always move together while the page as
+     a whole builds top-to-bottom via staggered delays. */
+  .bp-final {
+    position: relative;
+    z-index: 1;
+    animation: bp-final var(--bp-dur, 8s) var(--ease-in-out-quint) infinite;
+    animation-delay: var(--bp-delay, 0s);
+  }
+  .bp-skel {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    animation: bp-skel var(--bp-dur, 8s) var(--ease-in-out-quint) infinite;
+    animation-delay: var(--bp-delay, 0s);
+  }
 }
 
 /* ==========================================================================
@@ -384,5 +439,15 @@ html[data-cursor-active] select {
   .marquee-track {
     animation: none;
     transform: none;
+  }
+  /* Settle the build preview on its finished state rather than freezing on the
+     bare skeleton — a decorative element should show its best frame when
+     motion is off. */
+  .bp-final {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  .bp-skel {
+    opacity: 0 !important;
   }
 }
