@@ -509,6 +509,15 @@
     "dangerZone": "Hesab",
     "signOutEverywhere": "Çıxış",
     "deleteAccount": "Hesabımı sil",
+    "deleteTitle": "Hesabı sil",
+    "deleteConfirm": "Birdəfəlik sil",
+    "deleteCancel": "Hesabımı saxla",
+    "deleteAsk": "Bunu geri qaytarmaq olmur. Profiliniz, şəkliniz və seçilmiş saytlarınız dərhal silinir.",
+    "deleteKeptOrders": "Qeydiyyatda {{count}} sifarişiniz var. Mühasibat qanunvericiliyi onların saxlanmasını tələb edir, ona görə sifarişlərin özü qalır — amma bütün şəxsi məlumatlar onlardan silinir və girişiniz həmişəlik bağlanır.",
+    "deleteNoOrders": "Sifarişiniz yoxdur, ona görə heç nə qalmayacaq.",
+    "deleteDone": "Hesabınız silindi.",
+    "deleteDoneKept": "Girişiniz bağlandı və məlumatlarınız silindi. Sifariş qeydləri qaydada izah edildiyi kimi qalır.",
+    "deleting": "Silinir…",
     "deleteWarning": "Bu, profilinizi və seçilmiş saytlarınızı silir. Tamamlanmış sifarişlər və onların qəbzləri qanunun tələb etdiyi kimi mühasibat üçün saxlanılır."
   },
   "admin": {

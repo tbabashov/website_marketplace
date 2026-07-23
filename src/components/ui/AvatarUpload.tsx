@@ -155,7 +155,7 @@ export function AvatarUpload() {
           )}
         </div>
 
-        <div className="flex flex-wrap gap-2.5">
+        <div className="flex flex-wrap items-center gap-2">
           <input
             ref={input}
             type="file"
@@ -183,9 +183,15 @@ export function AvatarUpload() {
           </Button>
 
           {profile?.avatar_url && (
-            <Button type="button" variant="ghost" size="sm" disabled={busy} onClick={() => void clear()}>
+            <button
+              type="button"
+              disabled={busy}
+              onClick={() => void clear()}
+              data-cursor="link"
+              className="rounded-full px-3 py-2 text-sm font-medium text-ink-mute transition-colors hover:bg-red/10 hover:text-red disabled:pointer-events-none disabled:opacity-40"
+            >
               {t('profile.avatarRemove')}
-            </Button>
+            </button>
           )}
         </div>
       </div>

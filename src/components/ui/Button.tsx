@@ -20,7 +20,10 @@ const base =
 const variants: Record<Variant, string> = {
   primary: 'bg-blue text-paper hover:bg-blue-deep',
   outline: 'border border-ink/20 text-ink hover:border-ink hover:bg-ink hover:text-paper',
-  ghost: 'text-ink-mute hover:text-ink hover:bg-paper-2',
+  // Tinted with the ink itself rather than a paper shade, so the hover state
+  // is visible on every ground — a paper-shade hover vanishes the moment a
+  // ghost button sits inside a card of that same shade.
+  ghost: 'text-ink-mute hover:bg-ink/8 hover:text-ink',
   onNight: 'bg-paper text-ink hover:bg-blue hover:text-paper',
   onBlue: 'bg-paper text-blue hover:bg-ink hover:text-paper',
   danger: 'border border-red/40 text-red hover:bg-red hover:text-paper',

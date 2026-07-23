@@ -509,6 +509,15 @@
     "dangerZone": "Account",
     "signOutEverywhere": "Sign out",
     "deleteAccount": "Delete my account",
+    "deleteTitle": "Delete your account",
+    "deleteConfirm": "Delete it permanently",
+    "deleteCancel": "Keep my account",
+    "deleteAsk": "This cannot be undone. Your profile, photo and saved sites are removed straight away.",
+    "deleteKeptOrders": "You have {{count}} order(s) on record. Accounting law requires those to be kept, so the orders themselves stay — but every personal detail is stripped from them and your login is closed for good.",
+    "deleteNoOrders": "You have no orders, so nothing at all will be left.",
+    "deleteDone": "Your account has been deleted.",
+    "deleteDoneKept": "Your login is closed and your details are gone. The order records remain, as the policy explains.",
+    "deleting": "Deleting…",
     "deleteWarning": "This removes your profile and saved sites. Completed orders and their receipts are kept for accounting, as the law requires."
   },
   "admin": {

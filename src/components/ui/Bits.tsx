@@ -234,7 +234,7 @@ export function Toaster() {
         <div
           key={toast.id}
           className={clsx(
-            'fade-up pointer-events-auto flex max-w-md items-start gap-4 rounded-2xl px-5 py-4 text-sm shadow-xl',
+            'fade-up pointer-events-auto flex max-w-md items-center gap-3 rounded-2xl py-3 pl-5 pr-3 text-sm shadow-xl',
             toast.tone === 'bad' ? 'bg-red text-paper' : 'bg-ink text-paper',
           )}
         >
@@ -242,9 +242,22 @@ export function Toaster() {
           <button
             type="button"
             onClick={() => dismiss(toast.id)}
-            className="label shrink-0 opacity-60 hover:opacity-100"
+            aria-label={t('common.close')}
+            data-cursor="link"
+            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-paper/60 transition-colors hover:bg-paper/15 hover:text-paper"
           >
-            {t('common.close')}
+            <svg
+              viewBox="0 0 16 16"
+              width="13"
+              height="13"
+              aria-hidden="true"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.75"
+              strokeLinecap="round"
+            >
+              <path d="M4 4l8 8M12 4l-8 8" />
+            </svg>
           </button>
         </div>
       ))}

@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import { PageHead } from '@/components/layout/PageHead';
 import { ListingRow } from '@/components/marketplace/ListingRow';
 import { AvatarUpload } from '@/components/ui/AvatarUpload';
+import { DeleteAccount } from '@/components/ui/DeleteAccount';
 import { Button } from '@/components/ui/Button';
 import { Field, TextInput } from '@/components/ui/Form';
 import { EmptyState, Eyebrow, Reveal, Shell, Spinner } from '@/components/ui/Bits';
@@ -144,6 +145,10 @@ export default function ProfilePage() {
               <p className="mt-6 max-w-sm text-sm leading-relaxed text-ink-mute">
                 {t('profile.deleteWarning')}
               </p>
+
+              <div className="mt-5">
+                <DeleteAccount />
+              </div>
             </div>
           </section>
 
