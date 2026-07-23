@@ -18,8 +18,13 @@ function opt(value: string | undefined): string | null {
 
 export const site = {
   name: 'WebSale.az',
-  /** Used in <title>, OG tags and the sitemap. No trailing slash. */
-  url: opt(env.VITE_SITE_URL) ?? 'https://websale.az',
+  /**
+   * Used in canonical tags, OpenGraph cards and the sitemap. Every consumer
+   * appends a path that already starts with "/", so a trailing slash here
+   * yields "https://site//portfolio" — stripped rather than trusted, because
+   * copying a URL out of a browser bar includes one more often than not.
+   */
+  url: (opt(env.VITE_SITE_URL) ?? 'https://websale.az').replace(/\/+$/, ''),
   ownerName: opt(env.VITE_OWNER_NAME) ?? 'WebSale.az',
   email: opt(env.VITE_CONTACT_EMAIL) ?? 'salam@websale.az',
   // No placeholder: a `tel:` link to "+994 XX XXX XX XX" is a dead link that

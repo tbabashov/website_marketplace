@@ -20,7 +20,7 @@ import { fileURLToPath } from 'node:url';
 const here = dirname(fileURLToPath(import.meta.url));
 const outFile = resolve(here, '../public/sitemap.xml');
 
-const SITE = (process.env.VITE_SITE_URL || 'https://websale.az').replace(/\/$/, '');
+const SITE = (process.env.VITE_SITE_URL || 'https://websale.az').replace(/\/+$/, '');
 const SUPABASE_URL = process.env.VITE_SUPABASE_URL?.trim();
 const SUPABASE_KEY = process.env.VITE_SUPABASE_ANON_KEY?.trim();
 const LOCALES = ['az', 'en', 'ru'];
