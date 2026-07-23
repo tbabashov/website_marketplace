@@ -92,19 +92,34 @@ export function Header() {
             <Wordmark />
           </Link>
 
-          <nav aria-label={t('nav.primaryLabel')} className="ml-4 hidden items-center gap-8 lg:flex">
-            {navLinks.map((l) => (
-              <NavLink key={l.to} to={l.to} data-cursor="link" className={link}>
-                {t(l.key)}
-              </NavLink>
-            ))}
+          <nav aria-label={t('nav.primaryLabel')} className="ml-6 hidden items-center gap-8 lg:flex">
+            {navLinks.map((l) =>
+              // A hash link resolves to pathname "/", so NavLink marks *every*
+              // one of them active on the home page — which is why two links
+              // lit up at once. They are jump links within a page, not
+              // destinations, so they get no active state at all.
+              l.to.startsWith('/#') ? (
+                <Link
+                  key={l.to}
+                  to={l.to}
+                  data-cursor="link"
+                  className="text-sm font-medium text-ink-soft transition-colors duration-200 hover:text-ink"
+                >
+                  {t(l.key)}
+                </Link>
+              ) : (
+                <NavLink key={l.to} to={l.to} data-cursor="link" className={link}>
+                  {t(l.key)}
+                </NavLink>
+              ),
+            )}
           </nav>
 
-          <div className="ml-auto flex items-center gap-2.5">
+          <div className="ml-auto flex items-center gap-3 md:gap-5">
             <LanguageSwitcher className="hidden sm:inline-flex" />
 
             {user ? (
-              <div className="hidden items-center gap-4 lg:flex">
+              <div className="hidden items-center gap-5 lg:flex">
                 {isOwner && (
                   <NavLink to="/admin" data-cursor="link" className={link}>
                     {t('nav.admin')}
@@ -127,7 +142,11 @@ export function Header() {
                 </Link>
               </div>
             ) : (
-              <NavLink to="/auth" data-cursor="link" className={clsx(link({ isActive: false }), 'hidden lg:block')}>
+              <NavLink
+                to="/auth"
+                data-cursor="link"
+                className={({ isActive }) => clsx(link({ isActive }), 'hidden lg:block')}
+              >
                 {t('nav.signIn')}
               </NavLink>
             )}
