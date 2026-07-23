@@ -4,6 +4,19 @@
   "asset_root": "/assets/images",
   "slots": [
     {
+      "id": "portfolio-yumurta-n1-cover",
+      "expected_path": "/assets/images/portfolio/yumurta-n1-cover.jpg",
+      "search_terms": "screenshot the live site yourself at 1600x1067 — full hero of yumurtan1.az on a desktop viewport. A real screenshot of a real client site beats any stock photograph here, because the point is that the site exists.",
+      "aspect_ratio": "3:2",
+      "min_width_px": 1600,
+      "alt_text": {
+        "az": "Yumurta N1 saytının ana səhifəsi",
+        "en": "The Yumurta N1 homepage",
+        "ru": "Главная страница сайта Yumurta N1"
+      },
+      "placement_note": "Portfolio grid card and the top plate of the case study page. Take it at a wide desktop width so the layout reads; crop out the browser chrome."
+    },
+    {
       "id": "owner-portrait",
       "expected_path": "/assets/images/owner/owner-portrait.jpg",
       "search_terms": "replace with a real photo of the Owner — natural light, plain dark background, waist up, looking at camera, no stock photography here",
