@@ -76,7 +76,7 @@ export default function ProfilePage() {
       <PageHead label={t('nav.profile')} title={t('profile.pageTitle')} />
 
       <Shell className="pb-28 pt-16">
-        <div className="grid gap-16 lg:grid-cols-[24rem_1fr] lg:gap-24">
+        <div className="grid grid-cols-1 gap-16 lg:grid-cols-[24rem_1fr] lg:gap-24">
           <section aria-labelledby="details-heading">
             <Eyebrow>
               <span id="details-heading">{t('profile.details')}</span>

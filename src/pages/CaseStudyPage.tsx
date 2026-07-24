@@ -18,7 +18,7 @@ function StoryBlock({ label, body, index }: { label: string; body: string; index
   return (
     <Reveal
       delay={index * 80}
-      className="grid gap-5 border-t border-line py-12 lg:grid-cols-[14rem_1fr] lg:gap-16"
+      className="grid grid-cols-1 gap-5 border-t border-line py-12 lg:grid-cols-[14rem_1fr] lg:gap-16"
     >
       <h2 className="label pt-2 text-blue">{label}</h2>
       <p className="max-w-2xl text-xl leading-relaxed text-ink-soft">{body}</p>

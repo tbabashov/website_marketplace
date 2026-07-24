@@ -27,7 +27,7 @@ export function Hero() {
   return (
     <section className="relative pt-32 md:pt-40">
       <Shell>
-        <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
           {/* Text */}
           <div>
             <p

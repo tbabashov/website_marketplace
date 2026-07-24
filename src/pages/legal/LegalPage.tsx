@@ -55,7 +55,7 @@ export default function LegalPage({ doc }: { doc: Doc }) {
         <ol className="max-w-4xl">
           {sections.map((section, i) => (
             <li key={section.h} className="border-t border-line py-9 first:border-t-0 first:pt-0">
-              <div className="grid gap-4 lg:grid-cols-[3rem_1fr] lg:gap-8">
+              <div className="grid grid-cols-1 gap-4 lg:grid-cols-[3rem_1fr] lg:gap-8">
                 <span aria-hidden="true" className="label pt-1.5 text-blue tabular-nums">
                   {String(i + 1).padStart(2, '0')}
                 </span>

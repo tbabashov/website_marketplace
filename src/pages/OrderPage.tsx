@@ -208,7 +208,7 @@ export default function OrderPage() {
       />
 
       <Shell className="pb-28 pt-14">
-        <div className="grid gap-12 lg:grid-cols-[1fr_21rem] lg:gap-16">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_21rem] lg:gap-16">
           <div className="min-w-0">
             <section aria-labelledby="progress" className="rounded-3xl bg-paper-2 p-7 md:p-8">
               <Eyebrow>

@@ -160,7 +160,7 @@ export default function ListingPage() {
           ← {t('nav.marketplace')}
         </Link>
 
-        <div className="mt-10 grid gap-14 lg:grid-cols-[1.55fr_1fr] lg:gap-20">
+        <div className="mt-10 grid grid-cols-1 gap-14 lg:grid-cols-[1.55fr_1fr] lg:gap-20">
           <div>
             <h1 className="fade-up text-d1 font-display">{title}</h1>
             <p
@@ -185,7 +185,7 @@ export default function ListingPage() {
             </div>
 
             {pickText(listing.best_for, locale) && (
-              <div className="mt-12 grid gap-5 border-t border-line pt-12 lg:grid-cols-[14rem_1fr] lg:gap-12">
+              <div className="mt-12 grid grid-cols-1 gap-5 border-t border-line pt-12 lg:grid-cols-[14rem_1fr] lg:gap-12">
                 <h2 className="label pt-1.5 text-blue">{t('market.bestFor')}</h2>
                 <p className="max-w-2xl text-lg text-ink-soft">
                   {pickText(listing.best_for, locale)}
@@ -193,7 +193,7 @@ export default function ListingPage() {
               </div>
             )}
 
-            <div className="mt-12 grid gap-5 border-t border-line pt-12 lg:grid-cols-[14rem_1fr] lg:gap-12">
+            <div className="mt-12 grid grid-cols-1 gap-5 border-t border-line pt-12 lg:grid-cols-[14rem_1fr] lg:gap-12">
               <h2 className="label pt-1.5 text-blue">{t('market.included')}</h2>
               <ul className="flex max-w-2xl flex-col gap-4">
                 {included.map((item) => (
@@ -218,7 +218,7 @@ export default function ListingPage() {
               </ul>
             </div>
 
-            <div className="mt-12 grid gap-5 border-y border-line py-12 lg:grid-cols-[14rem_1fr] lg:gap-12">
+            <div className="mt-12 grid grid-cols-1 gap-5 border-y border-line py-12 lg:grid-cols-[14rem_1fr] lg:gap-12">
               <h2 className="label pt-1.5 text-blue">{t('market.license')}</h2>
               <div className="max-w-2xl">
                 <p className="text-lg font-semibold">{t('market.licenseSingle')}</p>

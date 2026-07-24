@@ -178,7 +178,7 @@ export default function CheckoutPage() {
       />
 
       <Shell className="pb-28 pt-14">
-        <div className="grid gap-12 lg:grid-cols-[1fr_23rem] lg:gap-16">
+        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1fr_23rem] lg:gap-16">
           <div className="max-w-2xl">
             {/* 1 — where the money goes */}
             <section aria-labelledby="pay-to">

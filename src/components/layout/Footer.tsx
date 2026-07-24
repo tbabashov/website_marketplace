@@ -36,7 +36,7 @@ export function Footer() {
   return (
     <footer className="relative z-[2] bg-night text-paper">
       <Shell className="pt-20 pb-10 md:pt-28">
-        <div className="grid gap-14 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+        <div className="grid grid-cols-1 gap-14 lg:grid-cols-[1.4fr_minmax(0,1fr)_minmax(0,1fr)_1fr]">
           <div>
             <p className="max-w-xs text-lg text-paper/70">{t('footer.tagline')}</p>
             <LanguageSwitcher tone="paper" className="mt-8" />
