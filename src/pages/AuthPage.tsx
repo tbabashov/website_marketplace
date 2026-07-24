@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/Button';
 import { Field, TextInput } from '@/components/ui/Form';
 import { Spinner } from '@/components/ui/Bits';
 import { isSupabaseConfigured } from '@/lib/supabase';
-import { NOT_CONFIGURED, useAuth } from '@/store/auth';
+import { NOT_CONFIGURED, POST_AUTH_REDIRECT, useAuth } from '@/store/auth';
 import { authProviders } from '@/config/site';
 
 type Mode = 'signin' | 'signup' | 'reset';
@@ -75,6 +75,13 @@ export default function AuthPage() {
   async function oauth(provider: 'google' | 'azure') {
     setError(null);
     setBusy(true);
+    // OAuth leaves the app entirely, so `next` can't ride on component state.
+    // Stash it for the callback page to pick up on return.
+    try {
+      sessionStorage.setItem(POST_AUTH_REDIRECT, next);
+    } catch {
+      // Storage blocked — the callback falls back to the dashboard.
+    }
     const { error: err } = await signInWithProvider(provider);
     if (err) {
       setBusy(false);

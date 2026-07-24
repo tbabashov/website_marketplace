@@ -13,6 +13,9 @@ interface AuthState {
   isOwner: boolean;
 
   init: () => () => void;
+  /** Push a session straight into the store — used by the OAuth callback so it
+   *  never depends on the auth-change event being observed in time. */
+  applySession: (session: Session | null) => void;
   refreshProfile: () => Promise<void>;
   signInWithProvider: (provider: 'google' | 'azure') => Promise<{ error?: string }>;
   signInWithPassword: (email: string, password: string) => Promise<{ error?: string }>;
@@ -26,6 +29,9 @@ interface AuthState {
 }
 
 const NOT_CONFIGURED = 'NOT_CONFIGURED';
+
+/** Where a chosen destination is stashed across an OAuth round-trip. */
+export const POST_AUTH_REDIRECT = 'websale.postAuthRedirect';
 
 export const useAuth = create<AuthState>((set, get) => ({
   // Without Supabase the app is immediately "ready" and permanently signed out,
@@ -54,6 +60,15 @@ export const useAuth = create<AuthState>((set, get) => ({
     });
 
     return () => sub.subscription.unsubscribe();
+  },
+
+  applySession: (session) => {
+    set({ session, user: session?.user ?? null, ready: true });
+    if (session) {
+      void get().refreshProfile();
+    } else {
+      set({ profile: null, isOwner: false });
+    }
   },
 
   refreshProfile: async () => {
