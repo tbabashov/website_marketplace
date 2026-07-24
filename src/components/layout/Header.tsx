@@ -137,58 +137,59 @@ export function Header() {
             )}
           </nav>
 
-          <div className="ml-auto flex items-center gap-3 md:gap-5">
-            {/* Below lg the header is only wordmark + hamburger. The language
-                switcher and the request CTA both live in the mobile menu, so
-                crowding them into the bar — where the CTA label clipped and
-                the hamburger was pushed off the edge — buys nothing. */}
-            <LanguageSwitcher className="hidden lg:inline-flex" />
+          <div className="ml-auto flex items-center gap-2.5">
+            {/* Desktop cluster. Everything below lg lives in the mobile menu,
+                so ONE wrapper gates the whole group. This matters: putting
+                `hidden lg:…` on the LanguageSwitcher or the CTA did nothing,
+                because their own base classes already set `inline-flex`, which
+                won over `hidden` — so they stayed visible on phones, widened
+                the bar past the viewport, and tipped iOS into its desktop
+                layout. A plain wrapper has no base display to fight. */}
+            <div className="hidden items-center gap-5 lg:flex">
+              <LanguageSwitcher />
 
-            {user ? (
-              <div className="hidden items-center gap-5 lg:flex">
-                {isOwner && (
-                  <NavLink to="/admin" data-cursor="link" className={link}>
-                    {t('nav.admin')}
-                  </NavLink>
-                )}
-                <NavLink
-                  to="/dashboard"
-                  data-cursor="link"
-                  className={({ isActive }) =>
-                    clsx(link({ isActive }), 'inline-flex items-center gap-1.5')
-                  }
-                >
-                  <CartIcon />
-                  {t('nav.dashboard')}
-                </NavLink>
-                <Link
-                  to="/profile"
-                  data-cursor="link"
-                  className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-ink text-xs font-bold text-paper transition-colors hover:bg-blue"
-                  aria-label={t('nav.profile')}
-                >
-                  {profile?.avatar_url ? (
-                    <img src={profile.avatar_url} alt="" className="h-full w-full object-cover" />
-                  ) : (
-                    initialsOf(profile?.display_name)
+              {user ? (
+                <>
+                  {isOwner && (
+                    <NavLink to="/admin" data-cursor="link" className={link}>
+                      {t('nav.admin')}
+                    </NavLink>
                   )}
-                </Link>
-              </div>
-            ) : (
-              <NavLink
-                to="/auth"
-                data-cursor="link"
-                className={({ isActive }) => clsx(link({ isActive }), 'hidden lg:block')}
-              >
-                {t('nav.signIn')}
-              </NavLink>
-            )}
+                  <NavLink
+                    to="/dashboard"
+                    data-cursor="link"
+                    className={({ isActive }) =>
+                      clsx(link({ isActive }), 'inline-flex items-center gap-1.5')
+                    }
+                  >
+                    <CartIcon />
+                    {t('nav.dashboard')}
+                  </NavLink>
+                  <Link
+                    to="/profile"
+                    data-cursor="link"
+                    className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-ink text-xs font-bold text-paper transition-colors hover:bg-blue"
+                    aria-label={t('nav.profile')}
+                  >
+                    {profile?.avatar_url ? (
+                      <img src={profile.avatar_url} alt="" className="h-full w-full object-cover" />
+                    ) : (
+                      initialsOf(profile?.display_name)
+                    )}
+                  </Link>
+                </>
+              ) : (
+                <NavLink to="/auth" data-cursor="link" className={link}>
+                  {t('nav.signIn')}
+                </NavLink>
+              )}
 
-            <ButtonLink to="/request" size="sm" className="hidden lg:inline-flex">
-              {t('nav.request')}
-            </ButtonLink>
+              <ButtonLink to="/request" size="sm">
+                {t('nav.request')}
+              </ButtonLink>
+            </div>
 
-            {/* Mobile toggle: two bars that cross into an X. */}
+            {/* Mobile toggle — two rounded bars that cross into an X. */}
             <button
               type="button"
               onClick={() => setOpen(!open)}
@@ -198,17 +199,17 @@ export function Header() {
               data-cursor="link"
               className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-ink text-paper lg:hidden"
             >
-              <span className="relative block h-3 w-4">
+              <span className="relative block h-3.5 w-[18px]">
                 <span
                   className={clsx(
-                    'absolute left-0 block h-[1.5px] w-4 bg-current transition-all duration-300',
-                    open ? 'top-1.5 rotate-45' : 'top-0',
+                    'absolute left-0 block h-[2px] w-full rounded-full bg-current transition-all duration-300',
+                    open ? 'top-[6px] rotate-45' : 'top-[3px]',
                   )}
                 />
                 <span
                   className={clsx(
-                    'absolute left-0 block h-[1.5px] w-4 bg-current transition-all duration-300',
-                    open ? 'top-1.5 -rotate-45' : 'top-3',
+                    'absolute left-0 block h-[2px] w-full rounded-full bg-current transition-all duration-300',
+                    open ? 'top-[6px] -rotate-45' : 'top-[10px]',
                   )}
                 />
               </span>
