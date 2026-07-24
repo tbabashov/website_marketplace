@@ -37,7 +37,12 @@ function ScrollManager() {
   const { pathname, hash } = useLocation();
 
   useEffect(() => {
-    if (hash) {
+    // Only a plain "#id" anchor is a scroll target. Anything else — most
+    // importantly the OAuth token fragment Supabase returns on /auth/callback
+    // (#access_token=...) — is NOT a valid CSS selector, and passing it to
+    // querySelector throws a SyntaxError that crashes the whole app before the
+    // callback can run. That was the real cause of the blank sign-in page.
+    if (hash && /^#[A-Za-z][\w-]*$/.test(hash)) {
       const target = document.querySelector(hash);
       if (target) {
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
