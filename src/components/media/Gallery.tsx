@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
@@ -201,16 +202,18 @@ export function Gallery({
         </div>
       )}
 
-      {/* Lightbox */}
-      {expanded && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label={t('market.screenshots')}
-          onClick={() => setExpanded(false)}
-          className="fixed inset-0 z-[220] flex flex-col items-center justify-center gap-5 bg-night/95 p-4 backdrop-blur-sm sm:p-8"
-          style={{ animation: 'fade 0.22s var(--ease-out-expo)' }}
-        >
+      {/* Lightbox — portalled to <body> so it escapes the main content's
+          stacking context and actually sits above the fixed header. */}
+      {expanded &&
+        createPortal(
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label={t('market.screenshots')}
+            onClick={() => setExpanded(false)}
+            className="fixed inset-0 z-[300] flex flex-col items-center justify-center gap-5 bg-night/95 p-4 backdrop-blur-sm sm:p-8"
+            style={{ animation: 'fade 0.22s var(--ease-out-expo)' }}
+          >
           <button
             ref={closeRef}
             type="button"
@@ -289,8 +292,9 @@ export function Gallery({
               ))}
             </div>
           )}
-        </div>
-      )}
+          </div>,
+          document.body,
+        )}
     </div>
   );
 }
