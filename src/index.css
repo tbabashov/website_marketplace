@@ -177,6 +177,13 @@
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
     color-scheme: light;
+    /* iOS Safari widens the layout viewport to fit any horizontal overflow,
+       which then makes lg: media queries match on a phone and flips the whole
+       site into its desktop layout (header clipping, two-column pages spilling
+       off-screen). overflow-x on body alone doesn't stop it; clipping at the
+       html element does — and `clip` (unlike `hidden`) creates no scroll
+       container, so sticky positioning still works. */
+    overflow-x: clip;
   }
 
   body {
@@ -187,7 +194,7 @@
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
-    overflow-x: hidden;
+    overflow-x: clip;
   }
 
   /* Fine paper grain. Sits above the background, below content, and is the

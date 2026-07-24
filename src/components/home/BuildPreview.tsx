@@ -51,7 +51,7 @@ export function BuildPreview({
     >
       {/* Ambient cobalt glow, for depth. */}
       <div
-        className="pointer-events-none absolute -inset-6 -z-10 rounded-[3rem] bg-blue/15 blur-3xl"
+        className="pointer-events-none absolute inset-0 -z-10 rounded-[3rem] bg-blue/15 blur-3xl"
       />
 
       {/* Browser frame */}
