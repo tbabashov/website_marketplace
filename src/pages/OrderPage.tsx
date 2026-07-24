@@ -535,14 +535,29 @@ export default function OrderPage() {
               {/* Call back — only while the order is still ahead of the receipt
                   stage. Once a receipt is submitted, this disappears. */}
               {canCallBack(order.status) && (
-                <details className="group mt-6 border-t border-line pt-5">
+                <details className="group mt-6 border-t border-line pt-6">
                   <summary
                     data-cursor="link"
-                    className="label cursor-pointer list-none text-ink-mute transition-colors hover:text-red"
+                    className="flex cursor-pointer list-none items-center gap-2 text-sm font-semibold text-ink-soft transition-colors hover:text-red [&::-webkit-details-marker]:hidden"
                   >
+                    <svg
+                      viewBox="0 0 24 24"
+                      width="16"
+                      height="16"
+                      aria-hidden="true"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.8"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="shrink-0"
+                    >
+                      <path d="M9 14L4 9l5-5" />
+                      <path d="M4 9h11a5 5 0 0 1 0 10h-1" />
+                    </svg>
                     {t('order.callBack')}
                   </summary>
-                  <div className="mt-4 flex flex-col gap-4">
+                  <div className="mt-4 flex flex-col gap-4 rounded-2xl bg-red/[0.05] p-4">
                     <p className="text-sm text-ink-mute">{t('order.callBackHint')}</p>
                     <Field
                       label={t('order.callBackReason')}
