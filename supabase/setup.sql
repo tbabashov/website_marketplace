@@ -1176,10 +1176,15 @@ begin
     raise exception 'Order not found' using errcode = 'P0002';
   end if;
 
-  -- Once money has been confirmed, cancelling is a refund conversation rather
-  -- than a button, so it is not offered here.
-  if v_order.paid_azn > 0 and not public.is_owner() then
-    raise exception 'Contact us to cancel an order that has been paid' using errcode = '42501';
+  -- A buyer may call an order back only before it reaches the receipt stage.
+  -- Once a receipt has been submitted (payment_submitted) or money confirmed,
+  -- cancelling is a refund conversation, not a button. The Owner can still
+  -- cancel from any state.
+  if not public.is_owner()
+     and v_order.status not in (
+       'draft', 'quote_requested', 'quoted', 'awaiting_payment', 'payment_rejected'
+     ) then
+    raise exception 'This order can no longer be called back' using errcode = '42501';
   end if;
 
   update orders set status = 'cancelled', decline_reason = coalesce(p_reason, decline_reason)

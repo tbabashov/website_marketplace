@@ -22,7 +22,7 @@ import { useSeo } from '@/lib/seo';
 import { useAuth } from '@/store/auth';
 import { useUI } from '@/store/ui';
 import type { Locale } from '@/config/site';
-import { ORDER_MILESTONES, type OrderDetail, type OrderStatus } from '@/types/db';
+import { canCallBack, ORDER_MILESTONES, type OrderDetail, type OrderStatus } from '@/types/db';
 
 /** Where the order sits on the five-step tracker. -1 for states off the path. */
 function milestoneIndex(status: OrderStatus): number {
@@ -127,6 +127,7 @@ export default function OrderPage() {
   const [order, setOrder] = useState<OrderDetail | null | undefined>(undefined);
   const [busy, setBusy] = useState(false);
   const [declineReason, setDeclineReason] = useState('');
+  const [cancelReason, setCancelReason] = useState('');
   const [rating, setRating] = useState(0);
   const [reviewBody, setReviewBody] = useState('');
   const [reviewed, setReviewed] = useState(false);
@@ -529,6 +530,52 @@ export default function OrderPage() {
                 <p className="mt-6 border-t border-line pt-5 text-sm text-ink-mute">
                   {t('order.awaitingOwner')}
                 </p>
+              )}
+
+              {/* Call back — only while the order is still ahead of the receipt
+                  stage. Once a receipt is submitted, this disappears. */}
+              {canCallBack(order.status) && (
+                <details className="group mt-6 border-t border-line pt-5">
+                  <summary
+                    data-cursor="link"
+                    className="label cursor-pointer list-none text-ink-mute transition-colors hover:text-red"
+                  >
+                    {t('order.callBack')}
+                  </summary>
+                  <div className="mt-4 flex flex-col gap-4">
+                    <p className="text-sm text-ink-mute">{t('order.callBackHint')}</p>
+                    <Field
+                      label={t('order.callBackReason')}
+                      optional
+                      optionalLabel={t('common.optional')}
+                    >
+                      {({ id: cid }) => (
+                        <TextArea
+                          id={cid}
+                          rows={2}
+                          placeholder={t('order.callBackReasonPlaceholder')}
+                          value={cancelReason}
+                          onChange={(e) => setCancelReason(e.target.value)}
+                        />
+                      )}
+                    </Field>
+                    <Button
+                      variant="danger"
+                      size="sm"
+                      className="self-start"
+                      disabled={busy}
+                      onClick={() =>
+                        void call('cancel_order', {
+                          p_order_id: order.id,
+                          p_reason: cancelReason.trim() || null,
+                        })
+                      }
+                    >
+                      {busy && <Spinner />}
+                      {t('order.callBackConfirm')}
+                    </Button>
+                  </div>
+                </details>
               )}
             </div>
 

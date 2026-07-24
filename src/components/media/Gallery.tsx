@@ -1,0 +1,188 @@
+import { useEffect, useRef, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import clsx from 'clsx';
+
+import { ManagedImage } from '@/components/media/ManagedImage';
+
+export interface GalleryImage {
+  /** Manifest slot id (for the cover), if any. */
+  slotId?: string;
+  /** Direct path; overrides the slot. Null renders a labelled placeholder. */
+  src?: string | null;
+  /** Caption shown on the placeholder — use it to name the file to drop in. */
+  label: string;
+  /** Alt text for the real image. */
+  alt?: string;
+}
+
+/**
+ * A screenshot carousel for listing pages, built from the site's own parts —
+ * rounded plate, cobalt accents, the same ManagedImage placeholders used
+ * everywhere else — so it reads as custom, not a bolted-on slider.
+ *
+ * One image at a time slides in a masked track; arrows wrap around; dots below
+ * jump directly and show position out of the total. Arrow keys and touch swipe
+ * both work. Arrows are quiet until hovered on desktop and always shown on
+ * touch. Any number of images; a single image drops all the controls.
+ */
+export function Gallery({
+  images,
+  aspect = '16:10',
+  className,
+}: {
+  images: GalleryImage[];
+  aspect?: string;
+  className?: string;
+}) {
+  const { t } = useTranslation();
+  const [index, setIndex] = useState(0);
+  const count = images.length;
+  const swipeStart = useRef<number | null>(null);
+
+  const go = (dir: number) => setIndex((i) => (i + dir + count) % count);
+
+  // Arrow-key navigation, ignored while typing in a field.
+  useEffect(() => {
+    if (count <= 1) return;
+    const onKey = (e: KeyboardEvent) => {
+      const el = document.activeElement;
+      if (el && /^(INPUT|TEXTAREA|SELECT)$/.test(el.tagName)) return;
+      if (e.key === 'ArrowLeft') go(-1);
+      if (e.key === 'ArrowRight') go(1);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [count]);
+
+  if (count === 0) return null;
+
+  if (count === 1) {
+    const only = images[0]!;
+    return (
+      <ManagedImage
+        slotId={only.slotId}
+        src={only.src}
+        alt={only.alt}
+        aspect={aspect}
+        label={only.label}
+        priority
+        className={className}
+      />
+    );
+  }
+
+  function onPointerDown(e: React.PointerEvent) {
+    swipeStart.current = e.clientX;
+  }
+  function onPointerUp(e: React.PointerEvent) {
+    if (swipeStart.current === null) return;
+    const dx = e.clientX - swipeStart.current;
+    swipeStart.current = null;
+    if (Math.abs(dx) > 45) go(dx < 0 ? 1 : -1);
+  }
+
+  const arrowClass =
+    'absolute top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full ' +
+    'bg-paper/85 text-ink shadow-[0_6px_24px_-8px_rgba(18,18,16,0.4)] backdrop-blur-sm transition ' +
+    'hover:bg-blue hover:text-paper ' +
+    'opacity-100 lg:opacity-0 lg:group-hover/gallery:opacity-100';
+
+  return (
+    <div className={clsx('group/gallery', className)}>
+      {/* Masked track */}
+      <div
+        className="plate relative touch-pan-y"
+        style={{ aspectRatio: aspect.split(':').join(' / ') }}
+        onPointerDown={onPointerDown}
+        onPointerUp={onPointerUp}
+        role="group"
+        aria-roledescription="carousel"
+        aria-label={t('market.screenshots')}
+      >
+        <div
+          className="flex h-full w-full transition-transform duration-300 ease-in-out"
+          style={{ transform: `translateX(-${index * 100}%)` }}
+        >
+          {images.map((img, i) => (
+            <div
+              key={img.label + i}
+              className="h-full w-full shrink-0"
+              aria-hidden={i !== index}
+            >
+              <ManagedImage
+                slotId={img.slotId}
+                src={img.src}
+                alt={img.alt}
+                aspect={aspect}
+                label={img.label}
+                priority={i === 0}
+                className="h-full w-full !rounded-none"
+              />
+            </div>
+          ))}
+        </div>
+
+        <button
+          type="button"
+          data-cursor="link"
+          onClick={() => go(-1)}
+          aria-label={t('common.back')}
+          className={clsx(arrowClass, 'left-3')}
+        >
+          <Chevron dir="left" />
+        </button>
+        <button
+          type="button"
+          data-cursor="link"
+          onClick={() => go(1)}
+          aria-label={t('common.next')}
+          className={clsx(arrowClass, 'right-3')}
+        >
+          <Chevron dir="right" />
+        </button>
+
+        {/* Counter */}
+        <span className="label absolute bottom-3 right-3 rounded-full bg-ink/70 px-2.5 py-1 text-paper tabular-nums">
+          {String(index + 1).padStart(2, '0')} / {String(count).padStart(2, '0')}
+        </span>
+      </div>
+
+      {/* Dots */}
+      <div className="mt-4 flex items-center justify-center gap-2">
+        {images.map((img, i) => (
+          <button
+            key={img.label + i}
+            type="button"
+            data-cursor="link"
+            onClick={() => setIndex(i)}
+            aria-label={`${i + 1} / ${count}`}
+            aria-current={i === index}
+            className={clsx(
+              'h-2 rounded-full transition-all duration-300',
+              i === index ? 'w-6 bg-blue' : 'w-2 bg-ink/20 hover:bg-ink/40',
+            )}
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Chevron({ dir }: { dir: 'left' | 'right' }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width="18"
+      height="18"
+      aria-hidden="true"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d={dir === 'left' ? 'M15 6l-6 6 6 6' : 'M9 6l6 6-6 6'} />
+    </svg>
+  );
+}

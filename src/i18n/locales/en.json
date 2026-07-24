@@ -471,7 +471,13 @@
     "sendMessage": "Send",
     "noMessages": "No messages yet.",
     "notFound": "That order isn't here, or it isn't yours.",
-    "awaitingOwner": "Waiting on me — nothing for you to do right now."
+    "awaitingOwner": "Waiting on me — nothing for you to do right now.",
+    "callBack": "Call back this order",
+    "callBackHint": "You can withdraw an order until you send a receipt. After that, contact me to sort it out.",
+    "callBackReason": "Why? (optional)",
+    "callBackReasonPlaceholder": "Changed your mind, found something else — whatever it is, it helps me.",
+    "callBackConfirm": "Call it back",
+    "calledBack": "Order called back"
   },
   "dashboard": {
     "pageTitle": "My orders",

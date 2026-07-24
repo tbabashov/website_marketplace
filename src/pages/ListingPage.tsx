@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
-import { ManagedImage } from '@/components/media/ManagedImage';
+import { Gallery, type GalleryImage } from '@/components/media/Gallery';
 import { ListingRow } from '@/components/marketplace/ListingRow';
 import { Arrow, Button, ButtonLink } from '@/components/ui/Button';
 import {
@@ -60,6 +60,37 @@ export default function ListingPage() {
   }, [slug]);
 
   const title = listing ? pickText(listing.title, locale) : t('market.pageTitle');
+
+  /**
+   * The gallery: cover first, then each supplied screenshot. When a listing
+   * has no screenshots yet, three labelled placeholder slots stand in — the
+   * caption names the file to drop in (e.g. "vitrin/screenshot-1-hero"), the
+   * same drop-in-and-it-appears convention used across the site. Fill the
+   * listing's `screenshots` text[] column with the real paths afterward.
+   */
+  const galleryImages: GalleryImage[] = useMemo(() => {
+    if (!listing) return [];
+    const imgs: GalleryImage[] = [
+      {
+        slotId: `marketplace-${listing.slug}-cover`,
+        src: listing.cover_image,
+        label: `${listing.slug} — cover`,
+        alt: title,
+      },
+    ];
+    if (listing.screenshots.length > 0) {
+      listing.screenshots.forEach((src, i) =>
+        imgs.push({ src, label: `${listing.slug} — ${i + 1}`, alt: `${title} — ${i + 1}` }),
+      );
+    } else {
+      // Suggested screenshot slots. Rename freely — these labels are only a
+      // hint about what each screen might show.
+      ['hero', 'features', 'mobile'].forEach((name, i) =>
+        imgs.push({ src: null, label: `${listing.slug}/screenshot-${i + 1}-${name}` }),
+      );
+    }
+    return imgs;
+  }, [listing, title]);
 
   useSeo({
     title: `${title} — WebSale.az`,
@@ -141,16 +172,11 @@ export default function ListingPage() {
 
             {isDemo && <DemoNotice className="mt-6" />}
 
-            <div className="group mt-12">
-              <ManagedImage
-                slotId={`marketplace-${listing.slug}-cover`}
-                src={listing.cover_image}
-                alt={title}
-                aspect="16:10"
-                label={listing.slug}
-                priority
-              />
-            </div>
+            <Gallery images={galleryImages} aspect="16:10" className="mt-12" />
+
+            {listing.screenshots.length > 0 && (
+              <p className="mt-4 text-center text-sm text-ink-mute">{t('market.screenshots')}</p>
+            )}
 
             <div className="mt-14 border-t border-line pt-12">
               <p className="max-w-2xl text-xl leading-relaxed text-ink-soft">

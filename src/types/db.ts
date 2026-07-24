@@ -200,3 +200,19 @@ export const ORDER_MILESTONES: readonly OrderStatus[] = [
   'delivered',
   'completed',
 ] as const;
+
+/**
+ * States from which a buyer may call an order back. Mirrors the guard in
+ * cancel_order(): everything up to, but not including, submitting a receipt.
+ */
+export const CANCELLABLE_STATES: readonly OrderStatus[] = [
+  'draft',
+  'quote_requested',
+  'quoted',
+  'awaiting_payment',
+  'payment_rejected',
+] as const;
+
+export function canCallBack(status: OrderStatus): boolean {
+  return CANCELLABLE_STATES.includes(status);
+}

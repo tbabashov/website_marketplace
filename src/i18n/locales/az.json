@@ -471,7 +471,13 @@
     "sendMessage": "Göndər",
     "noMessages": "Hələ mesaj yoxdur.",
     "notFound": "Belə bir sifariş yoxdur, ya da sizin deyil.",
-    "awaitingOwner": "Növbə məndədir — sizin tərəfdən hazırda ediləsi bir şey yoxdur."
+    "awaitingOwner": "Növbə məndədir — sizin tərəfdən hazırda ediləsi bir şey yoxdur.",
+    "callBack": "Sifarişi geri çağır",
+    "callBackHint": "Qəbz göndərənə qədər sifarişi geri götürə bilərsiniz. Ondan sonra həll etmək üçün mənə yazın.",
+    "callBackReason": "Səbəb? (istəyə bağlı)",
+    "callBackReasonPlaceholder": "Fikrinizi dəyişdiniz, başqa bir şey tapdınız — nə olursa olsun, mənə kömək edir.",
+    "callBackConfirm": "Geri çağır",
+    "calledBack": "Sifariş geri çağırıldı"
   },
   "dashboard": {
     "pageTitle": "Sifarişlərim",
