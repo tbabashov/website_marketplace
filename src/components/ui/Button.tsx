@@ -4,7 +4,14 @@ import clsx from 'clsx';
 
 import { useMagnetic } from '@/lib/useMagnetic';
 
-type Variant = 'primary' | 'outline' | 'ghost' | 'onNight' | 'onBlue' | 'danger';
+type Variant =
+  | 'primary'
+  | 'outline'
+  | 'ghost'
+  | 'onNight'
+  | 'onBlue'
+  | 'danger'
+  | 'dangerSolid';
 type Size = 'sm' | 'md' | 'lg';
 
 /**
@@ -30,7 +37,10 @@ const variants: Record<Variant, string> = {
   ghost: 'text-ink-mute hover:bg-ink/8 hover:text-ink',
   onNight: 'bg-paper text-ink hover:bg-blue hover:text-paper',
   onBlue: 'bg-paper text-blue hover:bg-ink hover:text-paper',
-  danger: 'border border-red/40 text-red hover:bg-red hover:text-paper',
+  // Outlined destructive action. Border bumped up so it holds its own on paper.
+  danger: 'border border-red/55 text-red hover:bg-red hover:text-paper',
+  // Filled destructive action, for the final confirm — unmissable.
+  dangerSolid: 'bg-red text-paper hover:bg-red/90',
 };
 
 const sizes: Record<Size, string> = {

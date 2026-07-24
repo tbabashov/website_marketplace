@@ -95,7 +95,7 @@ export function DeleteAccount() {
 
           <div className="mt-6 flex flex-wrap gap-2.5">
             <Button
-              variant="danger"
+              variant="dangerSolid"
               size="sm"
               disabled={busy || orderCount === null}
               onClick={() => void confirm()}

@@ -127,7 +127,9 @@ export default function OrderPage() {
   const [order, setOrder] = useState<OrderDetail | null | undefined>(undefined);
   const [busy, setBusy] = useState(false);
   const [declineReason, setDeclineReason] = useState('');
+  const [showDecline, setShowDecline] = useState(false);
   const [cancelReason, setCancelReason] = useState('');
+  const [showCancel, setShowCancel] = useState(false);
   const [rating, setRating] = useState(0);
   const [reviewBody, setReviewBody] = useState('');
   const [reviewed, setReviewed] = useState(false);
@@ -284,14 +286,12 @@ export default function OrderPage() {
                     {!busy && <Arrow />}
                   </Button>
 
-                  <details className="group">
-                    <summary
-                      data-cursor="link"
-                      className="label cursor-pointer list-none text-ink-mute hover:text-ink"
-                    >
+                  {!showDecline ? (
+                    <Button variant="danger" onClick={() => setShowDecline(true)}>
                       {t('order.declineQuote')}
-                    </summary>
-                    <div className="mt-5 flex max-w-lg flex-col gap-4">
+                    </Button>
+                  ) : (
+                    <div className="flex max-w-lg flex-col gap-4 rounded-2xl bg-red/[0.05] p-4">
                       <Field
                         label={t('order.declineReason')}
                         optional
@@ -301,26 +301,31 @@ export default function OrderPage() {
                           <TextArea
                             id={fid}
                             rows={3}
+                            className="bg-paper"
                             value={declineReason}
                             onChange={(e) => setDeclineReason(e.target.value)}
                           />
                         )}
                       </Field>
-                      <Button
-                        variant="danger"
-                        className="self-start"
-                        disabled={busy}
-                        onClick={() =>
-                          void call('decline_quote', {
-                            p_order_id: order.id,
-                            p_reason: declineReason.trim() || null,
-                          })
-                        }
-                      >
-                        {t('order.declineQuote')}
-                      </Button>
+                      <div className="flex flex-wrap gap-2.5">
+                        <Button
+                          variant="dangerSolid"
+                          disabled={busy}
+                          onClick={() =>
+                            void call('decline_quote', {
+                              p_order_id: order.id,
+                              p_reason: declineReason.trim() || null,
+                            })
+                          }
+                        >
+                          {t('order.declineQuote')}
+                        </Button>
+                        <Button variant="ghost" disabled={busy} onClick={() => setShowDecline(false)}>
+                          {t('common.cancel')}
+                        </Button>
+                      </div>
                     </div>
-                  </details>
+                  )}
                 </div>
               </section>
             )}
@@ -535,62 +540,76 @@ export default function OrderPage() {
               {/* Call back — only while the order is still ahead of the receipt
                   stage. Once a receipt is submitted, this disappears. */}
               {canCallBack(order.status) && (
-                <details className="group mt-6 border-t border-line pt-6">
-                  <summary
-                    data-cursor="link"
-                    className="flex cursor-pointer list-none items-center gap-2 text-sm font-semibold text-ink-soft transition-colors hover:text-red [&::-webkit-details-marker]:hidden"
-                  >
-                    <svg
-                      viewBox="0 0 24 24"
-                      width="16"
-                      height="16"
-                      aria-hidden="true"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      className="shrink-0"
-                    >
-                      <path d="M9 14L4 9l5-5" />
-                      <path d="M4 9h11a5 5 0 0 1 0 10h-1" />
-                    </svg>
-                    {t('order.callBack')}
-                  </summary>
-                  <div className="mt-4 flex flex-col gap-4 rounded-2xl bg-red/[0.05] p-4">
-                    <p className="text-sm text-ink-mute">{t('order.callBackHint')}</p>
-                    <Field
-                      label={t('order.callBackReason')}
-                      optional
-                      optionalLabel={t('common.optional')}
-                    >
-                      {({ id: cid }) => (
-                        <TextArea
-                          id={cid}
-                          rows={2}
-                          placeholder={t('order.callBackReasonPlaceholder')}
-                          value={cancelReason}
-                          onChange={(e) => setCancelReason(e.target.value)}
-                        />
-                      )}
-                    </Field>
+                <div className="mt-6 border-t border-line pt-6">
+                  {!showCancel ? (
                     <Button
                       variant="danger"
                       size="sm"
-                      className="self-start"
-                      disabled={busy}
-                      onClick={() =>
-                        void call('cancel_order', {
-                          p_order_id: order.id,
-                          p_reason: cancelReason.trim() || null,
-                        })
-                      }
+                      className="w-full"
+                      onClick={() => setShowCancel(true)}
                     >
-                      {busy && <Spinner />}
-                      {t('order.callBackConfirm')}
+                      <svg
+                        viewBox="0 0 24 24"
+                        width="16"
+                        height="16"
+                        aria-hidden="true"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.8"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="shrink-0"
+                      >
+                        <path d="M9 14L4 9l5-5" />
+                        <path d="M4 9h11a5 5 0 0 1 0 10h-1" />
+                      </svg>
+                      {t('order.callBack')}
                     </Button>
-                  </div>
-                </details>
+                  ) : (
+                    <div className="flex flex-col gap-4 rounded-2xl bg-red/[0.05] p-4">
+                      <p className="text-sm text-ink-mute">{t('order.callBackHint')}</p>
+                      <Field
+                        label={t('order.callBackReason')}
+                        optional
+                        optionalLabel={t('common.optional')}
+                      >
+                        {({ id: cid }) => (
+                          <TextArea
+                            id={cid}
+                            rows={2}
+                            placeholder={t('order.callBackReasonPlaceholder')}
+                            value={cancelReason}
+                            onChange={(e) => setCancelReason(e.target.value)}
+                          />
+                        )}
+                      </Field>
+                      <div className="flex flex-wrap gap-2.5">
+                        <Button
+                          variant="dangerSolid"
+                          size="sm"
+                          disabled={busy}
+                          onClick={() =>
+                            void call('cancel_order', {
+                              p_order_id: order.id,
+                              p_reason: cancelReason.trim() || null,
+                            })
+                          }
+                        >
+                          {busy && <Spinner />}
+                          {t('order.callBackConfirm')}
+                        </Button>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          disabled={busy}
+                          onClick={() => setShowCancel(false)}
+                        >
+                          {t('common.cancel')}
+                        </Button>
+                      </div>
+                    </div>
+                  )}
+                </div>
               )}
             </div>
 

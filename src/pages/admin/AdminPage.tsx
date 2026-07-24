@@ -166,7 +166,7 @@ function PaymentCard({ row, onDone }: { row: PaymentReviewRow; onDone: () => voi
 
           <div className="flex gap-3">
             <Button
-              variant="danger"
+              variant="dangerSolid"
               disabled={busy}
               onClick={() =>
                 void run(
