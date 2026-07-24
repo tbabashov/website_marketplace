@@ -5,22 +5,27 @@ import { useTranslation } from 'react-i18next';
 import { LoadingBlock, Shell } from '@/components/ui/Bits';
 import { ButtonLink } from '@/components/ui/Button';
 import { supabase } from '@/lib/supabase';
-import { POST_AUTH_REDIRECT, useAuth } from '@/store/auth';
+import { POST_AUTH_REDIRECT } from '@/store/auth';
 
 /**
  * Where Google, Microsoft, the email confirmation link and the password-reset
- * link all land. Supabase parses the URL fragment itself (detectSessionInUrl);
- * this page waits for the resulting session and then sends the visitor on.
+ * link all land. Supabase parses the URL itself (detectSessionInUrl) and, on
+ * the default PKCE flow, exchanges the returned code for a session
+ * asynchronously.
  *
- * It drives the session directly — checking getSession() *and* listening for
- * the auth-change event, then pushing the result into the store itself — so it
- * never blanks out because the store happened to miss the sign-in event, which
- * is what made it hang here until a manual reload.
+ * That exchange is the whole problem this page used to trip over: checking for
+ * the session once, at mount, could run before the exchange finished, and if
+ * the sign-in event was also missed the page just hung on a blank
+ * /auth/callback until a manual reload (by which point the session was saved).
+ *
+ * So this waits properly: it listens for the auth event *and* polls
+ * getSession() until the session appears, then leaves via a full navigation —
+ * the same thing the manual reload did, which guarantees the destination loads
+ * with the session already in place.
  */
 export default function AuthCallbackPage() {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const applySession = useAuth((s) => s.applySession);
   const [failed, setFailed] = useState(false);
 
   useEffect(() => {
@@ -29,15 +34,20 @@ export default function AuthCallbackPage() {
       return;
     }
 
+    // A provider that returns an explicit error never yields a session; don't
+    // make the visitor wait out the timeout for it.
+    const params = new URLSearchParams(window.location.search);
+    const hash = new URLSearchParams(window.location.hash.replace(/^#/, ''));
+    if (params.get('error') || hash.get('error')) {
+      setFailed(true);
+      return;
+    }
+
     let settled = false;
 
-    const finish = (session: import('@supabase/supabase-js').Session | null) => {
-      if (settled || !session) return;
+    function leave() {
+      if (settled) return;
       settled = true;
-
-      // Put the session into the store *before* navigating, so the protected
-      // route we land on already sees a signed-in user and does not bounce.
-      applySession(session);
 
       let next = '/dashboard';
       try {
@@ -49,25 +59,47 @@ export default function AuthCallbackPage() {
       } catch {
         // Storage unavailable — the default destination is fine.
       }
-      navigate(next, { replace: true });
-    };
 
-    // Catch the session however it arrives first: already present, or via the
-    // event once detectSessionInUrl finishes exchanging the code/fragment.
-    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => finish(session));
-    void supabase.auth.getSession().then(({ data }) => finish(data.session));
+      // A full-document navigation, not an SPA one: the app reboots with the
+      // session already persisted, so the protected page renders first time.
+      // This is exactly what the manual reload was doing by hand.
+      window.location.replace(next);
+    }
 
-    // A link that was expired or already used never produces a session.
-    const timer = setTimeout(() => {
-      if (!settled) setFailed(true);
-    }, 8000);
+    async function check(): Promise<boolean> {
+      const { data } = await supabase!.auth.getSession();
+      if (data.session) {
+        leave();
+        return true;
+      }
+      return false;
+    }
+
+    // Fast path: the event fires the instant the exchange completes.
+    const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (session) leave();
+    });
+
+    // Robust path: keep asking until the exchange has landed. detectSessionInUrl
+    // persists the session even if the event slips past us, so a poll always
+    // catches it eventually.
+    void check();
+    const poll = window.setInterval(() => void check(), 250);
+
+    const timer = window.setTimeout(() => {
+      if (!settled) {
+        window.clearInterval(poll);
+        setFailed(true);
+      }
+    }, 10000);
 
     return () => {
       settled = true;
       sub.subscription.unsubscribe();
-      clearTimeout(timer);
+      window.clearInterval(poll);
+      window.clearTimeout(timer);
     };
-  }, [navigate, applySession]);
+  }, [navigate]);
 
   if (failed) {
     return (
