@@ -37,7 +37,7 @@ export function Hero() {
               {t('hero.eyebrow')}
             </p>
 
-            <h1 className="mt-7 text-[clamp(2.25rem,4vw,3.5rem)] font-display font-extrabold leading-[1] tracking-[-0.04em]">
+            <h1 className="mt-7 text-[clamp(2.25rem,4vw,3.5rem)] font-display font-extrabold leading-[1.1] tracking-[-0.04em]">
               <span className="line-mask">
                 <span style={{ '--d': '160ms' } as CSSProperties}>{t('hero.titleLine1')}</span>
               </span>

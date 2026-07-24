@@ -357,12 +357,16 @@
    ========================================================================== */
 
 @layer utilities {
-  /* Headline lines that rise out of a mask on load. */
+  /* Headline lines that rise out of a mask on load. The generous
+     padding-bottom (cancelled by an equal negative margin, so line spacing is
+     unchanged) keeps the mask's overflow:hidden from clipping descenders —
+     Azerbaijani stacks a cedilla under ç/ş and a comma below the baseline, and
+     at tight leading those were being cut off. */
   .line-mask {
     display: block;
     overflow: hidden;
-    padding-bottom: 0.08em;
-    margin-bottom: -0.08em;
+    padding-bottom: 0.22em;
+    margin-bottom: -0.22em;
   }
   .line-mask > span {
     display: block;

@@ -31,13 +31,15 @@ function isLocale(value: string | null | undefined): value is Locale {
 }
 
 /**
- * Language resolution, in order:
+ * Language resolution:
  *   1. An explicit choice the visitor made before (localStorage).
- *   2. The browser's Accept-Language, on a first visit only.
- *   3. Azerbaijani.
+ *   2. Otherwise Azerbaijani.
  *
- * Step 2 is deliberately first-visit-only: once someone has picked a language
- * we never second-guess it, even if their browser says otherwise.
+ * The site serves Azerbaijani businesses, so a first visit always opens in
+ * Azerbaijani regardless of the browser's language — a Russian- or
+ * English-language browser still lands on `az` and can switch from the header.
+ * The `?lang=` query param (see useLangQueryParam) still overrides for shared
+ * links, and any switch is remembered for next time.
  */
 export function resolveInitialLocale(): Locale {
   try {
@@ -45,11 +47,6 @@ export function resolveInitialLocale(): Locale {
     if (isLocale(stored)) return stored;
   } catch {
     // Private browsing or a blocked storage partition — fall through.
-  }
-
-  for (const tag of navigator.languages ?? [navigator.language]) {
-    const base = tag?.split('-')[0]?.toLowerCase();
-    if (isLocale(base)) return base;
   }
 
   return DEFAULT_LOCALE;
