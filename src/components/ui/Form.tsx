@@ -96,15 +96,39 @@ export function TextArea({
   );
 }
 
+/**
+ * Native select, but with its own chevron so it looks the same in every
+ * browser (Safari's default arrow in particular is nothing like ours). The
+ * native arrow is removed with appearance-none and replaced by the mark below.
+ */
 export function Select({
   className,
   children,
   ...rest
 }: React.SelectHTMLAttributes<HTMLSelectElement>) {
   return (
-    <select className={clsx(fieldBase, 'cursor-pointer py-3.5 pr-10', className)} {...rest}>
-      {children}
-    </select>
+    <span className="relative inline-flex">
+      <select
+        className={clsx(fieldBase, 'w-full cursor-pointer appearance-none pr-11', className)}
+        {...rest}
+      >
+        {children}
+      </select>
+      <svg
+        viewBox="0 0 24 24"
+        width="16"
+        height="16"
+        aria-hidden="true"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-ink-mute"
+      >
+        <path d="M6 9l6 6 6-6" />
+      </svg>
+    </span>
   );
 }
 

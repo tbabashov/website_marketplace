@@ -95,7 +95,7 @@ export default function MarketplacePage() {
             <Select
               value={sort}
               onChange={(e) => setSort(e.target.value as Sort)}
-              className="w-auto rounded-full py-2.5 text-sm"
+              className="rounded-full py-2 pl-4 text-sm font-medium"
             >
               <option value="newest">{t('market.sortNewest')}</option>
               <option value="priceAsc">{t('market.sortPriceAsc')}</option>
