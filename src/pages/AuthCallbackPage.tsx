@@ -9,24 +9,18 @@ import { POST_AUTH_REDIRECT } from '@/store/auth';
 
 /**
  * Where Google, Microsoft, the email confirmation link and the password-reset
- * link all land. Supabase parses the URL itself (detectSessionInUrl) and, on
- * the default PKCE flow, exchanges the returned code for a session
- * asynchronously.
+ * link all land. On the implicit flow the session arrives in the URL fragment
+ * and Supabase (detectSessionInUrl) parses it.
  *
- * That exchange is the whole problem this page used to trip over: checking for
- * the session once, at mount, could run before the exchange finished, and if
- * the sign-in event was also missed the page just hung on a blank
- * /auth/callback until a manual reload (by which point the session was saved).
- *
- * So this waits properly: it listens for the auth event *and* polls
- * getSession() until the session appears, then leaves via a full navigation —
- * the same thing the manual reload did, which guarantees the destination loads
- * with the session already in place.
+ * If the provider or Supabase returns an *error* instead, it comes back in the
+ * URL too — and a page that just spun on that told nobody anything. So the
+ * failure state now shows the actual error text, which is the difference
+ * between "it's broken" and knowing exactly what to fix.
  */
 export default function AuthCallbackPage() {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const [failed, setFailed] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     if (!supabase) {
@@ -34,12 +28,17 @@ export default function AuthCallbackPage() {
       return;
     }
 
-    // A provider that returns an explicit error never yields a session; don't
-    // make the visitor wait out the timeout for it.
-    const params = new URLSearchParams(window.location.search);
+    // The provider may report an error in either the query or the fragment.
+    const query = new URLSearchParams(window.location.search);
     const hash = new URLSearchParams(window.location.hash.replace(/^#/, ''));
-    if (params.get('error') || hash.get('error')) {
-      setFailed(true);
+    const providerError =
+      query.get('error_description') ||
+      hash.get('error_description') ||
+      query.get('error') ||
+      hash.get('error');
+
+    if (providerError) {
+      setError(providerError);
       return;
     }
 
@@ -59,39 +58,31 @@ export default function AuthCallbackPage() {
       } catch {
         // Storage unavailable — the default destination is fine.
       }
-
-      // A full-document navigation, not an SPA one: the app reboots with the
-      // session already persisted, so the protected page renders first time.
-      // This is exactly what the manual reload was doing by hand.
+      // Full-document navigation: the app reboots with the session already
+      // persisted, so the protected page renders first time.
       window.location.replace(next);
     }
 
-    async function check(): Promise<boolean> {
+    async function check() {
       const { data } = await supabase!.auth.getSession();
-      if (data.session) {
-        leave();
-        return true;
-      }
-      return false;
+      if (data.session) leave();
     }
 
-    // Fast path: the event fires the instant the exchange completes.
     const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
       if (session) leave();
     });
 
-    // Robust path: keep asking until the exchange has landed. detectSessionInUrl
-    // persists the session even if the event slips past us, so a poll always
-    // catches it eventually.
     void check();
     const poll = window.setInterval(() => void check(), 250);
 
+    // No session and no error after this long means the token never arrived —
+    // almost always a redirect-URL mismatch in the Supabase auth settings.
     const timer = window.setTimeout(() => {
       if (!settled) {
         window.clearInterval(poll);
-        setFailed(true);
+        setError('NO_SESSION');
       }
-    }, 10000);
+    }, 8000);
 
     return () => {
       settled = true;
@@ -101,11 +92,18 @@ export default function AuthCallbackPage() {
     };
   }, [navigate]);
 
-  if (failed) {
+  if (error) {
+    const isNoSession = error === 'NO_SESSION';
     return (
       <div className="py-40">
-        <Shell className="max-w-md text-center">
+        <Shell className="max-w-lg text-center">
           <h1 className="text-d2 font-display">{t('auth.errorGeneric')}</h1>
+
+          {!isNoSession && (
+            <p className="mt-5 rounded-2xl bg-red/8 px-5 py-4 text-sm text-ink-soft">{error}</p>
+          )}
+          {isNoSession && <p className="mt-5 text-ink-soft">{t('auth.callbackNoSession')}</p>}
+
           <ButtonLink to="/auth" variant="outline" className="mt-8">
             {t('auth.signInAction')}
           </ButtonLink>

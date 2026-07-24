@@ -214,6 +214,7 @@
     "signedOut": "You're signed out.",
     "errorInvalid": "That email and password don't match an account.",
     "errorGeneric": "Sign-in didn't go through. Try again.",
+    "callbackNoSession": "The sign-in didn’t return a session. This is almost always the callback URL missing from Supabase → Authentication → URL Configuration → Redirect URLs.",
     "errorProviderOff": "That sign-in method is not switched on yet. Use your email and password below.",
     "notConfigured": "Sign-in isn't connected yet. Add your Supabase keys to .env.local — see the README.",
     "backToSite": "Back to the site"

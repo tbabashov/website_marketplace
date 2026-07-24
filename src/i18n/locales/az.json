@@ -214,6 +214,7 @@
     "signedOut": "Hesabdan çıxdınız.",
     "errorInvalid": "Bu e-poçt və şifrə heç bir hesaba uyğun gəlmir.",
     "errorGeneric": "Daxil olmaq alınmadı. Bir də cəhd edin.",
+    "callbackNoSession": "Giriş sessiya qaytarmadı. Bu, demək olar həmişə Supabase → Authentication → URL Configuration → Redirect URLs siyahısında callback ünvanının olmamasındandır.",
     "errorProviderOff": "Bu giriş üsulu hələ aktiv deyil. Aşağıdakı e-poçt və şifrədən istifadə edin.",
     "notConfigured": "Giriş sistemi hələ qoşulmayıb. Supabase açarlarınızı .env.local faylına əlavə edin — README-yə baxın.",
     "backToSite": "Sayta qayıt"

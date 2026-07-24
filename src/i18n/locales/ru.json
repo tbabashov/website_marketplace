@@ -216,6 +216,7 @@
     "signedOut": "Вы вышли из аккаунта.",
     "errorInvalid": "Такой почты и пароля нет ни в одном аккаунте.",
     "errorGeneric": "Войти не удалось. Попробуйте ещё раз.",
+    "callbackNoSession": "Вход не вернул сессию. Почти всегда это означает, что адрес callback не добавлен в Supabase → Authentication → URL Configuration → Redirect URLs.",
     "errorProviderOff": "Этот способ входа пока не подключён. Воспользуйтесь почтой и паролем ниже.",
     "notConfigured": "Вход пока не подключён. Добавьте ключи Supabase в .env.local — смотрите README.",
     "backToSite": "Вернуться на сайт"
