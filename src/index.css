@@ -131,6 +131,16 @@
     }
   }
 
+  /* Lightbox backdrop entrance. */
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
   /* Hero build-preview loop. Two layers per region — a skeleton and the
      finished content — crossfade on a shared timeline so the mock page builds,
      holds, then dissolves back. Phases: skeleton hold, build, finished hold

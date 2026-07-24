@@ -75,6 +75,16 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://websale-gules.vercel.app/marketplace/restoran-menyu</loc>
+    <xhtml:link rel="alternate" hreflang="az" href="https://websale-gules.vercel.app/marketplace/restoran-menyu?lang=az"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://websale-gules.vercel.app/marketplace/restoran-menyu?lang=en"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://websale-gules.vercel.app/marketplace/restoran-menyu?lang=ru"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://websale-gules.vercel.app/marketplace/restoran-menyu"/>
+    <lastmod>2026-07-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://websale-gules.vercel.app/portfolio/client-slug</loc>
     <xhtml:link rel="alternate" hreflang="az" href="https://websale-gules.vercel.app/portfolio/client-slug?lang=az"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://websale-gules.vercel.app/portfolio/client-slug?lang=en"/>
