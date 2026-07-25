@@ -240,7 +240,6 @@ export function Header() {
                 className="fade-up flex items-center gap-3 border-b border-line py-5 font-display text-d3"
                 style={{ '--d': `${i * 45}ms` } as React.CSSProperties}
               >
-                {l.key === 'nav.dashboard' && <CartIcon className="h-5 w-5" />}
                 {t(l.key)}
               </Link>
             ))}
