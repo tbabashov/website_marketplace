@@ -45,32 +45,42 @@ export function Cursor() {
     let rx = -100;
     let ry = -100;
     let mode: Mode = 'default';
+    // Over a dark surface (the lightbox) the cobalt cursor vanishes, so it
+    // flips to paper there. Marked with data-cursor-on-dark.
+    let dark = false;
     let visible = false;
     let frame = 0;
 
     const sizes: Record<Mode, number> = { default: 34, link: 62, view: 96 };
 
-    function apply(next: Mode, text: string) {
-      if (next === mode) return;
-      mode = next;
+    /** Repaint the cursor's colours for the current mode and surface. */
+    function paint() {
+      const accent = dark ? 'var(--color-paper)' : 'var(--color-blue)';
+      dot.style.backgroundColor = accent;
 
-      const size = sizes[next];
-      ring.style.width = `${size}px`;
-      ring.style.height = `${size}px`;
-
-      if (next === 'view') {
-        ring.style.backgroundColor = 'var(--color-blue)';
+      if (mode === 'view') {
+        ring.style.backgroundColor = accent;
         ring.style.borderColor = 'transparent';
-        label.textContent = text;
+        // The label sits on the filled disc, so it takes the opposite colour.
+        label.style.color = dark ? 'var(--color-ink)' : 'var(--color-paper)';
         label.style.opacity = '1';
       } else {
         ring.style.backgroundColor = 'transparent';
-        ring.style.borderColor = 'var(--color-blue)';
+        ring.style.borderColor = accent;
         label.style.opacity = '0';
       }
 
       // The dot would sit inside the swollen ring and read as a smudge.
-      dot.style.opacity = next === 'default' ? '1' : '0';
+      dot.style.opacity = mode === 'default' && visible ? '1' : '0';
+    }
+
+    function apply(next: Mode, text: string) {
+      const size = sizes[next];
+      ring.style.width = `${size}px`;
+      ring.style.height = `${size}px`;
+      if (next === 'view') label.textContent = text;
+      mode = next;
+      paint();
     }
 
     function onMove(e: PointerEvent) {
@@ -91,13 +101,17 @@ export function Cursor() {
     function onOver(e: PointerEvent) {
       const target = e.target as Element | null;
       const hit = target?.closest?.('[data-cursor]') as HTMLElement | null;
+      const nextMode: Mode = !hit ? 'default' : hit.dataset.cursor === 'view' ? 'view' : 'link';
+      const nextDark = !!target?.closest?.('[data-cursor-on-dark]');
+      const text = hit?.dataset.cursorLabel ?? '';
 
-      if (!hit) {
-        apply('default', '');
+      // pointerover fires constantly; only repaint when something changed.
+      if (nextMode === mode && nextDark === dark) {
+        if (nextMode === 'view') label.textContent = text;
         return;
       }
-      const kind = hit.dataset.cursor as Mode | undefined;
-      apply(kind === 'view' ? 'view' : 'link', hit.dataset.cursorLabel ?? '');
+      dark = nextDark;
+      apply(nextMode, text);
     }
 
     function onLeave() {
@@ -133,11 +147,11 @@ export function Cursor() {
   }, []);
 
   return (
-    <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[300] hidden lg:block">
+    <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[9999] hidden lg:block">
       <div
         ref={dotRef}
         className="absolute left-0 top-0 h-1.5 w-1.5 rounded-full bg-blue opacity-0"
-        style={{ transition: 'opacity .25s' }}
+        style={{ transition: 'opacity .25s, background-color .3s' }}
       />
       <div
         ref={ringRef}

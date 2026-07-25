@@ -210,6 +210,7 @@ export function Gallery({
             role="dialog"
             aria-modal="true"
             aria-label={t('market.screenshots')}
+            data-cursor-on-dark
             onClick={() => setExpanded(false)}
             className="fixed inset-0 z-[300] flex flex-col items-center justify-center gap-5 bg-night/95 p-4 backdrop-blur-sm sm:p-8"
             style={{ animation: 'fade 0.22s var(--ease-out-expo)' }}

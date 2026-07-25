@@ -17,7 +17,8 @@ export function MarketPreview({ listings, isDemo }: { listings: Listing[]; isDem
 
   return (
     <section className="px-3 py-8 md:px-5" aria-labelledby="market-heading">
-      <div className="rounded-[2rem] bg-night py-24 text-paper md:rounded-[2.75rem] md:py-32">
+      <div data-cursor-on-dark
+      className="rounded-[2rem] bg-night py-24 text-paper md:rounded-[2.75rem] md:py-32">
         <Shell>
           <Eyebrow tone="paper">{t('marketPreview.label')}</Eyebrow>
 

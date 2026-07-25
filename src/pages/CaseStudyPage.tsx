@@ -165,7 +165,8 @@ export default function CaseStudyPage() {
 
       {next && next.slug !== study.slug && (
         <nav className="px-3 pb-8 md:px-5" aria-label={t('portfolio.nextCase')}>
-          <div className="rounded-[2rem] bg-night py-20 md:rounded-[2.75rem] md:py-28">
+          <div data-cursor-on-dark
+      className="rounded-[2rem] bg-night py-20 md:rounded-[2.75rem] md:py-28">
             <Shell>
               <Eyebrow tone="paper">{t('portfolio.nextCase')}</Eyebrow>
               <Link

@@ -14,7 +14,8 @@ export function FinalCta() {
 
   return (
     <section className="px-3 pb-8 md:px-5" aria-labelledby="cta-heading">
-      <div className="rounded-[2rem] bg-blue py-24 text-paper md:rounded-[2.75rem] md:py-32">
+      <div data-cursor-on-dark
+      className="rounded-[2rem] bg-blue py-24 text-paper md:rounded-[2.75rem] md:py-32">
         <Shell>
           <h2 id="cta-heading" className="max-w-4xl text-d1 font-display text-paper">
             {t('finalCta.title')}

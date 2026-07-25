@@ -34,7 +34,8 @@ export function Footer() {
   ];
 
   return (
-    <footer className="relative z-[2] bg-night text-paper">
+    <footer data-cursor-on-dark
+      className="relative z-[2] bg-night text-paper">
       <Shell className="pt-20 pb-10 md:pt-28">
         <div className="grid grid-cols-1 gap-14 lg:grid-cols-[1.4fr_minmax(0,1fr)_minmax(0,1fr)_1fr]">
           <div>
