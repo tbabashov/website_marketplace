@@ -256,9 +256,13 @@ create table orders (
 
   constraint orders_deposit_within_total
     check (deposit_azn is null or total_azn is null or deposit_azn <= total_azn),
+  -- Mutual exclusivity only: a listing order carries no request and a custom
+  -- order carries no listing. listing_id/request_id are `on delete set null`
+  -- so an order survives its listing/request being deleted (it snapshots its
+  -- own title/price); create_order supplies the id at insert time.
   constraint orders_listing_or_request
-    check ((kind = 'listing' and listing_id is not null)
-        or (kind = 'custom'  and request_id is not null))
+    check ((kind = 'listing' and request_id is null)
+        or (kind = 'custom'  and listing_id is null))
 );
 
 create index orders_user_idx on orders (user_id, created_at desc);
@@ -1115,7 +1119,7 @@ begin
       -- A balance still outstanding means handover waits on the last payment.
       when paid_azn < coalesce(total_azn, 0) then 'awaiting_payment'
       else 'delivered'
-    end,
+    end::order_status,
     delivery_url = coalesce(p_url, delivery_url),
     delivery_notes = coalesce(p_notes, delivery_notes),
     delivered_at = now()
