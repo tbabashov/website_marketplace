@@ -790,6 +790,7 @@
         "healthcare": "Healthcare",
         "other": "Other"
       }
-    }
+    },
+    "otherPlaceholder": "Type your answer"
   }
 }
