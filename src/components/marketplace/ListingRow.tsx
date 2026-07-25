@@ -122,7 +122,7 @@ export function ListingRow({
                 onNight ? 'bg-paper/8 text-paper/55' : 'bg-paper-2 text-ink-mute',
               )}
             >
-              {listing.page_count} {t('market.pages')}
+              {t('market.pages')} — {listing.page_count}
             </span>
           )}
           {listing.stack.slice(0, 2).map((tech) => (
