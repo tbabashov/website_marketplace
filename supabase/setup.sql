@@ -1349,3 +1349,28 @@ create policy "avatars: delete own"
     bucket_id = 'avatars'
     and (storage.foldername(name))[1] = auth.uid()::text
   );
+
+-- --------------------------------------------------------------------------
+-- Keep snapshotted review author names in sync with profile renames.
+-- --------------------------------------------------------------------------
+
+create or replace function public.sync_review_author_name()
+returns trigger
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  update reviews
+    set author_name = coalesce(new.display_name, 'Client')
+    where user_id = new.id;
+  return new;
+end;
+$$;
+
+drop trigger if exists profiles_sync_review_name on profiles;
+create trigger profiles_sync_review_name
+  after update of display_name on profiles
+  for each row
+  when (new.display_name is distinct from old.display_name)
+  execute function public.sync_review_author_name();
