@@ -63,7 +63,7 @@
       "status": "Status",
       "statusValue": "Taking work",
       "notes": "Notes",
-      "notesValue": "Every site here was drawn, built and shipped by one person. No agency markup, no account manager between you and the code."
+      "notesValue": "Every site here is drawn, built and shipped in-house. No agency markup, no account manager between you and the code."
     }
   },
   "stats": {
@@ -177,7 +177,7 @@
     "customAction": "Request a site"
   },
   "footer": {
-    "tagline": "Websites for Azerbaijani businesses, built and sold by one person in Baku.",
+    "tagline": "Websites for Azerbaijani businesses — built, sold and handed over to you in full.",
     "explore": "Explore",
     "account": "Account",
     "legalHeading": "Legal",
@@ -610,7 +610,7 @@
       "sections": [
         {
           "h": "Who you're dealing with",
-          "b": "WebSale.az is run by one person based in Baku, Azerbaijan. There is no agency behind it. When you send a message, that person reads it. Contact details are in the footer of every page."
+          "b": "WebSale.az is run directly, with no agency in between. When you send a message, it's read by the person who builds the sites. Contact details are in the footer of every page."
         },
         {
           "h": "Ready-made sites",
@@ -721,7 +721,7 @@
   },
   "seo": {
     "home": {
-      "title": "WebSale.az — websites built and sold in Baku",
+      "title": "WebSale.az — Website sales",
       "description": "Custom websites and ready-made sites for Azerbaijani businesses. Fixed price, a firm date, and you pay after you've seen it working."
     },
     "portfolio": {

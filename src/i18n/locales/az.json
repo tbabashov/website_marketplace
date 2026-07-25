@@ -63,7 +63,7 @@
       "status": "Status",
       "statusValue": "Sifariş qəbul edirəm",
       "notes": "Qeydlər",
-      "notesValue": "Buradakı hər sayt bir nəfər tərəfindən layihələndirilib, qurulub və təhvil verilib. Agentlik əlavəsi yoxdur, sizinlə kod arasında menecer yoxdur."
+      "notesValue": "Buradakı hər sayt birbaşa burada layihələndirilir, qurulur və təhvil verilir. Agentlik əlavəsi yoxdur, sizinlə kod arasında menecer yoxdur."
     }
   },
   "stats": {
@@ -177,7 +177,7 @@
     "customAction": "Sayt sifariş et"
   },
   "footer": {
-    "tagline": "Azərbaycan bizneslərinə saytlar — Bakıda bir nəfər tərəfindən qurulur və satılır.",
+    "tagline": "Azərbaycan bizneslərinə saytlar — qurulur, satılır və tam sizə təhvil verilir.",
     "explore": "Bölmələr",
     "account": "Hesab",
     "legalHeading": "Hüquqi",
@@ -610,7 +610,7 @@
       "sections": [
         {
           "h": "Kiminlə işiniz var",
-          "b": "WebSale.az Bakıda yaşayan bir nəfər tərəfindən idarə olunur. Arxasında agentlik yoxdur. Mesaj göndərəndə onu həmin adam oxuyur. Əlaqə məlumatları hər səhifənin altındadır."
+          "b": "WebSale.az birbaşa idarə olunur — arada agentlik yoxdur. Mesaj göndərəndə onu saytları quran adam özü oxuyur. Əlaqə məlumatları hər səhifənin altındadır."
         },
         {
           "h": "Hazır saytlar",
@@ -721,7 +721,7 @@
   },
   "seo": {
     "home": {
-      "title": "WebSale.az — Bakıda qurulan və satılan saytlar",
+      "title": "WebSale.az — Vebsayt satışı",
       "description": "Azərbaycan bizneslərinə fərdi və hazır saytlar. Sabit qiymət, dəqiq tarix və işlədiyini gördükdən sonra ödəniş."
     },
     "portfolio": {
