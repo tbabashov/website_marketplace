@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
 
@@ -56,11 +56,26 @@ export function ManagedImage({
 
   const [loaded, setLoaded] = useState(false);
   const [failed, setFailed] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
 
-  // A changed path is a different image: forget whatever the last one did.
+  // A changed path is a different image: forget whatever the last one did — but
+  // a cached image can finish loading before React attaches onLoad, so that
+  // event never fires and the image would stay invisible behind the
+  // placeholder. Read the element's own state on mount/path change to catch
+  // the already-complete case; fall back to the events for a live download.
   useEffect(() => {
-    setLoaded(false);
-    setFailed(false);
+    const img = imgRef.current;
+    if (img && img.complete) {
+      if (img.naturalWidth > 0) {
+        setLoaded(true);
+        setFailed(false);
+      } else {
+        setFailed(true);
+      }
+    } else {
+      setLoaded(false);
+      setFailed(false);
+    }
   }, [path]);
 
   const tone = placeholderTone(slotId ?? path ?? 'slot');
@@ -91,6 +106,7 @@ export function ManagedImage({
 
       {path && !failed && (
         <img
+          ref={imgRef}
           src={path}
           alt={altText}
           loading={priority ? 'eager' : 'lazy'}
