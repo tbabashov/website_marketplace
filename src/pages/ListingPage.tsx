@@ -62,34 +62,29 @@ export default function ListingPage() {
   const title = listing ? pickText(listing.title, locale) : t('market.pageTitle');
 
   /**
-   * The gallery: cover first, then each supplied screenshot. When a listing
-   * has no screenshots yet, three labelled placeholder slots stand in — the
-   * caption names the file to drop in (e.g. "vitrin/screenshot-1-hero"), the
-   * same drop-in-and-it-appears convention used across the site. Fill the
-   * listing's `screenshots` text[] column with the real paths afterward.
+   * The gallery: the listing's screenshots, and only those. The cover image is
+   * a standalone summary shot — it's the marketplace card thumbnail and does
+   * not belong in the preview carousel. When a listing has no screenshots yet,
+   * three labelled placeholder slots stand in — the caption names the file to
+   * drop in (e.g. "vitrin/screenshot-1-hero"), the same drop-in-and-it-appears
+   * convention used across the site. Fill the listing's `screenshots` text[]
+   * column with the real paths afterward.
    */
   const galleryImages: GalleryImage[] = useMemo(() => {
     if (!listing) return [];
-    const imgs: GalleryImage[] = [
-      {
-        slotId: `marketplace-${listing.slug}-cover`,
-        src: listing.cover_image,
-        label: `${listing.slug} — cover`,
-        alt: title,
-      },
-    ];
     if (listing.screenshots.length > 0) {
-      listing.screenshots.forEach((src, i) =>
-        imgs.push({ src, label: `${listing.slug} — ${i + 1}`, alt: `${title} — ${i + 1}` }),
-      );
-    } else {
-      // Suggested screenshot slots. Rename freely — these labels are only a
-      // hint about what each screen might show.
-      ['hero', 'features', 'mobile'].forEach((name, i) =>
-        imgs.push({ src: null, label: `${listing.slug}/screenshot-${i + 1}-${name}` }),
-      );
+      return listing.screenshots.map((src, i) => ({
+        src,
+        label: `${listing.slug} — ${i + 1}`,
+        alt: `${title} — ${i + 1}`,
+      }));
     }
-    return imgs;
+    // Suggested screenshot slots. Rename freely — these labels are only a
+    // hint about what each screen might show.
+    return ['hero', 'features', 'mobile'].map((name, i) => ({
+      src: null,
+      label: `${listing.slug}/screenshot-${i + 1}-${name}`,
+    }));
   }, [listing, title]);
 
   useSeo({
