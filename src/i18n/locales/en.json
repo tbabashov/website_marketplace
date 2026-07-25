@@ -35,7 +35,8 @@
     "closeMenu": "Close menu",
     "skip": "Skip to content",
     "primaryLabel": "Primary",
-    "footerLabel": "Footer"
+    "footerLabel": "Footer",
+    "top": "Back to top"
   },
   "lang": {
     "label": "Language",
