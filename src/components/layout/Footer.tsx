@@ -133,7 +133,9 @@ export function Footer() {
             layout viewport enough to trip the header's own breakpoints. Clip
             it to its own box — it is purely decorative. */}
         <div className="mt-24 select-none overflow-hidden" aria-hidden="true">
-          <p className="whitespace-nowrap font-display text-[clamp(3rem,14vw,15rem)] font-extrabold leading-[0.8] tracking-[-0.055em] text-paper/10">
+          {/* On phones the full wordmark must fit (14vw overflows and clipped
+              the ".az"); above sm it keeps the oversized decorative scale. */}
+          <p className="whitespace-nowrap font-display text-[clamp(2.25rem,10.5vw,4rem)] font-extrabold leading-[0.8] tracking-[-0.055em] text-paper/10 sm:text-[clamp(3rem,14vw,15rem)]">
             websale<span className="text-blue/40">.</span>az
           </p>
         </div>

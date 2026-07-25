@@ -105,7 +105,10 @@ export function Header() {
         <div
           className={clsx(
             'pointer-events-auto flex h-16 items-center gap-6 rounded-full pl-4 pr-3 transition-all duration-500',
-            lifted
+            // Opaque while the mobile menu is open too — otherwise, at the top
+            // of the page the bar is transparent and the menu behind it shows
+            // through, so the wordmark collides with the first nav link.
+            lifted || open
               ? 'bg-paper/80 shadow-[0_8px_40px_-12px_rgba(18,18,16,0.22)] backdrop-blur-xl'
               : 'bg-transparent',
           )}
