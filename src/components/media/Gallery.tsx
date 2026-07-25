@@ -116,9 +116,11 @@ export function Gallery({
 
   return (
     <div className={clsx('group/gallery', className)}>
-      {/* Masked track */}
+      {/* Masked track. Dark frame so screenshots that aren't a perfect crop
+          show whole (object-contain) with clean black bars instead of being
+          sliced off. */}
       <div
-        className="plate relative"
+        className="plate relative bg-night"
         style={{ aspectRatio: aspect.split(':').join(' / ') }}
         role="group"
         aria-roledescription="carousel"
@@ -147,7 +149,8 @@ export function Gallery({
                   aspect={aspect}
                   label={img.label}
                   priority={i === 0}
-                  className="h-full w-full !rounded-none"
+                  fit="contain"
+                  className="h-full w-full !rounded-none bg-night"
                 />
               </div>
             ))}

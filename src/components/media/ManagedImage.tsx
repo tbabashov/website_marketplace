@@ -19,6 +19,12 @@ interface ManagedImageProps {
   priority?: boolean;
   /** Small caption on the placeholder. Pass "" to show none. */
   label?: string;
+  /**
+   * How the image sits in its box. 'cover' (default) fills and crops; 'contain'
+   * shows the whole image, letterboxed by the box background — use it on a dark
+   * box to frame screenshots so nothing is cut off.
+   */
+  fit?: 'cover' | 'contain';
 }
 
 /**
@@ -38,6 +44,7 @@ export function ManagedImage({
   className,
   priority = false,
   label,
+  fit = 'cover',
 }: ManagedImageProps) {
   const { i18n, t } = useTranslation();
   const locale = i18n.language as Locale;
@@ -92,7 +99,8 @@ export function ManagedImage({
           onLoad={() => setLoaded(true)}
           onError={() => setFailed(true)}
           className={clsx(
-            'absolute inset-0 h-full w-full object-cover transition-opacity duration-700',
+            'absolute inset-0 h-full w-full transition-opacity duration-700',
+            fit === 'contain' ? 'object-contain' : 'object-cover',
             loaded ? 'opacity-100' : 'opacity-0',
           )}
         />
