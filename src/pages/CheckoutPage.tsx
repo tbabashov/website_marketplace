@@ -355,6 +355,18 @@ export default function CheckoutPage() {
                     <dd className="num font-medium">{formatAzn(order.total_azn, locale)}</dd>
                   </div>
                 )}
+                {order.discount_azn > 0 && (
+                  <div className="flex items-baseline justify-between gap-4">
+                    <dt className="text-ink-mute">
+                      {order.promo_code
+                        ? `${t('checkout.youSaved')} · ${order.promo_code}`
+                        : t('checkout.youSaved')}
+                    </dt>
+                    <dd className="num font-medium text-green">
+                      −{formatAzn(order.discount_azn, locale)}
+                    </dd>
+                  </div>
+                )}
                 {order.paid_azn > 0 && (
                   <div className="flex items-baseline justify-between gap-4">
                     <dt className="text-ink-mute">{t('order.deposit')}</dt>

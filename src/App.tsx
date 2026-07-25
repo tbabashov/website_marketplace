@@ -7,6 +7,7 @@ import { Footer } from '@/components/layout/Footer';
 import { Cursor } from '@/components/ui/Cursor';
 import { BackToTop } from '@/components/ui/BackToTop';
 import { FloatingWhatsApp } from '@/components/ui/FloatingWhatsApp';
+import { OnboardingModal } from '@/components/onboarding/OnboardingModal';
 import { LoadingBlock, Toaster } from '@/components/ui/Bits';
 import { useAuth } from '@/store/auth';
 import { useSaved } from '@/store/ui';
@@ -184,6 +185,7 @@ export default function App() {
       <Footer />
       <BackToTop />
       <FloatingWhatsApp />
+      <OnboardingModal />
       <Toaster />
     </>
   );

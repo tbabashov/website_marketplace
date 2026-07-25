@@ -12,19 +12,21 @@ import {
   fetchCaseStudies,
   fetchListings,
   fetchPaymentQueue,
+  fetchPromoCodes,
   fetchRequestQueue,
   signedReceiptUrl,
   type PaymentReviewRow,
 } from '@/lib/api';
 import { formatAzn, formatDate, formatDateTime, pickText } from '@/lib/format';
+import { effectivePrice } from '@/lib/pricing';
 import { readableError, supabase } from '@/lib/supabase';
 import { useSeo } from '@/lib/seo';
 import { useUI } from '@/store/ui';
 import type { Locale } from '@/config/site';
-import type { CaseStudy, Listing, Order, SiteRequest } from '@/types/db';
+import type { CaseStudy, Listing, Order, PromoCode, SiteRequest } from '@/types/db';
 
-type Tab = 'payments' | 'requests' | 'orders' | 'listings' | 'cases';
-const TABS: Tab[] = ['payments', 'requests', 'orders', 'listings', 'cases'];
+type Tab = 'payments' | 'requests' | 'orders' | 'listings' | 'promos' | 'cases';
+const TABS: Tab[] = ['payments', 'requests', 'orders', 'listings', 'promos', 'cases'];
 
 const REJECT_REASONS = ['notFound', 'amount', 'reference', 'other'] as const;
 
@@ -495,6 +497,7 @@ function CatalogueRow({
   title,
   meta,
   isPublished,
+  listing,
   onDone,
 }: {
   table: 'listings' | 'case_studies';
@@ -502,11 +505,17 @@ function CatalogueRow({
   title: string;
   meta: string;
   isPublished: boolean;
+  /** When present (listings tab), an inline price + discount editor is shown. */
+  listing?: Listing;
   onDone: () => void;
 }) {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const locale = i18n.language as Locale;
   const toast = useUI((s) => s.toast);
   const [busy, setBusy] = useState(false);
+  const [editing, setEditing] = useState(false);
+  const [price, setPrice] = useState(String(listing?.price_azn ?? ''));
+  const [discount, setDiscount] = useState(String(listing?.discount_percent ?? 0));
 
   async function update(patch: Record<string, unknown>) {
     if (!supabase) return;
@@ -518,6 +527,17 @@ function CatalogueRow({
       return;
     }
     onDone();
+  }
+
+  async function savePricing() {
+    const p = Number(price);
+    const d = Number(discount);
+    if (!Number.isFinite(p) || p < 0 || !Number.isFinite(d) || d < 0 || d > 90) {
+      toast(t('admin.pricingInvalid'), 'bad');
+      return;
+    }
+    await update({ price_azn: p, discount_percent: Math.round(d) });
+    setEditing(false);
   }
 
   async function remove() {
@@ -538,21 +558,228 @@ function CatalogueRow({
       : { published: !isPublished };
 
   return (
-    <li className="flex flex-wrap items-center gap-4 py-4 first:border-t">
-      <div className="min-w-0 flex-1">
-        <p className="text-ink">{title}</p>
-        <p className="label mt-1 text-ink-mute">{meta}</p>
+    <li className="flex flex-col gap-4 py-4 first:border-t">
+      <div className="flex flex-wrap items-center gap-4">
+        <div className="min-w-0 flex-1">
+          <p className="text-ink">{title}</p>
+          <p className="label mt-1 text-ink-mute">{meta}</p>
+        </div>
+        <span className={clsx('label', isPublished ? 'text-green' : 'text-ink-mute')}>
+          {isPublished ? t('admin.statusPublished') : t('admin.statusDraft')}
+        </span>
+        {listing && (
+          <Button size="sm" variant="outline" onClick={() => setEditing((v) => !v)}>
+            {t('admin.editPricing')}
+          </Button>
+        )}
+        <Button size="sm" variant="outline" disabled={busy} onClick={() => void update(togglePatch)}>
+          {isPublished ? t('admin.unpublish') : t('admin.publish')}
+        </Button>
+        <Button size="sm" variant="danger" disabled={busy} onClick={() => void remove()}>
+          {t('admin.delete')}
+        </Button>
       </div>
-      <span className={clsx('label', isPublished ? 'text-green' : 'text-ink-mute')}>
-        {isPublished ? t('admin.statusPublished') : t('admin.statusDraft')}
-      </span>
-      <Button size="sm" variant="outline" disabled={busy} onClick={() => void update(togglePatch)}>
-        {isPublished ? t('admin.unpublish') : t('admin.publish')}
-      </Button>
-      <Button size="sm" variant="danger" disabled={busy} onClick={() => void remove()}>
-        {t('admin.delete')}
-      </Button>
+
+      {listing && editing && (
+        <div className="flex flex-wrap items-end gap-4 rounded-2xl bg-paper-2 p-5">
+          <div className="w-32">
+            <Field label={t('admin.price')}>
+              {({ id: fid }) => (
+                <TextInput
+                  id={fid}
+                  type="number"
+                  min="0"
+                  step="1"
+                  value={price}
+                  onChange={(e) => setPrice(e.target.value)}
+                />
+              )}
+            </Field>
+          </div>
+          <div className="w-32">
+            <Field label={t('admin.discountPercent')}>
+              {({ id: fid }) => (
+                <TextInput
+                  id={fid}
+                  type="number"
+                  min="0"
+                  max="90"
+                  step="1"
+                  value={discount}
+                  onChange={(e) => setDiscount(e.target.value)}
+                />
+              )}
+            </Field>
+          </div>
+          <p className="mb-2.5 text-sm text-ink-soft">
+            {t('admin.priceAfter')}{' '}
+            <span className="num font-medium text-ink">
+              {formatAzn(
+                effectivePrice({
+                  price_azn: Number(price) || 0,
+                  discount_percent: Number(discount) || 0,
+                }),
+                locale,
+              )}
+            </span>
+          </p>
+          <Button size="sm" disabled={busy} onClick={() => void savePricing()}>
+            {busy && <Spinner />}
+            {t('common.save')}
+          </Button>
+        </div>
+      )}
     </li>
+  );
+}
+
+/* ------------------------------------------------------------------------ */
+/* Promo codes                                                               */
+/* ------------------------------------------------------------------------ */
+
+function PromoManager({ promos, onDone }: { promos: PromoCode[]; onDone: () => void }) {
+  const { t, i18n } = useTranslation();
+  const locale = i18n.language as Locale;
+  const toast = useUI((s) => s.toast);
+
+  const [code, setCode] = useState('');
+  const [percent, setPercent] = useState('');
+  const [expires, setExpires] = useState('');
+  const [maxUses, setMaxUses] = useState('');
+  const [busy, setBusy] = useState(false);
+
+  async function create() {
+    if (!supabase) return;
+    const c = code.trim().toUpperCase();
+    const p = Number(percent);
+    if (!c || !Number.isFinite(p) || p < 1 || p > 100) {
+      toast(t('admin.pricingInvalid'), 'bad');
+      return;
+    }
+    setBusy(true);
+    const { error } = await supabase.from('promo_codes').insert({
+      code: c,
+      percent_off: Math.round(p),
+      expires_at: expires ? new Date(expires).toISOString() : null,
+      max_uses: maxUses ? Number(maxUses) : null,
+    });
+    setBusy(false);
+    if (error) {
+      toast(readableError(error), 'bad');
+      return;
+    }
+    setCode('');
+    setPercent('');
+    setExpires('');
+    setMaxUses('');
+    onDone();
+  }
+
+  async function toggle(promo: PromoCode) {
+    if (!supabase) return;
+    const { error } = await supabase
+      .from('promo_codes')
+      .update({ active: !promo.active })
+      .eq('code', promo.code);
+    if (error) toast(readableError(error), 'bad');
+    else onDone();
+  }
+
+  async function remove(promo: PromoCode) {
+    if (!supabase || !window.confirm(t('admin.confirmDelete'))) return;
+    const { error } = await supabase.from('promo_codes').delete().eq('code', promo.code);
+    if (error) toast(readableError(error), 'bad');
+    else onDone();
+  }
+
+  return (
+    <div className="flex flex-col gap-8">
+      <div className="rounded-3xl bg-paper-2 p-7">
+        <p className="label text-ink-mute">{t('admin.addPromo')}</p>
+        <div className="mt-5 flex flex-wrap items-end gap-4">
+          <div className="w-40">
+            <Field label={t('admin.promoCode')}>
+              {({ id }) => (
+                <TextInput
+                  id={id}
+                  value={code}
+                  placeholder="SUMMER10"
+                  onChange={(e) => setCode(e.target.value.toUpperCase())}
+                />
+              )}
+            </Field>
+          </div>
+          <div className="w-28">
+            <Field label={t('admin.discountPercent')}>
+              {({ id }) => (
+                <TextInput
+                  id={id}
+                  type="number"
+                  min="1"
+                  max="100"
+                  value={percent}
+                  onChange={(e) => setPercent(e.target.value)}
+                />
+              )}
+            </Field>
+          </div>
+          <div className="w-44">
+            <Field label={t('admin.promoExpires')} optional optionalLabel={t('common.optional')}>
+              {({ id }) => (
+                <TextInput id={id} type="date" value={expires} onChange={(e) => setExpires(e.target.value)} />
+              )}
+            </Field>
+          </div>
+          <div className="w-32">
+            <Field label={t('admin.promoMaxUses')} optional optionalLabel={t('common.optional')}>
+              {({ id }) => (
+                <TextInput
+                  id={id}
+                  type="number"
+                  min="1"
+                  value={maxUses}
+                  onChange={(e) => setMaxUses(e.target.value)}
+                />
+              )}
+            </Field>
+          </div>
+          <Button size="sm" disabled={busy} onClick={() => void create()}>
+            {busy && <Spinner />}
+            {t('admin.addPromo')}
+          </Button>
+        </div>
+      </div>
+
+      {promos.length === 0 ? (
+        <EmptyState title={t('admin.noPromos')} />
+      ) : (
+        <ul>
+          {promos.map((promo) => (
+            <li key={promo.code} className="flex flex-wrap items-center gap-4 border-b border-line py-4 first:border-t">
+              <div className="min-w-0 flex-1">
+                <p className="num font-medium text-ink">
+                  {promo.code} · −{promo.percent_off}%
+                </p>
+                <p className="label mt-1 text-ink-mute">
+                  {t('admin.uses')}: {promo.uses}
+                  {promo.max_uses ? ` / ${promo.max_uses}` : ''}
+                  {promo.expires_at ? ` · ${formatDate(promo.expires_at, locale)}` : ''}
+                </p>
+              </div>
+              <span className={clsx('label', promo.active ? 'text-green' : 'text-ink-mute')}>
+                {promo.active ? t('admin.promoActive') : t('admin.promoInactive')}
+              </span>
+              <Button size="sm" variant="outline" onClick={() => void toggle(promo)}>
+                {promo.active ? t('admin.deactivate') : t('admin.activate')}
+              </Button>
+              <Button size="sm" variant="danger" onClick={() => void remove(promo)}>
+                {t('admin.delete')}
+              </Button>
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
   );
 }
 
@@ -568,20 +795,23 @@ export default function AdminPage() {
   const [requests, setRequests] = useState<SiteRequest[] | null>(null);
   const [orders, setOrders] = useState<Order[] | null>(null);
   const [listings, setListings] = useState<Listing[]>([]);
+  const [promos, setPromos] = useState<PromoCode[]>([]);
   const [cases, setCases] = useState<CaseStudy[]>([]);
 
   const reload = useCallback(async () => {
-    const [p, r, o, l, c] = await Promise.all([
+    const [p, r, o, l, pr, c] = await Promise.all([
       fetchPaymentQueue(),
       fetchRequestQueue(),
       fetchAllOrders(),
       fetchListings(),
+      fetchPromoCodes(),
       fetchCaseStudies(),
     ]);
     setPayments(p);
     setRequests(r);
     setOrders(o);
     setListings(l.data);
+    setPromos(pr);
     setCases(c.data);
   }, []);
 
@@ -609,7 +839,9 @@ export default function AdminPage() {
                       ? orders?.length
                       : name === 'listings'
                         ? listings.length
-                        : cases.length;
+                        : name === 'promos'
+                          ? promos.length
+                          : cases.length;
 
               return (
                 <button
@@ -682,13 +914,20 @@ export default function AdminPage() {
                       table="listings"
                       id={listing.id}
                       title={pickText(listing.title, locale) || listing.slug}
-                      meta={`${listing.slug} · ${formatAzn(listing.price_azn, locale)}`}
+                      meta={
+                        listing.discount_percent > 0
+                          ? `${listing.slug} · ${formatAzn(effectivePrice(listing), locale)} · −${listing.discount_percent}%`
+                          : `${listing.slug} · ${formatAzn(listing.price_azn, locale)}`
+                      }
                       isPublished={listing.status === 'published'}
+                      listing={listing}
                       onDone={() => void reload()}
                     />
                   ))}
                 </ul>
               ))}
+
+            {tab === 'promos' && <PromoManager promos={promos} onDone={() => void reload()} />}
 
             {tab === 'cases' &&
               (cases.length === 0 ? (

@@ -363,7 +363,12 @@
       "Works properly on phones",
       "Basic Google search setup",
       "Two rounds of changes after handover"
-    ]
+    ],
+    "promoLabel": "Promo code",
+    "promoPlaceholder": "Enter a code",
+    "promoApply": "Apply",
+    "promoApplied": "{{percent}}% off applied",
+    "promoInvalid": "That promo code isn't valid"
   },
   "checkout": {
     "pageTitle": "Payment",
@@ -406,7 +411,8 @@
       "fileSize": "That file is over 8 MB. Send a screenshot instead of a full statement.",
       "amount": "Tell me how much you transferred.",
       "upload": "The upload didn't finish. Check your connection and try again."
-    }
+    },
+    "youSaved": "You saved"
   },
   "status": {
     "draft": "Draft",
@@ -538,7 +544,8 @@
       "requests": "New requests",
       "orders": "All orders",
       "listings": "Listings",
-      "cases": "Case studies"
+      "cases": "Case studies",
+      "promos": "Promo codes"
     },
     "queueEmpty": "Nothing waiting.",
     "statusPublished": "Live",
@@ -578,7 +585,22 @@
     "publish": "Publish",
     "unpublish": "Unpublish",
     "delete": "Delete",
-    "confirmDelete": "Delete this for good?"
+    "confirmDelete": "Delete this for good?",
+    "editPricing": "Price / discount",
+    "price": "Price (AZN)",
+    "discountPercent": "Discount %",
+    "priceAfter": "Price after discount:",
+    "pricingInvalid": "Price or discount is invalid",
+    "addPromo": "Add promo code",
+    "promoCode": "Code",
+    "promoExpires": "Expires",
+    "promoMaxUses": "Max uses",
+    "noPromos": "No promo codes yet.",
+    "uses": "Uses",
+    "promoActive": "Active",
+    "promoInactive": "Inactive",
+    "activate": "Activate",
+    "deactivate": "Deactivate"
   },
   "legal": {
     "lastUpdated": "Last updated {{date}}",
@@ -734,5 +756,40 @@
       "Fixed price",
       "Pay on delivery"
     ]
+  },
+  "onboarding": {
+    "title": "Welcome 👋",
+    "subtitle": "Three quick questions so we can point you the right way. Feel free to skip.",
+    "skip": "Skip",
+    "done": "Done",
+    "q": {
+      "heard_from": "How did you hear about us?",
+      "looking_for": "What are you looking for?",
+      "business_type": "What kind of business do you run?"
+    },
+    "a": {
+      "heard_from": {
+        "instagram": "Instagram",
+        "tiktok": "TikTok",
+        "youtube": "YouTube",
+        "google": "Google search",
+        "referral": "Friend / referral",
+        "portfolio": "Saw a site you built",
+        "other": "Other"
+      },
+      "looking_for": {
+        "templates": "Browse ready-made templates",
+        "custom": "Request a custom website",
+        "exploring": "Just exploring",
+        "other": "Other"
+      },
+      "business_type": {
+        "restaurant": "Restaurant / Café",
+        "realestate": "Real estate",
+        "consulting": "Consulting / Services",
+        "healthcare": "Healthcare",
+        "other": "Other"
+      }
+    }
   }
 }

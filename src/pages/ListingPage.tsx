@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import clsx from 'clsx';
 
 import { Gallery, type GalleryImage } from '@/components/media/Gallery';
 import { ListingRow } from '@/components/marketplace/ListingRow';
@@ -16,6 +17,7 @@ import {
 } from '@/components/ui/Bits';
 import { fetchListing, fetchListings } from '@/lib/api';
 import { formatAzn, formatSecondary, pickText } from '@/lib/format';
+import { applyPercent, effectivePrice, hasDiscount } from '@/lib/pricing';
 import { readableError, supabase } from '@/lib/supabase';
 import { useSeo } from '@/lib/seo';
 import { useAuth } from '@/store/auth';
@@ -37,6 +39,14 @@ export default function ListingPage() {
   const [isDemo, setIsDemo] = useState(false);
   const [useDeposit, setUseDeposit] = useState(false);
   const [buying, setBuying] = useState(false);
+
+  // Promo code, entered before the order is created (the total is locked in at
+  // creation). We only trust the server's re-validation, but previewing here
+  // lets the buyer see the effect before committing.
+  const [promoInput, setPromoInput] = useState('');
+  const [promo, setPromo] = useState<{ code: string; percent: number } | null>(null);
+  const [promoError, setPromoError] = useState<string | null>(null);
+  const [promoBusy, setPromoBusy] = useState(false);
 
   const depositAvailable = payment.depositPercent > 0 && payment.depositPercent < 100;
 
@@ -110,6 +120,7 @@ export default function ListingPage() {
       p_listing_id: listing.id,
       p_use_deposit: useDeposit,
       p_deposit_percent: payment.depositPercent,
+      p_promo_code: promo?.code ?? null,
     });
     setBuying(false);
 
@@ -120,6 +131,34 @@ export default function ListingPage() {
 
     const order = (Array.isArray(data) ? data[0] : data) as Order | null;
     if (order?.id) navigate(`/checkout/${order.id}`);
+  }
+
+  async function applyPromo() {
+    const code = promoInput.trim();
+    setPromoError(null);
+    if (!code) return;
+    if (!supabase) {
+      setPromoError(t('market.promoInvalid'));
+      return;
+    }
+    setPromoBusy(true);
+    const { data, error } = await supabase.rpc('validate_promo', { p_code: code });
+    setPromoBusy(false);
+    const row = (Array.isArray(data) ? data[0] : data) as
+      | { code: string; percent_off: number }
+      | undefined;
+    if (error || !row) {
+      setPromo(null);
+      setPromoError(t('market.promoInvalid'));
+      return;
+    }
+    setPromo({ code: row.code, percent: row.percent_off });
+  }
+
+  function clearPromo() {
+    setPromo(null);
+    setPromoInput('');
+    setPromoError(null);
   }
 
   if (listing === undefined) return <LoadingBlock />;
@@ -140,8 +179,11 @@ export default function ListingPage() {
   }
 
   const included = t('market.includedItems', { returnObjects: true }) as string[];
-  const secondary = formatSecondary(listing.price_azn, locale);
-  const depositAmount = Math.round((listing.price_azn * payment.depositPercent) / 100);
+  const discounted = hasDiscount(listing);
+  const basePrice = effectivePrice(listing); // after the listing's own discount
+  const finalPrice = promo ? applyPercent(basePrice, promo.percent) : basePrice;
+  const secondary = formatSecondary(finalPrice, locale);
+  const depositAmount = Math.round((finalPrice * payment.depositPercent) / 100);
   const sold = listing.status === 'sold';
 
   return (
@@ -226,8 +268,30 @@ export default function ListingPage() {
               read the specification. */}
           <aside className="lg:sticky lg:top-32 lg:self-start">
             <div className="rounded-3xl bg-paper-2 p-7 md:p-8">
-              <p className="text-d1 font-display leading-none">
-                {formatAzn(listing.price_azn, locale)}
+              {(discounted || promo) && (
+                <div className="mb-2 flex flex-wrap items-center gap-2">
+                  <span className="label text-ink-faint line-through">
+                    {formatAzn(listing.price_azn, locale)}
+                  </span>
+                  {discounted && (
+                    <span className="label rounded-full bg-blue px-2 py-0.5 text-paper">
+                      −{listing.discount_percent}%
+                    </span>
+                  )}
+                  {promo && (
+                    <span className="label rounded-full bg-green/15 px-2 py-0.5 text-green">
+                      {promo.code} −{promo.percent}%
+                    </span>
+                  )}
+                </div>
+              )}
+              <p
+                className={clsx(
+                  'text-d1 font-display leading-none',
+                  discounted || promo ? 'text-blue' : 'text-ink',
+                )}
+              >
+                {formatAzn(finalPrice, locale)}
               </p>
               {secondary && <p className="label mt-3 text-ink-mute">≈ {secondary}</p>}
 
@@ -274,11 +338,70 @@ export default function ListingPage() {
                         </span>
                         <span className="mt-1 block text-xs text-ink-mute">
                           {formatAzn(depositAmount, locale)} · {t('checkout.balanceLater')}{' '}
-                          {formatAzn(listing.price_azn - depositAmount, locale)}
+                          {formatAzn(finalPrice - depositAmount, locale)}
                         </span>
                       </span>
                     </label>
                   )}
+
+                  {/* Promo code. Applied before the order exists, because the
+                      order snapshots its total the moment it is created. */}
+                  <div className="mt-5">
+                    {promo ? (
+                      <div className="flex items-center justify-between gap-3 rounded-2xl bg-green/10 px-4 py-3">
+                        <span className="text-sm text-ink">
+                          <span className="font-semibold">{promo.code}</span> ·{' '}
+                          {t('market.promoApplied', { percent: promo.percent })}
+                        </span>
+                        <button
+                          type="button"
+                          data-cursor="link"
+                          onClick={clearPromo}
+                          className="label text-ink-mute hover:text-ink"
+                        >
+                          {t('common.close')}
+                        </button>
+                      </div>
+                    ) : (
+                      <>
+                        <label htmlFor="promo" className="label text-ink-mute">
+                          {t('market.promoLabel')}
+                        </label>
+                        <div className="mt-2 flex gap-2">
+                          <input
+                            id="promo"
+                            type="text"
+                            autoCapitalize="characters"
+                            spellCheck={false}
+                            placeholder={t('market.promoPlaceholder')}
+                            value={promoInput}
+                            onChange={(e) => {
+                              setPromoInput(e.target.value);
+                              setPromoError(null);
+                            }}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter') {
+                                e.preventDefault();
+                                void applyPromo();
+                              }
+                            }}
+                            className="min-w-0 flex-1 rounded-2xl border border-line bg-field px-4 py-2.5 text-sm uppercase placeholder:normal-case placeholder:text-ink-faint focus-visible:outline-2 focus-visible:outline-blue"
+                          />
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            disabled={promoBusy || !promoInput.trim()}
+                            onClick={() => void applyPromo()}
+                          >
+                            {promoBusy ? <Spinner /> : t('market.promoApply')}
+                          </Button>
+                        </div>
+                        {promoError && (
+                          <p className="mt-2 text-sm font-medium text-red">{promoError}</p>
+                        )}
+                      </>
+                    )}
+                  </div>
 
                   <Button
                     size="lg"

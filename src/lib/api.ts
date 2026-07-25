@@ -7,6 +7,7 @@ import type {
   OrderDetail,
   OrderEvent,
   Payment,
+  PromoCode,
   Review,
   SiteRequest,
 } from '@/types/db';
@@ -73,6 +74,17 @@ export async function fetchListings(): Promise<Fetched<Listing[]>> {
 
   if (error || !data?.length) return { data: demoListings, isDemo: true };
   return { data: data as Listing[], isDemo: false };
+}
+
+/** Owner-only: every promo code, newest first. Empty without a backend. */
+export async function fetchPromoCodes(): Promise<PromoCode[]> {
+  if (!supabase) return [];
+  const { data, error } = await supabase
+    .from('promo_codes')
+    .select('*')
+    .order('created_at', { ascending: false });
+  if (error || !data) return [];
+  return data as PromoCode[];
 }
 
 export async function fetchListing(slug: string): Promise<Fetched<Listing | null>> {

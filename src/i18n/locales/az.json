@@ -363,7 +363,12 @@
       "Telefonda düzgün işləyir",
       "Əsas Google axtarış tənzimləmələri",
       "Təhvildən sonra iki dəfə düzəliş"
-    ]
+    ],
+    "promoLabel": "Promokod",
+    "promoPlaceholder": "Kodu daxil edin",
+    "promoApply": "Tətbiq et",
+    "promoApplied": "{{percent}}% endirim tətbiq olundu",
+    "promoInvalid": "Bu promokod etibarlı deyil"
   },
   "checkout": {
     "pageTitle": "Ödəniş",
@@ -406,7 +411,8 @@
       "fileSize": "Fayl 8 MB-dan böyükdür. Tam çıxarış yerinə ekran şəkli göndərin.",
       "amount": "Nə qədər köçürdüyünüzü yazın.",
       "upload": "Yükləmə tamamlanmadı. İnternetinizi yoxlayıb bir də cəhd edin."
-    }
+    },
+    "youSaved": "Qənaətiniz"
   },
   "status": {
     "draft": "Qaralama",
@@ -538,7 +544,8 @@
       "requests": "Yeni müraciətlər",
       "orders": "Bütün sifarişlər",
       "listings": "Elanlar",
-      "cases": "Layihələr"
+      "cases": "Layihələr",
+      "promos": "Promokodlar"
     },
     "queueEmpty": "Gözləyən yoxdur.",
     "statusPublished": "Saytda",
@@ -578,7 +585,22 @@
     "publish": "Dərc et",
     "unpublish": "Dərcdən çıxar",
     "delete": "Sil",
-    "confirmDelete": "Bu, birdəfəlik silinsin?"
+    "confirmDelete": "Bu, birdəfəlik silinsin?",
+    "editPricing": "Qiymət / endirim",
+    "price": "Qiymət (AZN)",
+    "discountPercent": "Endirim %",
+    "priceAfter": "Endirimli qiymət:",
+    "pricingInvalid": "Qiymət və ya endirim yanlışdır",
+    "addPromo": "Promokod əlavə et",
+    "promoCode": "Kod",
+    "promoExpires": "Bitmə tarixi",
+    "promoMaxUses": "Maksimum istifadə",
+    "noPromos": "Hələ promokod yoxdur.",
+    "uses": "İstifadə",
+    "promoActive": "Aktiv",
+    "promoInactive": "Deaktiv",
+    "activate": "Aktiv et",
+    "deactivate": "Deaktiv et"
   },
   "legal": {
     "lastUpdated": "Son yenilənmə: {{date}}",
@@ -734,5 +756,40 @@
       "Sabit qiymət",
       "Təhvildə ödəniş"
     ]
+  },
+  "onboarding": {
+    "title": "Xoş gəldiniz 👋",
+    "subtitle": "Üç qısa sual — sizə uyğun başlanğıc göstərək. İstəsəniz keçin.",
+    "skip": "Keç",
+    "done": "Hazırdır",
+    "q": {
+      "heard_from": "Bizi haradan tapdınız?",
+      "looking_for": "Nə axtarırsınız?",
+      "business_type": "Hansı sahədə çalışırsınız?"
+    },
+    "a": {
+      "heard_from": {
+        "instagram": "Instagram",
+        "tiktok": "TikTok",
+        "youtube": "YouTube",
+        "google": "Google axtarışı",
+        "referral": "Dost / tövsiyə",
+        "portfolio": "Qurduğunuz saytı gördüm",
+        "other": "Digər"
+      },
+      "looking_for": {
+        "templates": "Hazır saytlara baxmaq",
+        "custom": "Fərdi sayt sifariş etmək",
+        "exploring": "Sadəcə baxıram",
+        "other": "Digər"
+      },
+      "business_type": {
+        "restaurant": "Restoran / Kafe",
+        "realestate": "Daşınmaz əmlak",
+        "consulting": "Konsaltinq / Xidmətlər",
+        "healthcare": "Səhiyyə",
+        "other": "Digər"
+      }
+    }
   }
 }

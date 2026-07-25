@@ -32,6 +32,12 @@ export interface Profile {
   phone: string | null;
   is_owner: boolean;
   created_at: string;
+  // First-sign-in survey. onboarded_at is set once the survey is completed or
+  // skipped, and gates whether the modal is shown again.
+  heard_from: string | null;
+  looking_for: string | null;
+  business_type: string | null;
+  onboarded_at: string | null;
 }
 
 export interface CaseStudy {
@@ -72,7 +78,20 @@ export interface Listing {
   screenshots: string[];
   license: string;
   status: ListingStatus;
+  /** Owner-set percentage off the list price (0 = no discount). */
+  discount_percent: number;
   sort_order: number;
+  created_at: string;
+}
+
+export interface PromoCode {
+  code: string;
+  percent_off: number;
+  active: boolean;
+  expires_at: string | null;
+  max_uses: number | null;
+  uses: number;
+  note: string | null;
   created_at: string;
 }
 
@@ -110,6 +129,10 @@ export interface Order {
   total_azn: number | null;
   deposit_azn: number | null;
   paid_azn: number;
+  /** Promo code applied at order creation, if any. */
+  promo_code: string | null;
+  /** Amount saved vs. list price (listing discount + promo). */
+  discount_azn: number;
   status: OrderStatus;
   quote_scope: L10nText | null;
   quote_note: string | null;

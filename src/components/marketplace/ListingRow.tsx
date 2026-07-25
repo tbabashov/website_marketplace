@@ -4,6 +4,7 @@ import clsx from 'clsx';
 
 import { ManagedImage } from '@/components/media/ManagedImage';
 import { formatAzn, formatSecondary, pickText } from '@/lib/format';
+import { effectivePrice, hasDiscount } from '@/lib/pricing';
 import { useAuth } from '@/store/auth';
 import { useSaved } from '@/store/ui';
 import type { Locale } from '@/config/site';
@@ -59,7 +60,9 @@ export function ListingRow({
 }) {
   const { t, i18n } = useTranslation();
   const locale = i18n.language as Locale;
-  const secondary = formatSecondary(listing.price_azn, locale);
+  const discounted = hasDiscount(listing);
+  const price = effectivePrice(listing);
+  const secondary = formatSecondary(price, locale);
   const sold = listing.status === 'sold';
   const title = pickText(listing.title, locale);
   const onNight = tone === 'paper';
@@ -97,8 +100,28 @@ export function ListingRow({
             {title}
           </h3>
           <span className="shrink-0 text-right">
-            <span className={clsx('block text-d4 font-display', onNight ? 'text-paper' : 'text-ink')}>
-              {formatAzn(listing.price_azn, locale)}
+            {discounted && (
+              <span className="mb-1 flex items-center justify-end gap-2">
+                <span
+                  className={clsx(
+                    'label line-through',
+                    onNight ? 'text-paper/40' : 'text-ink-faint',
+                  )}
+                >
+                  {formatAzn(listing.price_azn, locale)}
+                </span>
+                <span className="label rounded-full bg-blue px-2 py-0.5 text-paper">
+                  −{listing.discount_percent}%
+                </span>
+              </span>
+            )}
+            <span
+              className={clsx(
+                'block text-d4 font-display',
+                discounted ? 'text-blue' : onNight ? 'text-paper' : 'text-ink',
+              )}
+            >
+              {formatAzn(price, locale)}
             </span>
             {secondary && (
               <span className={clsx('label block', onNight ? 'text-paper/40' : 'text-ink-faint')}>
