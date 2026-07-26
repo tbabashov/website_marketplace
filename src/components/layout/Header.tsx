@@ -118,7 +118,7 @@ export function Header() {
             <Wordmark />
           </Link>
 
-          <nav aria-label={t('nav.primaryLabel')} className="ml-6 hidden items-center gap-8 lg:flex">
+          <nav aria-label={t('nav.primaryLabel')} className="ml-6 hidden items-center gap-8 xl:flex">
             {navLinks.map((l) =>
               // A hash link resolves to pathname "/", so NavLink marks *every*
               // one of them active on the home page — which is why two links
@@ -142,14 +142,19 @@ export function Header() {
           </nav>
 
           <div className="ml-auto flex items-center gap-2.5">
-            {/* Desktop cluster. Everything below lg lives in the mobile menu,
+            {/* Desktop cluster. Everything below xl lives in the mobile menu,
                 so ONE wrapper gates the whole group. This matters: putting
-                `hidden lg:…` on the LanguageSwitcher or the CTA did nothing,
+                `hidden xl:…` on the LanguageSwitcher or the CTA did nothing,
                 because their own base classes already set `inline-flex`, which
                 won over `hidden` — so they stayed visible on phones, widened
                 the bar past the viewport, and tipped iOS into its desktop
-                layout. A plain wrapper has no base display to fight. */}
-            <div className="hidden items-center gap-5 lg:flex">
+                layout. A plain wrapper has no base display to fight.
+                The breakpoint is xl (1280px), not lg (1024px): iPad landscape
+                sits at 1024-1194px, wide enough to trigger a lg:flex row but
+                too narrow for it — "Hazır saytlar" and "Necə işləyir" wrapped
+                onto two lines while the single-word items stayed on one,
+                which read as broken rather than merely tight. */}
+            <div className="hidden items-center gap-5 xl:flex">
               <LanguageSwitcher />
 
               {user ? (
@@ -201,7 +206,7 @@ export function Header() {
               aria-controls="mobile-nav"
               aria-label={open ? t('nav.closeMenu') : t('nav.openMenu')}
               data-cursor="link"
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-ink text-paper lg:hidden"
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-ink text-paper xl:hidden"
             >
               <span className="relative block h-3.5 w-[18px]">
                 <span
@@ -226,7 +231,7 @@ export function Header() {
         <div
           id="mobile-nav"
           className={clsx(
-            'pointer-events-auto fixed inset-0 top-0 z-[-1] overflow-y-auto bg-paper px-6 pb-10 lg:hidden',
+            'pointer-events-auto fixed inset-0 top-0 z-[-1] overflow-y-auto bg-paper px-6 pb-10 xl:hidden',
             promoBanner ? 'pt-32' : 'pt-28',
           )}
         >
