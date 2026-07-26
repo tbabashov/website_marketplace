@@ -19,6 +19,10 @@ interface UIState {
   mobileNavOpen: boolean;
   setMobileNav: (open: boolean) => void;
 
+  /** Whether the promo strip is on screen — the fixed header offsets for it. */
+  promoBanner: boolean;
+  setPromoBanner: (open: boolean) => void;
+
   toasts: Toast[];
   toast: (message: string, tone?: 'ok' | 'bad') => void;
   dismissToast: (id: number) => void;
@@ -29,6 +33,9 @@ let toastId = 0;
 export const useUI = create<UIState>((set) => ({
   mobileNavOpen: false,
   setMobileNav: (open) => set({ mobileNavOpen: open }),
+
+  promoBanner: false,
+  setPromoBanner: (open) => set({ promoBanner: open }),
 
   toasts: [],
   toast: (message, tone = 'ok') => {

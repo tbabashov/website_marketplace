@@ -368,7 +368,9 @@
     "promoPlaceholder": "Enter a code",
     "promoApply": "Apply",
     "promoApplied": "{{percent}}% off applied",
-    "promoInvalid": "That promo code isn't valid"
+    "promoInvalid": "That promo code isn't valid",
+    "bannerText": "{{percent}}% off every ready-made site — code {{code}}.",
+    "bannerCta": "Shop now"
   },
   "checkout": {
     "pageTitle": "Payment",

@@ -370,7 +370,9 @@
     "promoPlaceholder": "Введите код",
     "promoApply": "Применить",
     "promoApplied": "Скидка {{percent}}% применена",
-    "promoInvalid": "Этот промокод недействителен"
+    "promoInvalid": "Этот промокод недействителен",
+    "bannerText": "{{percent}}% на все готовые сайты — промокод {{code}}.",
+    "bannerCta": "Смотреть"
   },
   "checkout": {
     "pageTitle": "Оплата",

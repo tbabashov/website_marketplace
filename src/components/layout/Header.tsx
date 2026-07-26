@@ -57,6 +57,7 @@ export function Header() {
   const { pathname, hash } = useLocation();
   const open = useUI((s) => s.mobileNavOpen);
   const setOpen = useUI((s) => s.setMobileNav);
+  const promoBanner = useUI((s) => s.promoBanner);
 
   const user = useAuth((s) => s.user);
   const profile = useAuth((s) => s.profile);
@@ -100,7 +101,10 @@ export function Header() {
     );
 
   return (
-    <header className="pointer-events-none fixed inset-x-0 top-0 z-[120] pt-4 md:pt-5">
+    <header
+      className="pointer-events-none fixed inset-x-0 z-[120] pt-4 transition-[top] duration-300 md:pt-5"
+      style={{ top: promoBanner ? '2.25rem' : 0 }}
+    >
       <div className="mx-auto w-full max-w-[1440px] px-2 md:px-6">
         <div
           className={clsx(

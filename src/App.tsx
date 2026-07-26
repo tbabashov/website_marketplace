@@ -3,6 +3,7 @@ import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import { Header } from '@/components/layout/Header';
+import { PromoBanner } from '@/components/layout/PromoBanner';
 import { Footer } from '@/components/layout/Footer';
 import { Cursor } from '@/components/ui/Cursor';
 import { BackToTop } from '@/components/ui/BackToTop';
@@ -113,6 +114,7 @@ export default function App() {
 
       <ScrollManager />
       <Cursor />
+      <PromoBanner />
       <Header />
 
       {/* z-2 lifts content above the fixed grain overlay in index.css. */}

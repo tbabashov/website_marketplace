@@ -368,7 +368,9 @@
     "promoPlaceholder": "Kodu daxil edin",
     "promoApply": "Tətbiq et",
     "promoApplied": "{{percent}}% endirim tətbiq olundu",
-    "promoInvalid": "Bu promokod etibarlı deyil"
+    "promoInvalid": "Bu promokod etibarlı deyil",
+    "bannerText": "Bütün hazır saytlara {{percent}}% endirim — kod: {{code}}.",
+    "bannerCta": "Saytlara bax"
   },
   "checkout": {
     "pageTitle": "Ödəniş",
