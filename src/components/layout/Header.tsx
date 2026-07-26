@@ -228,7 +228,10 @@ export function Header() {
       {open && (
         <div
           id="mobile-nav"
-          className="pointer-events-auto fixed inset-0 top-0 z-[-1] overflow-y-auto bg-paper px-6 pb-10 pt-28 lg:hidden"
+          className={clsx(
+            'pointer-events-auto fixed inset-0 top-0 z-[-1] overflow-y-auto bg-paper px-6 pb-10 lg:hidden',
+            promoBanner ? 'pt-32' : 'pt-28',
+          )}
         >
           <nav aria-label={t('nav.primaryLabel')} className="flex flex-col">
             {[

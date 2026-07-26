@@ -7,6 +7,7 @@ import { ListingRow } from '@/components/marketplace/ListingRow';
 import { Select } from '@/components/ui/Form';
 import { DemoNotice, EmptyState, LoadingBlock, Reveal, Shell } from '@/components/ui/Bits';
 import { fetchListings } from '@/lib/api';
+import { effectivePrice } from '@/lib/pricing';
 import { useSeo } from '@/lib/seo';
 import type { Listing } from '@/types/db';
 
@@ -41,8 +42,9 @@ export default function MarketplacePage() {
   const shown = useMemo(() => {
     const rows = (listings ?? []).filter((l) => !category || l.category === category);
     const sorted = [...rows];
-    if (sort === 'priceAsc') sorted.sort((a, b) => a.price_azn - b.price_azn);
-    if (sort === 'priceDesc') sorted.sort((a, b) => b.price_azn - a.price_azn);
+    // Sort by what a buyer actually pays, not the pre-discount list price.
+    if (sort === 'priceAsc') sorted.sort((a, b) => effectivePrice(a) - effectivePrice(b));
+    if (sort === 'priceDesc') sorted.sort((a, b) => effectivePrice(b) - effectivePrice(a));
     // Sold listings drop to the bottom whatever the sort — they are reference,
     // not offers.
     return sorted.sort((a, b) => Number(a.status === 'sold') - Number(b.status === 'sold'));

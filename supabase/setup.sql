@@ -1457,14 +1457,16 @@ begin
   v_base  := round(v_listing.price_azn * (1 - coalesce(v_listing.discount_percent, 0) / 100.0), 2);
   v_final := v_base;
 
+  -- Validate only — does NOT consume a use. The order remembers which code it
+  -- priced against; confirm_payment is what counts it as used, so an order
+  -- that is never paid never drains a limited-use code.
   if v_code is not null then
-    update promo_codes
-       set uses = uses + 1
-     where upper(code) = upper(v_code)
-       and active
-       and (expires_at is null or expires_at > now())
-       and (max_uses is null or uses < max_uses)
-    returning percent_off into v_pct;
+    select percent_off into v_pct
+    from promo_codes
+    where upper(code) = upper(v_code)
+      and active
+      and (expires_at is null or expires_at > now())
+      and (max_uses is null or uses < max_uses);
 
     if v_pct is null then
       raise exception 'That promo code is not valid' using errcode = '22023';
@@ -1511,3 +1513,81 @@ alter table profiles add column if not exists heard_from    text;
 alter table profiles add column if not exists looking_for   text;
 alter table profiles add column if not exists business_type text;
 alter table profiles add column if not exists onboarded_at  timestamptz;
+
+-- ###########################################################################
+-- ## 0011_promo_uses_on_payment.sql
+-- ###########################################################################
+
+-- Overrides confirm_payment (0003) so a promo code's use count is only
+-- incremented on the order's first confirmed payment — not at order creation,
+-- where an abandoned or called-back order could drain a limited-use code
+-- without any money changing hands. create_listing_order (0009 section above)
+-- already validates the code without consuming a use.
+create or replace function public.confirm_payment(
+  p_payment_id uuid,
+  p_actual_amount numeric default null
+)
+returns orders
+language plpgsql
+security definer
+set search_path = public
+as $$
+declare
+  v_payment payments;
+  v_order   orders;
+  v_amount  numeric(10,2);
+  v_next    order_status;
+begin
+  if not public.is_owner() then
+    raise exception 'Only the site owner can confirm a payment' using errcode = '42501';
+  end if;
+
+  select * into v_payment from payments where id = p_payment_id;
+  if v_payment.id is null then
+    raise exception 'Payment not found' using errcode = 'P0002';
+  end if;
+  if v_payment.status <> 'submitted' then
+    raise exception 'This payment has already been reviewed' using errcode = '22023';
+  end if;
+
+  v_amount := coalesce(p_actual_amount, v_payment.claimed_amount_azn);
+
+  update payments set
+    status = 'confirmed', reviewed_at = now(), reviewed_by = auth.uid(),
+    reject_reason = null, reject_detail = null
+  where id = p_payment_id;
+
+  select * into v_order from orders where id = v_payment.order_id;
+
+  -- The first confirmed payment on this order is real money changing hands —
+  -- that is when a promo code actually earns its "use". paid_azn is still the
+  -- pre-update value here, so 0 means nothing has been confirmed before now;
+  -- a deposit-then-balance order therefore only counts once, on the deposit.
+  if v_order.paid_azn = 0 and v_order.promo_code is not null then
+    update promo_codes set uses = uses + 1 where upper(code) = upper(v_order.promo_code);
+  end if;
+
+  if v_order.paid_azn + v_amount >= coalesce(v_order.total_azn, 0) then
+    v_next := case
+                when v_order.kind = 'listing' then 'delivered'
+                when v_order.delivered_at is not null then 'delivered'
+                else 'in_progress'
+              end;
+  else
+    v_next := case when v_order.kind = 'custom' then 'in_progress' else 'awaiting_payment' end;
+  end if;
+
+  update orders set
+    paid_azn = paid_azn + v_amount,
+    status = v_next,
+    delivered_at = case when v_next = 'delivered' then coalesce(delivered_at, now()) else delivered_at end
+  where id = v_order.id
+  returning * into v_order;
+
+  return v_order;
+end;
+$$;
+
+grant execute on function
+  public.confirm_payment(uuid, numeric)
+to authenticated;
