@@ -309,13 +309,17 @@
     transform: scale(1.045);
   }
 
-  /* Link that draws its own underline on hover, left to right. */
+  /* Link that draws its own underline on hover, left to right. Combines its
+     own transition with the text-color fade in one declaration — a separate
+     Tailwind `transition-colors` utility on the same element would overwrite
+     transition-property and silently drop background-size, so the underline
+     would snap in instead of sliding. */
   .ul-swipe {
     background-image: linear-gradient(currentColor, currentColor);
     background-position: 0 100%;
     background-repeat: no-repeat;
     background-size: 0% 1.5px;
-    transition: background-size 0.4s var(--ease-out-expo);
+    transition: background-size 0.4s var(--ease-out-expo), color 0.2s ease;
     padding-bottom: 2px;
   }
   .ul-swipe:hover,
