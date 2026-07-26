@@ -95,7 +95,10 @@ export function Header() {
   }, [open, setOpen]);
 
   const link = ({ isActive }: { isActive: boolean }) =>
-    clsx('ul-swipe text-sm font-medium', isActive ? 'text-blue' : 'text-ink-soft');
+    clsx(
+      'ul-swipe text-sm font-medium transition-colors duration-200',
+      isActive ? 'text-blue' : 'text-ink-soft hover:text-ink',
+    );
 
   return (
     <header
@@ -129,7 +132,7 @@ export function Header() {
                   key={l.to}
                   to={l.to}
                   data-cursor="link"
-                  className="ul-swipe text-sm font-medium text-ink-soft"
+                  className="ul-swipe text-sm font-medium text-ink-soft transition-colors duration-200 hover:text-ink"
                 >
                   {t(l.key)}
                 </Link>
