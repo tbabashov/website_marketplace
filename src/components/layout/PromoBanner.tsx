@@ -52,13 +52,23 @@ export function PromoBanner() {
 
   if (percent === null) return null;
 
+  // Bold just the code within the translated sentence. The code is inserted
+  // verbatim via interpolation, so splitting the rendered string on it works
+  // regardless of where each language places it in the sentence.
+  const text = t('market.bannerText', { percent, code: CODE });
+  const codeAt = text.indexOf(CODE);
+  const before = codeAt === -1 ? text : text.slice(0, codeAt);
+  const after = codeAt === -1 ? '' : text.slice(codeAt + CODE.length);
+
   return (
     <div
       data-cursor-on-dark
       className="fixed inset-x-0 top-0 z-[130] flex h-9 items-center justify-center gap-3 bg-blue px-10 text-center text-paper"
     >
       <p className="truncate text-xs font-medium sm:text-sm">
-        {t('market.bannerText', { percent, code: CODE })}{' '}
+        {before}
+        {codeAt !== -1 && <strong className="font-bold">{CODE}</strong>}
+        {after}{' '}
         <Link to="/marketplace" data-cursor="link" className="underline underline-offset-2 hover:opacity-80">
           {t('market.bannerCta')}
         </Link>
