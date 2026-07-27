@@ -100,6 +100,20 @@ export function Header() {
       isActive ? 'text-blue' : 'text-ink-soft hover:text-ink',
     );
 
+  // The menu's contents. The four primary links always show; the account/orders/
+  // sign-in links are mobileOnly (hidden at lg+, where they're inline in the
+  // right cluster instead).
+  const panelItems: { to: string; key: string; mobileOnly: boolean }[] = [
+    ...navLinks.map((l) => ({ to: l.to, key: l.key, mobileOnly: false })),
+    ...(user
+      ? [
+          { to: '/dashboard', key: 'nav.dashboard', mobileOnly: true },
+          ...(isOwner ? [{ to: '/admin', key: 'nav.admin', mobileOnly: true }] : []),
+          { to: '/profile', key: 'nav.profile', mobileOnly: true },
+        ]
+      : [{ to: '/auth', key: 'nav.signIn', mobileOnly: true }]),
+  ];
+
   return (
     <header
       className="pointer-events-none fixed inset-x-0 z-[120] pt-4 transition-[top] duration-300 md:pt-5"
@@ -121,9 +135,12 @@ export function Header() {
             <Wordmark />
           </Link>
 
+          {/* The four primary links show inline only at xl+. Between lg and xl
+              (iPad Pro portrait) they move into the hamburger while the cluster
+              on the right stays inline — see the cluster/hamburger notes below. */}
           <nav
             aria-label={t('nav.primaryLabel')}
-            className="ml-3 hidden items-center gap-4 lg:flex xl:ml-6 xl:gap-8"
+            className="ml-6 hidden items-center gap-8 xl:flex"
           >
             {navLinks.map((l) =>
               // A hash link resolves to pathname "/", so NavLink marks *every*
@@ -148,23 +165,16 @@ export function Header() {
           </nav>
 
           <div className="ml-auto flex items-center gap-2.5">
-            {/* Desktop cluster. Everything below lg lives in the mobile menu,
-                so ONE wrapper gates the whole group. This matters: putting
-                `hidden lg:…` on the LanguageSwitcher or the CTA did nothing,
-                because their own base classes already set `inline-flex`, which
-                won over `hidden` — so they stayed visible on phones, widened
-                the bar past the viewport, and tipped iOS into its desktop
-                layout. A plain wrapper has no base display to fight.
-                lg (1024px) covers iPad Pro portrait, which is exactly 1024px
-                wide — the tightest real target. Flex items shrink their text
-                by wrapping it before they shrink-to-overflow, which is what
-                turned "Hazır saytlar" / "Necə işləyir" into two lines instead
-                of a merely-tight row: whitespace-nowrap (on every label here
-                and in `link`) removes that option, and the lg-only gap/margin
-                values below claw back the space that nowrap needs. xl (1280px)
-                and up has room to spare, so spacing there just relaxes back
-                to the original, more generous values. */}
-            <div className="hidden items-center gap-2.5 lg:flex xl:gap-5">
+            {/* Right cluster — language, account/orders/sign-in, CTA. Shown at
+                lg+ (so it stays inline on iPad Pro, to the LEFT of the hamburger)
+                and hidden below lg (phones), where it lives in the menu instead.
+                ONE wrapper gates the whole group: putting `hidden lg:…` on the
+                LanguageSwitcher or the CTA did nothing, because their own base
+                classes already set `inline-flex`, which won over `hidden` — so
+                they stayed visible on phones, widened the bar past the viewport,
+                and tipped iOS into its desktop layout. A plain wrapper has no
+                base display to fight. */}
+            <div className="hidden items-center gap-4 lg:flex xl:gap-5">
               <LanguageSwitcher />
 
               {user ? (
@@ -208,7 +218,9 @@ export function Header() {
               </ButtonLink>
             </div>
 
-            {/* Mobile toggle — two rounded bars that cross into an X. */}
+            {/* Menu toggle — two rounded bars that cross into an X. Shown below
+                xl: on phones it holds everything; on iPad Pro (lg–xl) it holds
+                just the four primary links, since the cluster is already inline. */}
             <button
               type="button"
               onClick={() => setOpen(!open)}
@@ -216,7 +228,7 @@ export function Header() {
               aria-controls="mobile-nav"
               aria-label={open ? t('nav.closeMenu') : t('nav.openMenu')}
               data-cursor="link"
-              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-ink text-paper lg:hidden"
+              className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-ink text-paper xl:hidden"
             >
               <span className="relative block h-3.5 w-[18px]">
                 <span
@@ -241,25 +253,23 @@ export function Header() {
         <div
           id="mobile-nav"
           className={clsx(
-            'pointer-events-auto fixed inset-0 top-0 z-[-1] overflow-y-auto bg-paper px-6 pb-10 lg:hidden',
+            'pointer-events-auto fixed inset-0 top-0 z-[-1] overflow-y-auto bg-paper px-6 pb-10 xl:hidden',
             promoBanner ? 'pt-32' : 'pt-28',
           )}
         >
+          {/* The account/orders/sign-in links and the CTA + language are marked
+              mobileOnly: on iPad Pro (lg–xl) they're already inline in the right
+              cluster, so they hide here and the menu shows only the four primary
+              links. On phones (below lg) nothing is inline, so they all show. */}
           <nav aria-label={t('nav.primaryLabel')} className="flex flex-col">
-            {[
-              ...navLinks,
-              ...(user
-                ? ([
-                    { to: '/dashboard', key: 'nav.dashboard' },
-                    ...(isOwner ? [{ to: '/admin', key: 'nav.admin' }] : []),
-                    { to: '/profile', key: 'nav.profile' },
-                  ] as const)
-                : ([{ to: '/auth', key: 'nav.signIn' }] as const)),
-            ].map((l, i) => (
+            {panelItems.map((l, i) => (
               <Link
                 key={l.to}
                 to={l.to}
-                className="fade-up flex items-center gap-3 border-b border-line py-5 font-display text-d3"
+                className={clsx(
+                  'fade-up flex items-center gap-3 border-b border-line py-5 font-display text-d3',
+                  l.mobileOnly && 'lg:hidden',
+                )}
                 style={{ '--d': `${i * 45}ms` } as React.CSSProperties}
               >
                 {t(l.key)}
@@ -267,7 +277,7 @@ export function Header() {
             ))}
           </nav>
 
-          <div className="mt-10 flex flex-col gap-6">
+          <div className="mt-10 flex flex-col gap-6 lg:hidden">
             <ButtonLink to="/request" size="lg" className="w-full">
               {t('nav.request')}
             </ButtonLink>
