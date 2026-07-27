@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
+import { Gallery, type GalleryImage } from '@/components/media/Gallery';
 import { ManagedImage } from '@/components/media/ManagedImage';
 import { Arrow, ButtonLink } from '@/components/ui/Button';
 import { EmptyState, Eyebrow, LoadingBlock, Reveal, Shell } from '@/components/ui/Bits';
@@ -140,16 +141,17 @@ export default function CaseStudyPage() {
         <StoryBlock label={t('portfolio.outcome')} body={pickText(study.outcome, locale)} index={2} />
 
         {study.gallery.length > 0 && (
-          <div className="grid gap-6 border-t border-line py-12 sm:grid-cols-2">
-            {study.gallery.map((path, i) => (
-              <ManagedImage
-                key={path}
-                src={path}
-                aspect="3:2"
-                alt=""
-                label={`${study.slug}-${i + 1}`}
-              />
-            ))}
+          <div className="border-t border-line py-12">
+            <Gallery
+              images={study.gallery.map(
+                (path, i): GalleryImage => ({
+                  src: path,
+                  label: `${study.slug}-${i + 1}`,
+                  alt: `${pickText(study.title, locale)} — ${i + 1}`,
+                }),
+              )}
+              aspect="3:2"
+            />
           </div>
         )}
 

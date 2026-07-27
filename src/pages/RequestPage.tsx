@@ -16,12 +16,21 @@ import type { Order } from '@/types/db';
 const DRAFT_KEY = 'websale.request-draft';
 
 const PAGE_OPTIONS = [
-  'home', 'about', 'services', 'catalog', 'shop', 'booking', 'gallery', 'blog', 'contact', 'careers',
+  'home', 'about', 'services', 'catalog', 'shop', 'booking', 'gallery', 'blog', 'contact', 'careers', 'other',
 ] as const;
 
-const FEATURE_OPTIONS = ['multilang', 'crm', 'analytics', 'seo', 'social', 'admin'] as const;
+const FEATURE_OPTIONS = ['multilang', 'crm', 'analytics', 'seo', 'social', 'admin', 'other'] as const;
 
-const BUDGET_OPTIONS = ['under500', '500to1500', '1500to3000', 'over3000', 'unsure'] as const;
+const BUDGET_OPTIONS = ['under100', '100to500', '500to1000', 'over1000', 'unsure'] as const;
+
+/** Fold the free-text "other" answer into a text[] column: drop the 'other'
+ *  marker and, if something was typed, append it as a real entry. */
+function withOther(list: string[], other: string): string[] {
+  if (!list.includes('other')) return list;
+  const rest = list.filter((x) => x !== 'other');
+  const text = other.trim();
+  return text ? [...rest, text] : rest;
+}
 
 const TIMELINE_OPTIONS = ['asap', 'month', 'quarter', 'flexible'] as const;
 
@@ -35,7 +44,9 @@ interface Draft {
   hasWebsite: boolean;
   currentUrl: string;
   pages: string[];
+  pagesOther: string;
   features: string[];
+  featuresOther: string;
   styleRefs: string;
   styleNotes: string;
   hasBranding: boolean;
@@ -54,7 +65,9 @@ const emptyDraft: Draft = {
   hasWebsite: false,
   currentUrl: '',
   pages: [],
+  pagesOther: '',
   features: [],
+  featuresOther: '',
   styleRefs: '',
   styleNotes: '',
   hasBranding: false,
@@ -180,8 +193,8 @@ export default function RequestPage() {
         business_desc: draft.businessDesc.trim() || null,
         has_website: draft.hasWebsite,
         current_url: draft.currentUrl.trim() || null,
-        pages: draft.pages,
-        features: draft.features,
+        pages: withOther(draft.pages, draft.pagesOther),
+        features: withOther(draft.features, draft.featuresOther),
         style_refs: draft.styleRefs.trim() || null,
         style_notes: draft.styleNotes.trim() || null,
         has_branding: draft.hasBranding,
@@ -283,10 +296,6 @@ export default function RequestPage() {
             })}
           </ol>
 
-          <p className="label mt-6 text-ink-mute">
-            {t('request.stepOf', { current: stepIndex + 1, total: STEPS.length })}
-          </p>
-
           <div className="mt-10 max-w-2xl pb-24">
             {step === 'business' && (
               <div className="flex flex-col gap-8">
@@ -375,6 +384,14 @@ export default function RequestPage() {
                       </CheckChip>
                     ))}
                   </div>
+                  {draft.pages.includes('other') && (
+                    <TextInput
+                      className="mt-3"
+                      placeholder={t('request.otherPlaceholder')}
+                      value={draft.pagesOther}
+                      onChange={(e) => set('pagesOther', e.target.value)}
+                    />
+                  )}
                   {errors.pages && <p className="mt-3 text-sm text-red">{errors.pages}</p>}
                 </fieldset>
 
@@ -398,6 +415,14 @@ export default function RequestPage() {
                       </CheckChip>
                     ))}
                   </div>
+                  {draft.features.includes('other') && (
+                    <TextInput
+                      className="mt-3"
+                      placeholder={t('request.otherPlaceholder')}
+                      value={draft.featuresOther}
+                      onChange={(e) => set('featuresOther', e.target.value)}
+                    />
+                  )}
                 </fieldset>
               </div>
             )}
@@ -545,11 +570,15 @@ export default function RequestPage() {
                     { label: t('request.businessDesc'), value: draft.businessDesc },
                     {
                       label: t('request.pagesLabel'),
-                      value: draft.pages.map((p) => t(`request.pageOptions.${p}`)).join(', '),
+                      value: withOther(draft.pages, draft.pagesOther)
+                        .map((p) => t(`request.pageOptions.${p}`, p))
+                        .join(', '),
                     },
                     {
                       label: t('request.featuresLabel'),
-                      value: draft.features.map((f) => t(`request.featureOptions.${f}`)).join(', '),
+                      value: withOther(draft.features, draft.featuresOther)
+                        .map((f) => t(`request.featureOptions.${f}`, f))
+                        .join(', '),
                     },
                     { label: t('request.styleRefs'), value: draft.styleRefs },
                     { label: t('request.styleNotes'), value: draft.styleNotes },

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useState, type ReactNode } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import clsx from 'clsx';
@@ -491,6 +491,9 @@ function OrderAdminRow({ order, onDone }: { order: Order; onDone: () => void }) 
 /* Catalogue management                                                      */
 /* ------------------------------------------------------------------------ */
 
+/** "a, b, c" <-> ['a','b','c'] for editing text[] columns as one field. */
+const toArr = (s: string) => s.split(',').map((x) => x.trim()).filter(Boolean);
+
 function CatalogueRow({
   table,
   id,
@@ -498,6 +501,7 @@ function CatalogueRow({
   meta,
   isPublished,
   listing,
+  study,
   onDone,
 }: {
   table: 'listings' | 'case_studies';
@@ -505,8 +509,10 @@ function CatalogueRow({
   title: string;
   meta: string;
   isPublished: boolean;
-  /** When present (listings tab), an inline price + discount editor is shown. */
+  /** When present (listings tab), the price/discount/pages/stack editor shows. */
   listing?: Listing;
+  /** When present (cases tab), the case-study metadata editor shows. */
+  study?: CaseStudy;
   onDone: () => void;
 }) {
   const { t, i18n } = useTranslation();
@@ -514,8 +520,21 @@ function CatalogueRow({
   const toast = useUI((s) => s.toast);
   const [busy, setBusy] = useState(false);
   const [editing, setEditing] = useState(false);
+
+  // Listing fields
   const [price, setPrice] = useState(String(listing?.price_azn ?? ''));
   const [discount, setDiscount] = useState(String(listing?.discount_percent ?? 0));
+  const [pageCount, setPageCount] = useState(String(listing?.page_count ?? ''));
+  const [stack, setStack] = useState((listing?.stack ?? study?.stack ?? []).join(', '));
+
+  // Case-study fields
+  const [client, setClient] = useState(study?.client ?? '');
+  const [industry, setIndustry] = useState(study?.industry ?? '');
+  const [year, setYear] = useState(String(study?.year ?? ''));
+  const [tags, setTags] = useState((study?.tags ?? []).join(', '));
+  const [liveUrl, setLiveUrl] = useState(study?.live_url ?? '');
+
+  const editable = Boolean(listing || study);
 
   async function update(patch: Record<string, unknown>) {
     if (!supabase) return;
@@ -529,14 +548,31 @@ function CatalogueRow({
     onDone();
   }
 
-  async function savePricing() {
+  async function saveListing() {
     const p = Number(price);
     const d = Number(discount);
     if (!Number.isFinite(p) || p < 0 || !Number.isFinite(d) || d < 0 || d > 90) {
       toast(t('admin.pricingInvalid'), 'bad');
       return;
     }
-    await update({ price_azn: p, discount_percent: Math.round(d) });
+    await update({
+      price_azn: p,
+      discount_percent: Math.round(d),
+      page_count: pageCount.trim() ? Math.round(Number(pageCount)) : null,
+      stack: toArr(stack),
+    });
+    setEditing(false);
+  }
+
+  async function saveStudy() {
+    await update({
+      client: client.trim() || null,
+      industry: industry.trim() || null,
+      year: year.trim() ? Math.round(Number(year)) : null,
+      stack: toArr(stack),
+      tags: toArr(tags),
+      live_url: liveUrl.trim() || null,
+    });
     setEditing(false);
   }
 
@@ -567,9 +603,9 @@ function CatalogueRow({
         <span className={clsx('label', isPublished ? 'text-green' : 'text-ink-mute')}>
           {isPublished ? t('admin.statusPublished') : t('admin.statusDraft')}
         </span>
-        {listing && (
+        {editable && (
           <Button size="sm" variant="outline" onClick={() => setEditing((v) => !v)}>
-            {t('admin.editPricing')}
+            {t('admin.editDetails')}
           </Button>
         )}
         <Button size="sm" variant="outline" disabled={busy} onClick={() => void update(togglePatch)}>
@@ -582,54 +618,70 @@ function CatalogueRow({
 
       {listing && editing && (
         <div className="flex flex-wrap items-end gap-4 rounded-2xl bg-paper-2 p-5">
-          <div className="w-32">
-            <Field label={t('admin.price')}>
-              {({ id: fid }) => (
-                <TextInput
-                  id={fid}
-                  type="number"
-                  min="0"
-                  step="1"
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
-                />
-              )}
-            </Field>
-          </div>
-          <div className="w-32">
-            <Field label={t('admin.discountPercent')}>
-              {({ id: fid }) => (
-                <TextInput
-                  id={fid}
-                  type="number"
-                  min="0"
-                  max="90"
-                  step="1"
-                  value={discount}
-                  onChange={(e) => setDiscount(e.target.value)}
-                />
-              )}
-            </Field>
-          </div>
+          <AdminField label={t('admin.price')} w="w-28">
+            <TextInput type="number" min="0" step="1" value={price} onChange={(e) => setPrice(e.target.value)} />
+          </AdminField>
+          <AdminField label={t('admin.discountPercent')} w="w-28">
+            <TextInput type="number" min="0" max="90" step="1" value={discount} onChange={(e) => setDiscount(e.target.value)} />
+          </AdminField>
+          <AdminField label={t('admin.pageCount')} w="w-28">
+            <TextInput type="number" min="0" step="1" value={pageCount} onChange={(e) => setPageCount(e.target.value)} />
+          </AdminField>
+          <AdminField label={t('admin.stack')} w="w-64">
+            <TextInput placeholder="React, Supabase, Tailwind" value={stack} onChange={(e) => setStack(e.target.value)} />
+          </AdminField>
           <p className="mb-2.5 text-sm text-ink-soft">
             {t('admin.priceAfter')}{' '}
             <span className="num font-medium text-ink">
               {formatAzn(
-                effectivePrice({
-                  price_azn: Number(price) || 0,
-                  discount_percent: Number(discount) || 0,
-                }),
+                effectivePrice({ price_azn: Number(price) || 0, discount_percent: Number(discount) || 0 }),
                 locale,
               )}
             </span>
           </p>
-          <Button size="sm" disabled={busy} onClick={() => void savePricing()}>
+          <Button size="sm" disabled={busy} onClick={() => void saveListing()}>
+            {busy && <Spinner />}
+            {t('common.save')}
+          </Button>
+        </div>
+      )}
+
+      {study && editing && (
+        <div className="flex flex-wrap items-end gap-4 rounded-2xl bg-paper-2 p-5">
+          <AdminField label={t('admin.client')} w="w-72">
+            <TextInput value={client} onChange={(e) => setClient(e.target.value)} />
+          </AdminField>
+          <AdminField label={t('admin.industry')} w="w-40">
+            <TextInput placeholder="food" value={industry} onChange={(e) => setIndustry(e.target.value)} />
+          </AdminField>
+          <AdminField label={t('admin.year')} w="w-28">
+            <TextInput type="number" min="2000" max="2100" step="1" value={year} onChange={(e) => setYear(e.target.value)} />
+          </AdminField>
+          <AdminField label={t('admin.stack')} w="w-64">
+            <TextInput placeholder="React, TypeScript" value={stack} onChange={(e) => setStack(e.target.value)} />
+          </AdminField>
+          <AdminField label={t('admin.tags')} w="w-64">
+            <TextInput placeholder="corporate, export" value={tags} onChange={(e) => setTags(e.target.value)} />
+          </AdminField>
+          <AdminField label={t('admin.liveUrl')} w="w-72">
+            <TextInput type="url" placeholder="https://" value={liveUrl} onChange={(e) => setLiveUrl(e.target.value)} />
+          </AdminField>
+          <Button size="sm" disabled={busy} onClick={() => void saveStudy()}>
             {busy && <Spinner />}
             {t('common.save')}
           </Button>
         </div>
       )}
     </li>
+  );
+}
+
+/** A labelled admin field of a fixed width — thin wrapper over Field. */
+function AdminField({ label, w, children }: { label: string; w: string; children: ReactNode }) {
+  return (
+    <div className={w}>
+      <Field label={label}>{() => children}</Field>
+    </div>
   );
 }
 
@@ -942,6 +994,7 @@ export default function AdminPage() {
                       title={pickText(study.title, locale) || study.slug}
                       meta={`${study.slug}${study.year ? ` · ${study.year}` : ''}`}
                       isPublished={study.published}
+                      study={study}
                       onDone={() => void reload()}
                     />
                   ))}

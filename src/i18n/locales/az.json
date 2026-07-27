@@ -253,7 +253,8 @@
       "gallery": "Şəkil qalereyası",
       "blog": "Xəbərlər və ya bloq",
       "contact": "Əlaqə və xəritə",
-      "careers": "Vakansiyalar"
+      "careers": "Vakansiyalar",
+      "other": "Digər"
     },
     "featuresLabel": "Başqa nə etməlidir?",
     "featureOptions": {
@@ -262,7 +263,8 @@
       "analytics": "Ziyarətçi statistikası",
       "seo": "Google axtarışında görünsün",
       "social": "Saytda Instagram lenti",
-      "admin": "Mətnləri özüm dəyişə bilim"
+      "admin": "Mətnləri özüm dəyişə bilim",
+      "other": "Digər"
     },
     "styleRefs": "Görünüşünü bəyəndiyiniz saytlar",
     "styleRefsPlaceholder": "Bir-iki ünvan yazın — rəqiblər, ya da sadəcə xoşunuza gələn istənilən sayt.",
@@ -274,10 +276,10 @@
     "budgetLabel": "Təxminən nə qədər xərcləməyi gözləyirsiniz?",
     "budgetHint": "Dürüst aralıq deməklə mümkün olub-olmadığını tez deyə bilərəm. Bu, öhdəlik deyil.",
     "budgetOptions": {
-      "under500": "500 ₼-dən az",
-      "500to1500": "500 – 1 500 ₼",
-      "1500to3000": "1 500 – 3 000 ₼",
-      "over3000": "3 000 ₼-dən çox",
+      "under100": "100 ₼-dən az",
+      "100to500": "100 – 500 ₼",
+      "500to1000": "500 – 1 000 ₼",
+      "over1000": "1 000 ₼-dən çox",
       "unsure": "Bilmirəm — siz deyin nə qədər olmalıdır"
     },
     "timelineLabel": "Nə vaxta hazır olmalıdır?",
@@ -309,7 +311,8 @@
       "email": "Qiyməti göndərmək üçün e-poçt ünvanı lazımdır.",
       "emailFormat": "Bu, e-poçt ünvanına oxşamır.",
       "contact": "Ən azı bir əlaqə yolu yazın."
-    }
+    },
+    "otherPlaceholder": "Nə lazımdır? qısaca yazın"
   },
   "portfolio": {
     "pageTitle": "İşlər",
@@ -602,7 +605,15 @@
     "promoActive": "Aktiv",
     "promoInactive": "Deaktiv",
     "activate": "Aktiv et",
-    "deactivate": "Deaktiv et"
+    "deactivate": "Deaktiv et",
+    "editDetails": "Redaktə et",
+    "pageCount": "Səhifə sayı",
+    "stack": "Texnologiyalar",
+    "client": "Müştəri",
+    "industry": "Sahə",
+    "year": "İl",
+    "tags": "Teqlər",
+    "liveUrl": "Sayt linki"
   },
   "legal": {
     "lastUpdated": "Son yenilənmə: {{date}}",

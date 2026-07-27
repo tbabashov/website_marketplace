@@ -253,7 +253,8 @@
       "gallery": "Photo gallery",
       "blog": "News or blog",
       "contact": "Contact and map",
-      "careers": "Jobs"
+      "careers": "Jobs",
+      "other": "Other"
     },
     "featuresLabel": "Anything else it has to do?",
     "featureOptions": {
@@ -262,7 +263,8 @@
       "analytics": "Visitor statistics",
       "seo": "Show up on Google searches",
       "social": "Instagram feed on the site",
-      "admin": "I want to edit the text myself"
+      "admin": "I want to edit the text myself",
+      "other": "Other"
     },
     "styleRefs": "Sites whose look you like",
     "styleRefsPlaceholder": "Paste one or two addresses — competitors, or anything at all that you like the look of.",
@@ -274,11 +276,11 @@
     "budgetLabel": "Roughly what are you expecting to spend?",
     "budgetHint": "An honest range helps me tell you quickly whether it's doable. It isn't binding.",
     "budgetOptions": {
-      "under500": "Under 500 ₼",
-      "500to1500": "500 – 1 500 ₼",
-      "1500to3000": "1 500 – 3 000 ₼",
-      "over3000": "Over 3 000 ₼",
-      "unsure": "I don't know — tell me what it should cost"
+      "under100": "Under 100 ₼",
+      "100to500": "100 – 500 ₼",
+      "500to1000": "500 – 1 000 ₼",
+      "over1000": "Over 1 000 ₼",
+      "unsure": "Not sure — you tell me"
     },
     "timelineLabel": "When do you need it live?",
     "timelineOptions": {
@@ -309,7 +311,8 @@
       "email": "I need an email address to send the quote to.",
       "emailFormat": "That doesn't look like an email address.",
       "contact": "Give me at least one way to reach you."
-    }
+    },
+    "otherPlaceholder": "Tell us what — briefly"
   },
   "portfolio": {
     "pageTitle": "Work",
@@ -602,7 +605,15 @@
     "promoActive": "Active",
     "promoInactive": "Inactive",
     "activate": "Activate",
-    "deactivate": "Deactivate"
+    "deactivate": "Deactivate",
+    "editDetails": "Edit details",
+    "pageCount": "Page count",
+    "stack": "Stack",
+    "client": "Client",
+    "industry": "Industry",
+    "year": "Year",
+    "tags": "Tags",
+    "liveUrl": "Live URL"
   },
   "legal": {
     "lastUpdated": "Last updated {{date}}",
