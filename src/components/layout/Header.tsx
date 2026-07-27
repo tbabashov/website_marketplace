@@ -105,6 +105,19 @@ export function Header() {
       className="pointer-events-none fixed inset-x-0 z-[120] pt-4 transition-[top] duration-300 md:pt-5"
       style={{ top: promoBanner ? '2.25rem' : 0 }}
     >
+      {/* Scrim behind the floating pill: once scrolled, page content passing
+          under the header would otherwise show through the transparent gap
+          above the pill and its rounded corners. A paper gradient fades that
+          content out cleanly. Only visible when lifted, so the hero is untouched. */}
+      <div
+        aria-hidden="true"
+        className={clsx(
+          'pointer-events-none absolute inset-x-0 top-0 h-24 transition-opacity duration-500',
+          lifted ? 'opacity-100' : 'opacity-0',
+        )}
+        style={{ background: 'linear-gradient(to bottom, var(--color-paper), transparent)' }}
+      />
+
       <div className="mx-auto w-full max-w-[1440px] px-2 md:px-6">
         <div
           className={clsx(

@@ -46,7 +46,10 @@ function Tracker({ status }: { status: OrderStatus }) {
         const current = active === i;
         return (
           <li key={milestone} className="flex flex-1 items-center gap-3 sm:flex-col sm:items-start">
-            <div className="flex w-full items-center gap-2">
+            {/* w-full is for the horizontal sm: layout only — on the mobile
+                vertical list it would make the dot eat the whole row and shove
+                the label off to the side. */}
+            <div className="flex items-center gap-2 sm:w-full">
               <span
                 aria-hidden="true"
                 className={clsx(
