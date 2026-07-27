@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import clsx from 'clsx';
 
 import { Gallery, type GalleryImage } from '@/components/media/Gallery';
 import { ManagedImage } from '@/components/media/ManagedImage';
@@ -79,6 +80,15 @@ export default function CaseStudyPage() {
     );
   }
 
+  const liveHost = (() => {
+    if (!study.live_url) return '';
+    try {
+      return new URL(study.live_url).hostname.replace(/^www\./, '');
+    } catch {
+      return study.live_url;
+    }
+  })();
+
   return (
     <article>
       <Shell className="pt-36 md:pt-44">
@@ -140,22 +150,53 @@ export default function CaseStudyPage() {
         <StoryBlock label={t('portfolio.built')} body={pickText(study.built, locale)} index={1} />
         <StoryBlock label={t('portfolio.outcome')} body={pickText(study.outcome, locale)} index={2} />
 
+        {/* Screenshots — same 16:10 carousel as the marketplace, with the live-
+            site link in a panel on its right, mirroring a listing's buy panel. */}
         {study.gallery.length > 0 && (
           <div className="border-t border-line py-12">
-            <Gallery
-              images={study.gallery.map(
-                (path, i): GalleryImage => ({
-                  src: path,
-                  label: `${study.slug}-${i + 1}`,
-                  alt: `${pickText(study.title, locale)} — ${i + 1}`,
-                }),
+            <div
+              className={clsx(
+                study.live_url
+                  ? 'grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,1fr)_17rem] lg:items-start lg:gap-12'
+                  : 'lg:max-w-3xl',
               )}
-              aspect="3:2"
-            />
+            >
+              <div className="min-w-0">
+                <Gallery
+                  images={study.gallery.map(
+                    (path, i): GalleryImage => ({
+                      src: path,
+                      label: `${study.slug}-${i + 1}`,
+                      alt: `${title} — ${i + 1}`,
+                    }),
+                  )}
+                  aspect="16:10"
+                />
+              </div>
+
+              {study.live_url && (
+                <aside className="lg:sticky lg:top-32">
+                  <div className="rounded-3xl bg-paper-2 p-7">
+                    <p className="label text-ink-mute">{t('portfolio.liveSite')}</p>
+                    <p className="mt-2 break-words text-sm text-ink-soft">{liveHost}</p>
+                    <ButtonLink
+                      to={study.live_url}
+                      external
+                      variant="outline"
+                      className="mt-5 w-full"
+                    >
+                      {t('portfolio.liveDemo')}
+                      <Arrow />
+                    </ButtonLink>
+                  </div>
+                </aside>
+              )}
+            </div>
           </div>
         )}
 
-        {study.live_url && (
+        {/* No gallery to attach it to — keep the live link on its own. */}
+        {study.live_url && study.gallery.length === 0 && (
           <div className="border-t border-line py-12">
             <ButtonLink to={study.live_url} external variant="outline" size="lg">
               {t('portfolio.liveDemo')}

@@ -332,7 +332,8 @@
     "liveDemo": "Canlı sayta bax",
     "nextCase": "Növbəti layihə",
     "backToPortfolio": "Bütün işlər",
-    "notFound": "Bu layihə burada yoxdur."
+    "notFound": "Bu layihə burada yoxdur.",
+    "liveSite": "Canlı sayt"
   },
   "market": {
     "pageTitle": "Hazır saytlar",

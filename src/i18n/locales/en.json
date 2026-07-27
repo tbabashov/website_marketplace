@@ -332,7 +332,8 @@
     "liveDemo": "Visit the live site",
     "nextCase": "Next project",
     "backToPortfolio": "All work",
-    "notFound": "That case study isn't here."
+    "notFound": "That case study isn't here.",
+    "liveSite": "Live site"
   },
   "market": {
     "pageTitle": "Ready-made sites",
