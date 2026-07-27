@@ -283,7 +283,7 @@ export default function CheckoutPage() {
                   {errors.file && <p className="mt-3 text-sm font-medium text-red">{errors.file}</p>}
                 </div>
 
-                <div className="grid gap-6 sm:grid-cols-2">
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
                   <Field label={t('checkout.amountPaid')} error={errors.amount}>
                     {({ id, describedBy, invalid }) => (
                       <TextInput

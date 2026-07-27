@@ -17,7 +17,10 @@ import clsx from 'clsx';
  * panel. Relying on fill alone is what made them disappear inside cards.
  */
 const fieldBase =
-  'w-full rounded-2xl bg-field px-5 py-4 text-base text-ink placeholder:text-ink-mute ' +
+  // min-w-0 is essential: on iOS Safari an input[type=date]/[type=number] has a
+  // large intrinsic content width, and without min-width:0 it refuses to shrink
+  // below it, blowing the field (and the whole page) wider than the viewport.
+  'w-full min-w-0 rounded-2xl bg-field px-5 py-4 text-base text-ink placeholder:text-ink-mute ' +
   'border border-line transition-colors duration-200 ' +
   'hover:border-ink/25 focus:border-blue focus:outline-none';
 
