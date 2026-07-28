@@ -30,6 +30,9 @@ interface FieldProps {
   error?: string;
   optional?: boolean;
   optionalLabel?: string;
+  /** Marks the label with a "*" — for a multi-step or multi-field form where
+   *  it isn't otherwise obvious which fields block moving on. */
+  required?: boolean;
   children: (props: { id: string; describedBy: string | undefined; invalid: boolean }) => ReactNode;
 }
 
@@ -39,6 +42,7 @@ export function Field({
   error,
   optional,
   optionalLabel = 'optional',
+  required,
   children,
 }: FieldProps) {
   const id = useId();
@@ -50,6 +54,11 @@ export function Field({
     <div className="flex flex-col gap-2.5">
       <label htmlFor={id} className="flex items-baseline gap-2 text-sm font-semibold text-ink">
         {label}
+        {required && (
+          <span className="text-red" aria-hidden="true">
+            *
+          </span>
+        )}
         {optional && <span className="text-xs font-normal text-ink-mute">({optionalLabel})</span>}
       </label>
 

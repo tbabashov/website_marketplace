@@ -299,7 +299,7 @@ export default function RequestPage() {
           <div className="mt-10 max-w-2xl pb-24">
             {step === 'business' && (
               <div className="flex flex-col gap-8">
-                <Field label={t('request.businessName')} error={errors.businessName}>
+                <Field label={t('request.businessName')} required error={errors.businessName}>
                   {({ id, describedBy, invalid }) => (
                     <TextInput
                       id={id}
@@ -312,7 +312,7 @@ export default function RequestPage() {
                   )}
                 </Field>
 
-                <Field label={t('request.businessType')} error={errors.businessType}>
+                <Field label={t('request.businessType')} required error={errors.businessType}>
                   {({ id, describedBy, invalid }) => (
                     <TextInput
                       id={id}
@@ -369,7 +369,9 @@ export default function RequestPage() {
             {step === 'pages' && (
               <div className="flex flex-col gap-10">
                 <fieldset>
-                  <legend className="label mb-2 text-ink-soft">{t('request.pagesLabel')}</legend>
+                  <legend className="label mb-2 text-ink-soft">
+                    {t('request.pagesLabel')} <span className="text-red">*</span>
+                  </legend>
                   <p className="mb-4 text-sm text-ink-mute">{t('request.pagesHint')}</p>
                   <div className="flex flex-wrap gap-2">
                     {PAGE_OPTIONS.map((page) => (
@@ -501,7 +503,7 @@ export default function RequestPage() {
 
             {step === 'contact' && (
               <div className="flex flex-col gap-8">
-                <Field label={t('request.contactName')} error={errors.contactName}>
+                <Field label={t('request.contactName')} required error={errors.contactName}>
                   {({ id, describedBy, invalid }) => (
                     <TextInput
                       id={id}
@@ -514,7 +516,7 @@ export default function RequestPage() {
                   )}
                 </Field>
 
-                <Field label={t('request.contactEmail')} error={errors.contactEmail}>
+                <Field label={t('request.contactEmail')} required error={errors.contactEmail}>
                   {({ id, describedBy, invalid }) => (
                     <TextInput
                       id={id}
