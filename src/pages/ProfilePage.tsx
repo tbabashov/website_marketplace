@@ -29,16 +29,10 @@ function NoSavedMessage({ text }: { text: string }) {
       {before}
       <span
         aria-hidden="true"
-        className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-paper text-ink-mute"
+        className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-blue text-paper"
       >
-        <svg viewBox="0 0 16 16" width="12" height="12">
-          <path
-            d="M4 2.5h8v11l-4-3.4-4 3.4z"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinejoin="round"
-          />
+        <svg viewBox="0 0 16 16" width="18" height="18">
+          <path d="M4 2.5h8v11l-4-3.4-4 3.4z" fill="currentColor" />
         </svg>
       </span>
       {after}
