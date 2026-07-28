@@ -184,7 +184,7 @@ export function EmptyState({
   body,
   action,
 }: {
-  title: string;
+  title: ReactNode;
   body?: string;
   action?: ReactNode;
 }) {

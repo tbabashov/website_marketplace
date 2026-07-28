@@ -16,6 +16,36 @@ import { useAuth } from '@/store/auth';
 import { useSaved, useUI } from '@/store/ui';
 import type { Listing } from '@/types/db';
 
+/**
+ * "Əlfəcin" (bookmark) is not a word most visitors reckon with. The copy
+ * carries a literal "{icon}" token instead of the word, and this splits the
+ * translated sentence on that token to show the real bookmark glyph in its
+ * place — the same outline used on the listing cards, so it's recognisable.
+ */
+function NoSavedMessage({ text }: { text: string }) {
+  const [before, after] = text.split('{icon}');
+  return (
+    <span className="inline-flex flex-wrap items-center justify-center gap-1.5">
+      {before}
+      <span
+        aria-hidden="true"
+        className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-paper text-ink-mute"
+      >
+        <svg viewBox="0 0 16 16" width="12" height="12">
+          <path
+            d="M4 2.5h8v11l-4-3.4-4 3.4z"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.5"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </span>
+      {after}
+    </span>
+  );
+}
+
 export default function ProfilePage() {
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -163,7 +193,7 @@ export default function ProfilePage() {
 
             {savedListings.length === 0 ? (
               <div className="mt-8">
-                <EmptyState title={t('profile.noSaved')} />
+                <EmptyState title={<NoSavedMessage text={t('profile.noSaved')} />} />
               </div>
             ) : (
               <div className="mt-10 grid gap-x-8 gap-y-14 sm:grid-cols-2">

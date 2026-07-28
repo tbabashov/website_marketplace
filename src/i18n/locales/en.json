@@ -524,7 +524,7 @@
     "avatarAdd": "Add a photo",
     "saved": "Saved",
     "savedSites": "Saved sites",
-    "noSaved": "Nothing saved. Tap the bookmark on any listing to keep it here.",
+    "noSaved": "Nothing saved. Tap the {icon} on any listing to keep it here.",
     "myReviews": "Reviews you've left",
     "noReviews": "You haven't left a review yet.",
     "dangerZone": "Account",

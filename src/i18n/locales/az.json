@@ -524,7 +524,7 @@
     "avatarAdd": "Şəkil əlavə et",
     "saved": "Yadda saxlanıldı",
     "savedSites": "Seçilmiş saytlar",
-    "noSaved": "Seçilmiş yoxdur. İstənilən elandakı əlfəcin işarəsinə toxunun ki, burada saxlansın.",
+    "noSaved": "Seçilmiş yoxdur. İstənilən elandakı {icon} işarəsinə toxunun ki, burada saxlansın.",
     "myReviews": "Yazdığınız rəylər",
     "noReviews": "Hələ rəy yazmamısınız.",
     "dangerZone": "Hesab",
